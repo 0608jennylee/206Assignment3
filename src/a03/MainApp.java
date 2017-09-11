@@ -29,7 +29,7 @@ public class MainApp extends Application {
 		_primaryStage.setTitle("Tatai");
 		_primaryStage.initStyle(StageStyle.UNDECORATED);
 		mainMenuContents();
-		System.out.println("hello");
+		System.out.println("hello bye sigh");
 	}
 
 	/**
