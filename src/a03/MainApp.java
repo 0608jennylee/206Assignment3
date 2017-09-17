@@ -92,7 +92,7 @@ public class MainApp extends Application {
 			// Give the controller access to the main app.
 			HowToPlayController controller = loader.getController();
 			controller.setMainApp(this);
-
+			controller.setFirstImage();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
