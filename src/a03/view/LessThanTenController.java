@@ -34,7 +34,7 @@ public class LessThanTenController {
 	}
 	
 	public void setQuestion(){
-		File file = new File(System.getProperty("user.dir")+"/Video/1.jpg");
+		File file = new File(System.getProperty("user.dir")+"/Video/9.jpg");
 		System.out.println(file);
 		Image image = new Image(file.toURI().toString());
 		_imageView.setImage(image);
