@@ -7,6 +7,7 @@ import a03.view.LessThanTenController;
 import a03.view.MainMenuContentsController;
 import a03.view.StartController;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -138,7 +139,7 @@ public class MainApp extends Application {
 	}
 
 	public void exit() {
-		_primaryStage.close();
+		Platform.exit();
 	}
 	
 	/**
