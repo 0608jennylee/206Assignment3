@@ -26,6 +26,8 @@ public class LessThanTenController {
 	@FXML private Button _record;
 	private MainApp _mainApp;
 	private List<Integer> _numbers;
+	private boolean _correct;
+	private boolean _failed;
 	
 	public LessThanTenController() {
 		EasyGen eg = new EasyGen();
@@ -71,6 +73,26 @@ public class LessThanTenController {
 		
 	}
 	
+	public void check(){
+		if (_failed){
+			File file = new File(System.getProperty("user.dir")+"/failed/" + _numbers.get(0) + ".jpg");
+			System.out.println(file);
+			Image image = new Image(file.toURI().toString());
+			_imageView.setImage(image);
+		}else if(_correct){
+			File file = new File(System.getProperty("user.dir")+"/Correct/" + _numbers.get(0) + ".jpg");
+			System.out.println(file);
+			Image image = new Image(file.toURI().toString());
+			_imageView.setImage(image);
+		}else{
+			File file = new File(System.getProperty("user.dir")+"/Incorrect/" + _numbers.get(0) + ".jpg");
+			System.out.println(file);
+			Image image = new Image(file.toURI().toString());
+			_imageView.setImage(image);
+			System.out.println("you said this");
+		}
+	}
+
 	public void setMainApp(MainApp mainApp) {
 		_mainApp = mainApp;
 	}
