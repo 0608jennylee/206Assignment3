@@ -26,8 +26,8 @@ public class LessThanTenController {
 	@FXML private Button _record;
 	private MainApp _mainApp;
 	private List<Integer> _numbers;
-	private boolean _correct;
-	private boolean _failed;
+	private boolean _correct=false;
+	private boolean _failed=false;
 	
 	public LessThanTenController() {
 		EasyGen eg = new EasyGen();
@@ -70,7 +70,7 @@ public class LessThanTenController {
 		};
 		Thread recordThread = new Thread(record);
 		recordThread.start();
-		
+		check();
 	}
 	
 	public void check(){
