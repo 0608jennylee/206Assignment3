@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -10,14 +12,22 @@
    <children>
       <BorderPane prefHeight="600.0" prefWidth="600.0">
          <center>
-            <ImageView fx:id="_imageView" fitHeight="350.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+            <ImageView fx:id="_imageView" fitHeight="300.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="TOP_CENTER">
+               <BorderPane.margin>
+                  <Insets top="30.0" />
+               </BorderPane.margin></ImageView>
          </center>
+         <top>
+            <Button mnemonicParsing="false" onAction="#handleBack" text="Back" BorderPane.alignment="TOP_LEFT">
+               <font>
+                  <Font name="Purisa Bold" size="16.0" />
+               </font>
+               <BorderPane.margin>
+                  <Insets left="25.0" top="25.0" />
+               </BorderPane.margin>
+            </Button>
+         </top>
       </BorderPane>
-      <Button mnemonicParsing="false" onAction="#handleBack" text="Back" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="25.0">
-         <font>
-            <Font name="Purisa Bold" size="16.0" />
-         </font>
-      </Button>
       <Button fx:id="_record" layoutX="257.0" layoutY="495.0" mnemonicParsing="false" onAction="#handleRecord" text="Record">
          <font>
             <Font name="Purisa Bold" size="16.0" />
@@ -28,5 +38,9 @@
             <Font name="Purisa Bold" size="14.0" />
          </font>
       </Button>
+      <Label fx:id="_text1" text="Your answer is: " AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="430.0" />
+      <Label fx:id="_text2" text="The correct answer is: " AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="460.0" />
+      <Label fx:id="_theirAnswer" AnchorPane.leftAnchor="220.0" AnchorPane.topAnchor="430.0" />
+      <Label fx:id="_theCorrectAnswer" AnchorPane.leftAnchor="220.0" AnchorPane.topAnchor="460.0" />
    </children>
 </AnchorPane>

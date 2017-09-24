@@ -14,6 +14,7 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -25,6 +26,10 @@ public class LessThanTenController {
 	@FXML private Button _record;
 	@FXML private Button _nextQuestion;
 	@FXML private ImageView _score;
+	@FXML private Label _theCorrectAnswer;
+	@FXML private Label _theirAnswer;
+	@FXML private Label _text1;
+	@FXML private Label _text2;
 	private MainApp _mainApp;
 	private List<Integer> _numbers;
 	private boolean _correct=true;
@@ -91,17 +96,22 @@ public class LessThanTenController {
 		}else if(_correct){
 			File file = new File(System.getProperty("user.dir")+"/Correct/" + _numbers.get(_currentQuestion) + ".jpg");
 			setImage(file);
+			_theCorrectAnswer.setText((_numbers.get(_currentQuestion)).toString());
+			_theirAnswer.setText((_numbers.get(_currentQuestion)).toString());
 			_currentQuestion++;
 			_record.setDisable(true);
 			_nextQuestion.setVisible(true);
 			_secondTry = false;
 			_record.setText("Record");
 			_correctAnswers++;
+			
 		}else{
 			File file = new File(System.getProperty("user.dir")+"/Incorrect/" + _numbers.get(_currentQuestion) + ".jpg");
 			setImage(file);
 			System.out.println("you said this");
 			if (_secondTry){
+				_theCorrectAnswer.setText((_numbers.get(_currentQuestion)).toString());
+				_theirAnswer.setText((_numbers.get(_currentQuestion)).toString()+"??????????????????");
 				_secondTry = false;
 				_currentQuestion++;
 				_record.setDisable(true);
@@ -114,14 +124,20 @@ public class LessThanTenController {
 				_tryAgainPressed=true;
 			}
 		}
-		if (_currentQuestion==10){
+		if (_currentQuestion==2){
 			displayFinalScore();
 		}
 	}
 
 	private void displayFinalScore() {
+		_theirAnswer.setText("");
+		_theCorrectAnswer.setText("");
+
+		_text1.setText("");
+		_text2.setText("");
 		_record.setVisible(false);
 		_nextQuestion.setVisible(false);
+		_imageView.setTranslateY(150);
 		File file = new File(System.getProperty("user.dir")+"/Result/" + _correctAnswers + ".jpg");
 		System.out.println(file);
 		setImage(file);
@@ -132,6 +148,10 @@ public class LessThanTenController {
 	}
 
 	public void setQuestion(){
+
+		_theirAnswer.setText("");
+		_theCorrectAnswer.setText("");
+
 		_nextQuestion.setVisible(false);
 		File file = new File(System.getProperty("user.dir")+"/Video/" + _numbers.get(_currentQuestion) + ".jpg");
 		setImage(file);
