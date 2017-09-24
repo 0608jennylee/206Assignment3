@@ -24,10 +24,13 @@ public class LessThanTenController {
 	
 	@FXML private ImageView _imageView;
 	@FXML private Button _record;
+	@FXML private Button _next;
 	private MainApp _mainApp;
 	private List<Integer> _numbers;
-	private boolean _correct=false;
+	private boolean _correct=true;
 	private boolean _failed=false;
+	private int _currentQuestion = 0;
+	private boolean _secondtry = false;
 	
 	public LessThanTenController() {
 		EasyGen eg = new EasyGen();
@@ -46,7 +49,7 @@ public class LessThanTenController {
 		Task<Void> record = new Task<Void>() { 
 			@Override
 			protected Void call() throws Exception {
-				String cmd = "arecord -d 2 -r 22050 -c 1 -i -t wav -f s16_LE " + _numbers.get(0).toString() + ".wav;echo record passed; HVite -H HMMs/hmm15/macros -H HMMs/hmm15/hmmdefs -C user/configLR  -w user/wordNetworkNum -o SWT -l '*' -i recout.mlf -p 0.0 -s 5.0  user/dictionaryD user/tiedList "+ _numbers.get(0).toString() + ".wav; echo processing passed;";
+				String cmd = "arecord -d 2 -r 22050 -c 1 -i -t wav -f s16_LE " + _numbers.get(_currentQuestion).toString() + ".wav;echo record passed; HVite -H HMMs/hmm15/macros -H HMMs/hmm15/hmmdefs -C user/configLR  -w user/wordNetworkNum -o SWT -l '*' -i recout.mlf -p 0.0 -s 5.0  user/dictionaryD user/tiedList "+ _numbers.get(_currentQuestion).toString() + ".wav; echo processing passed;";
 				System.out.println(cmd);
 				ProcessBuilder pb = new ProcessBuilder("bash", "-c", cmd);
 				try {
@@ -54,13 +57,12 @@ public class LessThanTenController {
 					String line = "test";
 					int exitStatus = p.waitFor();
 					Processor processor = new Processor();
-					if(processor.processAnswer(_numbers.get(0))) {
+					if(processor.processAnswer(_numbers.get(_currentQuestion))) {
 						System.out.println("works");
 					}else {
 						System.out.println("failed");
 					}
 				} catch (IOException IOe) {
-					// TODO Auto-generated catch block
 					IOe.printStackTrace();
 				}
 				return null;
@@ -75,21 +77,25 @@ public class LessThanTenController {
 	
 	public void check(){
 		if (_failed){
-			File file = new File(System.getProperty("user.dir")+"/failed/" + _numbers.get(0) + ".jpg");
-			System.out.println(file);
+			File file = new File(System.getProperty("user.dir")+"/failed/" + _numbers.get(_currentQuestion) + ".jpg");
 			Image image = new Image(file.toURI().toString());
 			_imageView.setImage(image);
 		}else if(_correct){
-			File file = new File(System.getProperty("user.dir")+"/Correct/" + _numbers.get(0) + ".jpg");
-			System.out.println(file);
+			File file = new File(System.getProperty("user.dir")+"/Correct/" + _numbers.get(_currentQuestion) + ".jpg");
 			Image image = new Image(file.toURI().toString());
 			_imageView.setImage(image);
 		}else{
-			File file = new File(System.getProperty("user.dir")+"/Incorrect/" + _numbers.get(0) + ".jpg");
-			System.out.println(file);
+			File file = new File(System.getProperty("user.dir")+"/Incorrect/" + _numbers.get(_currentQuestion) + ".jpg");
 			Image image = new Image(file.toURI().toString());
 			_imageView.setImage(image);
 			System.out.println("you said this");
+			if (_secondtry){
+				_secondtry = false;
+				
+			}else{
+				_secondtry =true;
+				_next.setVisible(false);
+			}
 		}
 	}
 
@@ -98,7 +104,7 @@ public class LessThanTenController {
 	}
 	
 	public void setQuestion(){
-		File file = new File(System.getProperty("user.dir")+"/Video/" + _numbers.get(0) + ".jpg");
+		File file = new File(System.getProperty("user.dir")+"/Video/" + _numbers.get(_currentQuestion) + ".jpg");
 		System.out.println(file);
 		Image image = new Image(file.toURI().toString());
 		_imageView.setImage(image);
