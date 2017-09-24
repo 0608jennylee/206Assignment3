@@ -5,12 +5,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-
+import a03.Settings;
 import a03.view.ChooseLevelsController;
 import a03.view.HowToPlayController;
 import a03.view.LessThanTenController;
 import a03.view.MainMenuContentsController;
-import a03.view.StartController;
+//import a03.view.StartController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -18,9 +18,10 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import a03.Level;
 
 public class MainApp extends Application {
-	public enum Level {hard,easy};
+	//	public enum Level {hard(""),easy};
 	private Stage _primaryStage;
 
 	/**
@@ -59,12 +60,7 @@ public class MainApp extends Application {
 		}
 	}
 
-	public void hardLevel() {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void easyLevel() {
+	public void Level(Level level) {
 		try {
 			//Load main menu 
 			FXMLLoader loader = new FXMLLoader();
@@ -77,7 +73,9 @@ public class MainApp extends Application {
 			// Give the controller access to the main app.
 			LessThanTenController controller = loader.getController();
 			controller.setMainApp(this);
+			controller.setLevel(level);
 			controller.setQuestion();
+//			controller.setRoot(lessThanTen);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -103,25 +101,25 @@ public class MainApp extends Application {
 		}
 	}
 
-	public void Start(Level level) {
-		try {
-			//Load main menu 
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/Start.fxml"));
-			AnchorPane start = (AnchorPane) loader.load();
-			//main menu into the centre of root layout.
-			Scene scene = new Scene(start);
-			_primaryStage.setScene(scene);
-			_primaryStage.show();
-			// Give the controller access to the main app.
-			StartController controller = loader.getController();
-			controller.setMainApp(this);
-			controller.setLevel(level);
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+	//	public void Start(Level level) {
+	//		try {
+	//			//Load main menu 
+	//			FXMLLoader loader = new FXMLLoader();
+	//			loader.setLocation(MainApp.class.getResource("view/Start.fxml"));
+	//			AnchorPane start = (AnchorPane) loader.load();
+	//			//main menu into the centre of root layout.
+	//			Scene scene = new Scene(start);
+	//			_primaryStage.setScene(scene);
+	//			_primaryStage.show();
+	//			// Give the controller access to the main app.
+	//			StartController controller = loader.getController();
+	//			controller.setMainApp(this);
+	//			controller.setLevel(level);
+	//
+	//		} catch (IOException e) {
+	//			e.printStackTrace();
+	//		}
+	//	}
 
 	public void chooseLevels() {
 		try {
@@ -135,9 +133,9 @@ public class MainApp extends Application {
 			_primaryStage.show();
 			// Give the controller access to the main app.
 			ChooseLevelsController controller = loader.getController();
-			if(!Settings.getSettings().settings.get("HARDLEVEL")) {
-				controller.disableHard();
-			}
+//			if(!Settings.getSettings().settings.get("HARDLEVEL")) {
+//				controller.disableHard();
+//			}
 			controller.setMainApp(this);
 
 		} catch (IOException e) {
@@ -148,7 +146,7 @@ public class MainApp extends Application {
 	public void exit() {
 		Platform.exit();
 	}
-	
+
 	/**
 	 * @return
 	 */

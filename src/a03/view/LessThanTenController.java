@@ -2,11 +2,13 @@ package a03.view;
 
 import java.io.File;
 
+
 import java.io.IOException;
 import java.util.List;
 
 import a03.MainApp;
-import a03.generators.EasyGen;
+import a03.Level;
+import a03.generators.Generator;
 import a03.generators.Processor;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -14,6 +16,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Line;
 
 public class LessThanTenController {
 
@@ -23,17 +27,19 @@ public class LessThanTenController {
 	@FXML private ImageView _score;
 	private MainApp _mainApp;
 	private List<Integer> _numbers;
-	private boolean _correct=false;
+	private boolean _correct=true;
 	private boolean _failed=false;
 	private int _currentQuestion = 0;
 	private boolean _secondTry = false;
 	private boolean _tryAgainPressed=true;
-	private int _incorrectAnswers;
+//	private int _incorrectAnswers;
 	private int _correctAnswers;
+	private AnchorPane _root;
+	private Generator _generator;
 
 	public LessThanTenController() {
-		EasyGen eg = new EasyGen();
-		_numbers = eg.getNumbers();
+		_generator = new Generator();
+//		_numbers = eg.getNumbers();
 	}
 
 	// Event Listener on Button.onAction
@@ -90,6 +96,7 @@ public class LessThanTenController {
 			_nextQuestion.setVisible(true);
 			_secondTry = false;
 			_record.setText("Record");
+			_correctAnswers++;
 		}else{
 			File file = new File(System.getProperty("user.dir")+"/Incorrect/" + _numbers.get(_currentQuestion) + ".jpg");
 			setImage(file);
@@ -107,6 +114,17 @@ public class LessThanTenController {
 				_tryAgainPressed=true;
 			}
 		}
+		if (_currentQuestion==10){
+			displayFinalScore();
+		}
+	}
+
+	private void displayFinalScore() {
+		_record.setVisible(false);
+		_nextQuestion.setVisible(false);
+		File file = new File(System.getProperty("user.dir")+"/Result/" + _correctAnswers + ".jpg");
+		System.out.println(file);
+		setImage(file);
 	}
 
 	public void setMainApp(MainApp mainApp) {
@@ -120,12 +138,29 @@ public class LessThanTenController {
 		_record.setDisable(false);
 	}
 
-	public void setImage(File file){
+	private void setImage(File file){
 		Image image = new Image(file.toURI().toString());
 		_imageView.setImage(image);
 	}
 	
+	@FXML 
 	public void handleNextQuestion(){
 		setQuestion();
+	}
+//	public void setRoot(AnchorPane lessThanTen){
+//		_root = lessThanTen;
+//	}
+//	public void score(){
+//		Line line = new Line();
+//		//Setting the Properties of the Line 
+//		line.setStartX(150.0f); 
+//		line.setStartY(0.0f);         
+//		line.setEndX(450.0f); 
+//		line.setEndY(140.0f);
+//		_root.getChildren().add(line);
+//	}
+	public void setLevel(Level level){
+		_generator.setLevel(level);
+		_numbers = _generator.getNumbers();
 	}
 }
