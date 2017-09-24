@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a03.view.ChooseLevelsController">
+<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a03.view.ChooseLevelsController">
    <children>
       <Button layoutX="38.0" layoutY="39.0" mnemonicParsing="false" onAction="#handleBack" text="Back" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="30.0">
          <font>
@@ -17,7 +17,7 @@
             <Font name="Purisa Bold" size="45.0" />
          </font>
       </Button>
-      <Button layoutX="210.0" layoutY="394.0" mnemonicParsing="false" onAction="#handleHardSelection" text="Hard">
+      <Button fx:id="Hard" layoutX="210.0" layoutY="394.0" mnemonicParsing="false" onAction="#handleHardSelection" text="Hard">
          <font>
             <Font name="Purisa Bold" size="45.0" />
          </font>
