@@ -1,38 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a03.view.LessThanTenController">
    <children>
-      <BorderPane layoutX="200.0" layoutY="157.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <top>
-            <Button mnemonicParsing="false" onAction="#handleBack" text="Back" BorderPane.alignment="TOP_LEFT">
-               <BorderPane.margin>
-                  <Insets left="30.0" top="30.0" />
-               </BorderPane.margin>
-               <font>
-                  <Font name="Purisa Bold" size="16.0" />
-               </font>
-            </Button>
-         </top>
-         <bottom>
-            <Button fx:id="_record" mnemonicParsing="false" onAction="#handleRecord" text="Record" BorderPane.alignment="TOP_CENTER">
-               <BorderPane.margin>
-                  <Insets bottom="50.0" />
-               </BorderPane.margin>
-               <font>
-                  <Font name="Purisa Bold" size="16.0" />
-               </font>
-            </Button>
-         </bottom>
-         <center>
-            <ImageView fx:id="_imageView" fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
-         </center>
-      </BorderPane>
+      <Button mnemonicParsing="false" onAction="#handleBack" text="Back" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="25.0">
+         <font>
+            <Font name="Purisa Bold" size="16.0" />
+         </font>
+      </Button>
+      <ImageView fx:id="_imageView" fitHeight="350.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="125.0" AnchorPane.leftAnchor="125.0" />
+      <Button fx:id="_record" layoutX="257.0" layoutY="495.0" mnemonicParsing="false" onAction="#handleRecord" text="Record">
+         <font>
+            <Font name="Purisa Bold" size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="_nextQuestion" layoutX="431.0" layoutY="531.0" mnemonicParsing="false" onAction="#handleNextQuestion" text="Next Question">
+         <font>
+            <Font name="Purisa Bold" size="14.0" />
+         </font>
+      </Button>
+      <ImageView fx:id="_score" fitHeight="150.0" fitWidth="200.0" layoutX="393.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <PieChart fx:id="_pieChart" layoutX="344.0" layoutY="-192.0" />
    </children>
 </AnchorPane>

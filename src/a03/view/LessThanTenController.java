@@ -16,17 +16,21 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class LessThanTenController {
-	
+
 	@FXML private ImageView _imageView;
 	@FXML private Button _record;
-	@FXML private Button _next;
+	@FXML private Button _nextQuestion;
+	@FXML private ImageView _score;
 	private MainApp _mainApp;
 	private List<Integer> _numbers;
-	private boolean _correct=true;
+	private boolean _correct=false;
 	private boolean _failed=false;
 	private int _currentQuestion = 0;
-	private boolean _secondtry = false;
-	
+	private boolean _secondTry = false;
+	private boolean _tryAgainPressed=true;
+	private int _incorrectAnswers;
+	private int _correctAnswers;
+
 	public LessThanTenController() {
 		EasyGen eg = new EasyGen();
 		_numbers = eg.getNumbers();
@@ -37,59 +41,70 @@ public class LessThanTenController {
 	public void handleBack(ActionEvent event) {
 		_mainApp.mainMenuContents();
 	}
-	
+
 	// Event Listener on Button[#_record].onAction
 	@FXML
 	public void handleRecord(ActionEvent event) {
-		Task<Void> record = new Task<Void>() { 
-			@Override
-			protected Void call() throws Exception {
-				String cmd = "arecord -d 2 -r 22050 -c 1 -i -t wav -f s16_LE " + _numbers.get(_currentQuestion).toString() + ".wav;echo record passed; HVite -H HMMs/hmm15/macros -H HMMs/hmm15/hmmdefs -C user/configLR  -w user/wordNetworkNum -o SWT -l '*' -i recout.mlf -p 0.0 -s 5.0  user/dictionaryD user/tiedList "+ _numbers.get(_currentQuestion).toString() + ".wav; echo processing passed;";
-				System.out.println(cmd);
-				ProcessBuilder pb = new ProcessBuilder("bash", "-c", cmd);
-				try {
-					Process p = pb.start();
-					String line = "test";
-					int exitStatus = p.waitFor();
-					Processor processor = new Processor();
-					if(processor.processAnswer(_numbers.get(_currentQuestion))) {
-						System.out.println("works");
-					}else {
-						System.out.println("failed");
-					}
-				} catch (IOException IOe) {
-					IOe.printStackTrace();
-				}
-				return null;
-			}
-			
-			
-		};
-		Thread recordThread = new Thread(record);
-		recordThread.start();
-		check();
+		if (_secondTry&&_tryAgainPressed){
+			setQuestion();
+			_tryAgainPressed=false;
+			_record.setText("Record");
+		}else{
+//			Task<Void> record = new Task<Void>() { 
+//				@Override
+//				protected Void call() throws Exception {
+//					String cmd = "arecord -d 2 -r 22050 -c 1 -i -t wav -f s16_LE " + _numbers.get(_currentQuestion).toString() + ".wav;echo record passed; HVite -H HMMs/hmm15/macros -H HMMs/hmm15/hmmdefs -C user/configLR  -w user/wordNetworkNum -o SWT -l '*' -i recout.mlf -p 0.0 -s 5.0  user/dictionaryD user/tiedList "+ _numbers.get(_currentQuestion).toString() + ".wav; echo processing passed;";
+//					System.out.println(cmd);
+//					ProcessBuilder pb = new ProcessBuilder("bash", "-c", cmd);
+//					try {
+//						Process p = pb.start();
+//						String line = "test";
+//						int exitStatus = p.waitFor();
+//						Processor processor = new Processor();
+//						if(processor.processAnswer(_numbers.get(_currentQuestion))) {
+//							_correct=true;
+//						}else {
+//							_correct=false;
+//						}
+//					} catch (IOException IOe) {
+//						IOe.printStackTrace();
+//					}
+//					return null;
+//				}
+//			};
+//			Thread recordThread = new Thread(record);
+//			recordThread.start();
+			check();
+		}
 	}
-	
+
 	public void check(){
 		if (_failed){
 			File file = new File(System.getProperty("user.dir")+"/failed/" + _numbers.get(_currentQuestion) + ".jpg");
-			Image image = new Image(file.toURI().toString());
-			_imageView.setImage(image);
+			setImage(file);
 		}else if(_correct){
 			File file = new File(System.getProperty("user.dir")+"/Correct/" + _numbers.get(_currentQuestion) + ".jpg");
-			Image image = new Image(file.toURI().toString());
-			_imageView.setImage(image);
+			setImage(file);
+			_currentQuestion++;
+			_record.setDisable(true);
+			_nextQuestion.setVisible(true);
+			_secondTry = false;
+			_record.setText("Record");
 		}else{
 			File file = new File(System.getProperty("user.dir")+"/Incorrect/" + _numbers.get(_currentQuestion) + ".jpg");
-			Image image = new Image(file.toURI().toString());
-			_imageView.setImage(image);
+			setImage(file);
 			System.out.println("you said this");
-			if (_secondtry){
-				_secondtry = false;
-				
+			if (_secondTry){
+				_secondTry = false;
+				_currentQuestion++;
+				_record.setDisable(true);
+				_record.setText("Record");
+				_nextQuestion.setVisible(true);
+				_tryAgainPressed=false;
 			}else{
-				_secondtry =true;
-				_next.setVisible(false);
+				_secondTry = true;
+				_record.setText("Try Again");
+				_tryAgainPressed=true;
 			}
 		}
 	}
@@ -97,11 +112,20 @@ public class LessThanTenController {
 	public void setMainApp(MainApp mainApp) {
 		_mainApp = mainApp;
 	}
-	
+
 	public void setQuestion(){
+		_nextQuestion.setVisible(false);
 		File file = new File(System.getProperty("user.dir")+"/Video/" + _numbers.get(_currentQuestion) + ".jpg");
-		System.out.println(file);
+		setImage(file);
+		_record.setDisable(false);
+	}
+
+	public void setImage(File file){
 		Image image = new Image(file.toURI().toString());
 		_imageView.setImage(image);
+	}
+	
+	public void handleNextQuestion(){
+		setQuestion();
 	}
 }
