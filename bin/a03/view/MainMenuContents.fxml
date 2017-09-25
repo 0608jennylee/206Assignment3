@@ -25,5 +25,10 @@
             <Font name="Purisa Bold Oblique" size="27.0" />
          </font>
       </Button>
+      <Button layoutX="231.0" layoutY="349.0" mnemonicParsing="false" onAction="#handleStatistics" text="Statistics">
+         <font>
+            <Font name="Purisa Bold" size="20.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

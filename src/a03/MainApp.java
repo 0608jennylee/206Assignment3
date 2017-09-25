@@ -5,12 +5,14 @@ import a03.view.ChooseLevelsController;
 import a03.view.HowToPlayController;
 import a03.view.LessThanTenController;
 import a03.view.MainMenuContentsController;
+import a03.view.StatisticsController;
 //import a03.view.StartController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import a03.Level;
@@ -131,6 +133,25 @@ public class MainApp extends Application {
 			if(!Settings.getSettings().settings.get("HARDLEVEL")) {
 				controller.disableHard();
 			}
+			controller.setMainApp(this);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void Statistics() {
+		try {
+			//Load main menu 
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/Statistics.fxml"));
+			BorderPane statistics = (BorderPane) loader.load();
+			//main menu into the centre of root layout.
+			Scene scene = new Scene(statistics);
+			_primaryStage.setScene(scene);
+			_primaryStage.show();
+			// Give the controller access to the main app.
+			StatisticsController controller = loader.getController();
 			controller.setMainApp(this);
 
 		} catch (IOException e) {
