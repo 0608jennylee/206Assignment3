@@ -30,6 +30,7 @@ public class MainApp extends Application {
 		_primaryStage = primaryStage;
 		_primaryStage.setTitle("Tatai");
 		_primaryStage.initStyle(StageStyle.UNDECORATED);
+		GameStats.getGameStats().updateDiscrete(Stats.APPSTARTTIME.toString(), new Integer((int) (System.currentTimeMillis() / (1000 * 60))));
 		mainMenuContents();
 	}
 

@@ -21,10 +21,9 @@ public class Settings {
 				settings.put(words[0], Settings.toBoolean(words[1]));
 			}
 		} catch (FileNotFoundException e) {
-			//write and create settings.ini file with default values
+			//TODO write and create settings.ini file with default values
 			settings.put("HARDLEVEL", false);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -32,7 +31,7 @@ public class Settings {
 	
 	public void enableHard() {
 		settings.put("HARDLEVEL", true);
-		//TO DO write that hard level has been enabled to settings.ini
+		//TODO write that hard level has been enabled to settings.ini
 	}
 	
 	public static Settings getSettings() {

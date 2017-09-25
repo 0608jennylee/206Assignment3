@@ -8,6 +8,8 @@ import java.util.List;
 
 import a03.MainApp;
 import a03.Settings;
+import a03.Stats;
+import a03.GameStats;
 import a03.HTKError;
 import a03.Level;
 import a03.generators.Generator;
@@ -43,6 +45,7 @@ public class LessThanTenController {
 //	private int _incorrectAnswers;
 	private int _correctAnswers;
 	private Generator _generator;
+	private Level _level;
 
 	public LessThanTenController() {
 		_generator = new Generator();
@@ -73,11 +76,11 @@ public class LessThanTenController {
 					try {
 						Process p = pb.start();
 						p.waitFor();
-						String filepath = _numbers.get(_currentQuestion) + ".wav";
-						Media sound = new Media(new File(filepath).toURI().toString());
-						MediaPlayer mp = new MediaPlayer(sound);
-						mp.setOnEndOfMedia(this::enableRecord);
-						mp.play();
+//						String filepath = _numbers.get(_currentQuestion) + ".wav";
+//						Media sound = new Media(new File(filepath).toURI().toString());
+//						MediaPlayer mp = new MediaPlayer(sound);
+//						mp.setOnEndOfMedia(this::enableRecord);
+//						mp.play();
 						Processor processor = new Processor();
 						if(processor.processAnswer(_numbers.get(_currentQuestion))) {
 							_correct=true;
@@ -91,13 +94,9 @@ public class LessThanTenController {
 					}
 					return null;
 				}
-				
-				private void enableRecord() {
-					_record.setDisable(false);
-				}
 			};
 			record.setOnFailed(this::failed);
-			record.setOnSucceeded(this::check);
+			record.setOnSucceeded(this::playBack);
 			Thread recordThread = new Thread(record);
 			recordThread.start();
 			
@@ -107,9 +106,18 @@ public class LessThanTenController {
 	private void failed(WorkerStateEvent e) {
 		System.out.println("failed");
 	}
+	
+	public void playBack(WorkerStateEvent e) {
+		String filepath = _numbers.get(_currentQuestion) + ".wav";
+		Media sound = new Media(new File(filepath).toURI().toString());
+		MediaPlayer mp = new MediaPlayer(sound);
+		mp.setOnEndOfMedia(this::check);
+		mp.play();
+	}
 
-	public void check(WorkerStateEvent e){
+	public void check(){
 		if (_failed){
+			//TODO still need to implement what happens when fail.
 			System.out.println("failed");
 			File file = new File(System.getProperty("user.dir")+"/failed/" + _numbers.get(_currentQuestion) + ".jpg");
 			setImage(file);
@@ -143,6 +151,7 @@ public class LessThanTenController {
 				_secondTry = true;
 				_theirAnswer.setText(Processor.getUserAnswer());
 				_record.setText("Try Again");
+				_record.setDisable(false);
 				_tryAgainPressed=true;
 			}
 		}
@@ -155,9 +164,9 @@ public class LessThanTenController {
 		if(_correctAnswers >= 8) {
 			Settings.getSettings().enableHard();
 		}
+		GameStats.getGameStats().update(_level, _correctAnswers);
 		_theirAnswer.setText("");
 		_theCorrectAnswer.setText("");
-
 		_text1.setText("");
 		_text2.setText("");
 		_record.setVisible(false);
@@ -205,6 +214,7 @@ public class LessThanTenController {
 //		_root.getChildren().add(line);
 //	}
 	public void setLevel(Level level){
+		_level = level;
 		_generator.setLevel(level);
 		_numbers = _generator.getNumbers();
 	}
