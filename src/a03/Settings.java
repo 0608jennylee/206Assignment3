@@ -13,6 +13,7 @@ public class Settings {
 	
 	private Settings() {
 		try {
+			@SuppressWarnings("resource")
 			BufferedReader br = new BufferedReader(new FileReader("Settings.ini"));
 			String line = null;
 			while((line = br.readLine()) != null) {
