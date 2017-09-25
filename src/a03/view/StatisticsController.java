@@ -24,7 +24,7 @@ public class StatisticsController implements Initializable{
 
 	// Event Listener on Button.onAction
 	@FXML
-	public void handleBack(ActionEvent event) {
+	public void handleMainMenu(ActionEvent event) {
 		_mainApp.mainMenuContents();
 	}
 	
