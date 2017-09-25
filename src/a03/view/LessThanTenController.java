@@ -14,6 +14,7 @@ import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -24,6 +25,8 @@ public class LessThanTenController {
 	@FXML private ImageView _imageView;
 	@FXML private Button _record;
 	@FXML private Button _nextQuestion;
+	@FXML private Button _mainMenuTop;
+	@FXML private Button _mainMenuBottom;
 	@FXML private ImageView _score;
 	@FXML private Label _theCorrectAnswer;
 	@FXML private Label _theirAnswer;
@@ -36,20 +39,22 @@ public class LessThanTenController {
 	private int _currentQuestion = 0;
 	private boolean _secondTry = false;
 	private boolean _tryAgainPressed=true;
+	
 //	private int _incorrectAnswers;
 	private int _correctAnswers;
 	private Generator _generator;
+	@FXML private Button _nextLevel;
 
 	public LessThanTenController() {
 		_generator = new Generator();
 //		_numbers = eg.getNumbers();
 	}
 
-	// Event Listener on Button.onAction
-	@FXML
-	public void handleBack(ActionEvent event) {
-		_mainApp.mainMenuContents();
-	}
+//	// Event Listener on Button.onAction
+//	@FXML
+//	public void handleBack(ActionEvent event) {
+//		_mainApp.mainMenuContents();
+//	}
 
 	// Event Listener on Button[#_record].onAction
 	@FXML
@@ -140,9 +145,13 @@ public class LessThanTenController {
 	}
 
 	private void displayFinalScore() {
+		if (_correctAnswers>=8){
+			_mainMenuTop.setVisible(false);
+			_mainMenuBottom.setVisible(true);
+			_nextLevel.setVisible(true);
+		}
 		_theirAnswer.setText("");
 		_theCorrectAnswer.setText("");
-
 		_text1.setText("");
 		_text2.setText("");
 		_record.setVisible(false);
@@ -177,6 +186,10 @@ public class LessThanTenController {
 	public void handleNextQuestion(){
 		setQuestion();
 	}
+	@FXML
+	public void handleMainMenu(){
+		_mainApp.mainMenuContents();
+	}
 //	public void setRoot(AnchorPane lessThanTen){
 //		_root = lessThanTen;
 //	}
@@ -192,5 +205,10 @@ public class LessThanTenController {
 	public void setLevel(Level level){
 		_generator.setLevel(level);
 		_numbers = _generator.getNumbers();
+		_mainMenuBottom.setVisible(false);
+		_mainMenuTop.setVisible(true);
+	}
+	public void handleNextLevel(){
+		_mainApp.Level(Level.HARD);
 	}
 }

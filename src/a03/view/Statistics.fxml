@@ -116,9 +116,9 @@
    <top>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#handleBack" text="Back">
+            <Button mnemonicParsing="false" onAction="#handleMainMenu" text="&lt; Main Menu">
                <font>
-                  <Font name="Purisa Bold" size="17.0" />
+                  <Font name="Purisa Bold" size="13.0" />
                </font>
                <HBox.margin>
                   <Insets left="15.0" top="15.0" />
@@ -129,7 +129,7 @@
                   <Font name="Purisa Bold" size="28.0" />
                </font>
                <HBox.margin>
-                  <Insets left="160.0" top="20.0" />
+                  <Insets left="100.0" top="20.0" />
                </HBox.margin>
             </Label>
          </children>
