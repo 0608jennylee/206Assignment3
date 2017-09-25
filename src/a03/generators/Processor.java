@@ -4,48 +4,53 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import a03.Number;
 
 public class Processor {
-	public boolean processAnswer(int num) {
-		try {
-			BufferedReader br = new BufferedReader(new FileReader("recout.mlf"));
-			//skip the first line we dont care
-			br.readLine();
-			br.readLine();
-			br.readLine();
-			String line;
-			if(num <= 10) {
-				line = br.readLine();
-				for(Number i : Number.values()) {
-					if(num == i.getNumber() && i.getMaoriName().equals(line)) {
-						return true;
-					} 
+	
+	public static String toMaori(int num) {
+		String[] maoriName = new String[4];
+		if(num <= 10) {
+			for(Number i : Number.values()){
+				if(num == i.getNumber()){
+					return i.getMaoriName();
 				}
-				return false;
-			}else {
-				String[] maoriName = new String[3];
-				for(Number i : Number.values()) {
-					if(num / 10 == i.getNumber()) {
-						maoriName[0] = i.getMaoriName();
-					}
-				}
-				maoriName[1] = "maa";
-				for(Number i: Number.values()) {
-					if(num % 10 == i.getNumber()) {
-						maoriName[2] = i.getMaoriName();
-					}
-				}
-				for(int i = 0; i < 3; i++) {
-					line = br.readLine();
-					if(!maoriName[i].equals(line)) {
-						return false;
-					}
-				}
-				return true;
-
 			}
+		}else {
+			maoriName[1] = "tekau";
+			for(Number i : Number.values()) {
+				if(num / 10 == i.getNumber()) {
+					maoriName[0] = i.getMaoriName();
+				}
+			}
+			maoriName[2] = "maa";
+			for(Number i: Number.values()) {
+				if(num % 10 == i.getNumber()) {
+					maoriName[3] = i.getMaoriName();
+				}
+			}
+			return maoriName[0] + " " + maoriName[1] + " " + maoriName[2] + " " + maoriName[3];
+		}
+		return null;
+	}
+	
+	public static String getUserAnswer() {
+		try {
+			List<String> lines = new ArrayList<String>();
+			@SuppressWarnings("resource")
+			BufferedReader br = new BufferedReader(new FileReader("recout.mlf"));
+			String temp = null;
+			while((temp = br.readLine()) != null) {
+				lines.add(temp);
+			}
+			String answer = lines.get(3);
+			for(int i = 4; i < lines.size() - 2; i++) {
+				answer = answer + " " + lines.get(i);
+			}
+			return answer;
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -53,7 +58,34 @@ public class Processor {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return false;
+		return null;
+	}
+	
+	public boolean processAnswer(int num) {
+		String line = getUserAnswer();
+		String[] words = line.split(" ");
+		if(num <= 10) {
+			for(Number i : Number.values()) {
+				if(num == i.getNumber() && i.getMaoriName().equals(line) && words.length == 1) {
+					return true;
+				} 
+			}
+			return false;
+		}else {
+			String[] maoriName;
+			String temp = toMaori(num);
+			maoriName = temp.split(" ");
+			if(words.length != 3) {
+				return false;
+			}else {
+				for(int i = 0; i < 3; i++) {
+					if(!maoriName[i].equals(line)) {
+						return false;
+					}
+				}
+				return true;
+			}
 
+		}
 	}
 }
