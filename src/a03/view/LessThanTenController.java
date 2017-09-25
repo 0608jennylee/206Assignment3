@@ -124,7 +124,7 @@ public class LessThanTenController {
 				_tryAgainPressed=true;
 			}
 		}
-		if (_currentQuestion==2){
+		if (_currentQuestion==10){
 			displayFinalScore();
 		}
 	}
