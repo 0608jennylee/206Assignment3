@@ -30,6 +30,11 @@ public class Settings {
 		
 	}
 	
+	public void enableHard() {
+		settings.put("HARDLEVEL", true);
+		//TO DO write that hard level has been enabled to settings.ini
+	}
+	
 	public static Settings getSettings() {
 		if(s == null) {
 			s = new Settings();

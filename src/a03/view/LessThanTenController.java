@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.List;
 
 import a03.MainApp;
+import a03.Settings;
 import a03.Level;
 import a03.generators.Generator;
 import a03.generators.Processor;
@@ -18,6 +19,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class LessThanTenController {
 
@@ -69,17 +72,32 @@ public class LessThanTenController {
 					try {
 						Process p = pb.start();
 						p.waitFor();
-						_record.setDisable(false);
-						Processor processor = new Processor();
-						if(processor.processAnswer(_numbers.get(_currentQuestion))) {
-							_correct=true;
-						}else {
-							_correct=false;
-						}
+						String filepath = _numbers.get(_currentQuestion) + ".wav";
+						Media sound = new Media(new File(filepath).toURI().toString());
+						MediaPlayer mp = new MediaPlayer(sound);
+						mp.setOnEndOfMedia(this::process);
+						mp.play();
+//						_record.setDisable(false);
+//						Processor processor = new Processor();
+//						if(processor.processAnswer(_numbers.get(_currentQuestion))) {
+//							_correct=true;
+//						}else {
+//							_correct=false;
+//						}
 					} catch (IOException IOe) {
 						IOe.printStackTrace();
 					}
 					return null;
+				}
+				
+				private void process() {
+					_record.setDisable(false);
+//					Processor processor = new Processor();
+//					if(processor.processAnswer(_numbers.get(_currentQuestion))) {
+//						_correct=true;
+//					}else {
+//						_correct=false;
+//					}
 				}
 			};
 			record.setOnFailed(this::failed);
@@ -138,6 +156,9 @@ public class LessThanTenController {
 	}
 
 	private void displayFinalScore() {
+		if(_correctAnswers >= 8) {
+			Settings.getSettings().enableHard();
+		}
 		_theirAnswer.setText("");
 		_theCorrectAnswer.setText("");
 
