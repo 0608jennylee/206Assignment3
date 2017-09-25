@@ -1,8 +1,9 @@
 package a03.view;
 
 import javafx.fxml.FXML;
+
 import a03.MainApp;
-import a03.MainApp.Level;
+import a03.Level;
 import javafx.event.ActionEvent;
 
 public class StartController {
@@ -11,9 +12,10 @@ public class StartController {
 	// Event Listener on Button.onAction
 	@FXML
 	public void handleStart(ActionEvent event) {
-		if (_level==Level.easy){
-			_mainApp.easyLevel();
-		}else if (_level==Level.hard){
+		if (_level==Level.EASY){
+			//_mainApp.easyLevel();
+			
+		}else if (_level==Level.HARD){
 			_mainApp.hardLevel();
 		}
 	}

@@ -1,9 +1,9 @@
 package a03.view;
 
 import javafx.fxml.FXML;
+import a03.Level;
 import javafx.scene.control.Button;
 import a03.MainApp;
-import a03.MainApp.Level;
 import javafx.event.ActionEvent;
 
 public class ChooseLevelsController {
@@ -18,12 +18,12 @@ public class ChooseLevelsController {
 	// Event Listener on Button.onAction
 	@FXML
 	public void handleEasySelection(ActionEvent event) {
-		_mainApp.Start(Level.easy);
+		_mainApp.Level(Level.EASY);
 	}
 	// Event Listener on Button.onAction
 	@FXML
 	public void handleHardSelection(ActionEvent event) {
-		_mainApp.Start(Level.hard);
+		_mainApp.Level(Level.HARD);
 	}
 	// Event Listener on Button.onAction
 	@FXML
