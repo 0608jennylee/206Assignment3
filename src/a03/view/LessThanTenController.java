@@ -8,6 +8,7 @@ import java.util.List;
 
 import a03.MainApp;
 import a03.Settings;
+import a03.HTKError;
 import a03.Level;
 import a03.generators.Generator;
 import a03.generators.Processor;
@@ -75,29 +76,24 @@ public class LessThanTenController {
 						String filepath = _numbers.get(_currentQuestion) + ".wav";
 						Media sound = new Media(new File(filepath).toURI().toString());
 						MediaPlayer mp = new MediaPlayer(sound);
-						mp.setOnEndOfMedia(this::process);
+						mp.setOnEndOfMedia(this::enableRecord);
 						mp.play();
-//						_record.setDisable(false);
-//						Processor processor = new Processor();
-//						if(processor.processAnswer(_numbers.get(_currentQuestion))) {
-//							_correct=true;
-//						}else {
-//							_correct=false;
-//						}
+						Processor processor = new Processor();
+						if(processor.processAnswer(_numbers.get(_currentQuestion))) {
+							_correct=true;
+						}else {
+							_correct=false;
+						}
 					} catch (IOException IOe) {
 						IOe.printStackTrace();
+					} catch (HTKError HTKe) {
+						_failed = true;
 					}
 					return null;
 				}
 				
-				private void process() {
+				private void enableRecord() {
 					_record.setDisable(false);
-//					Processor processor = new Processor();
-//					if(processor.processAnswer(_numbers.get(_currentQuestion))) {
-//						_correct=true;
-//					}else {
-//						_correct=false;
-//					}
 				}
 			};
 			record.setOnFailed(this::failed);
