@@ -1,9 +1,4 @@
 package a03;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import a03.Settings;
 import a03.view.ChooseLevelsController;
@@ -133,9 +128,9 @@ public class MainApp extends Application {
 			_primaryStage.show();
 			// Give the controller access to the main app.
 			ChooseLevelsController controller = loader.getController();
-//			if(!Settings.getSettings().settings.get("HARDLEVEL")) {
-//				controller.disableHard();
-//			}
+			if(!Settings.getSettings().settings.get("HARDLEVEL")) {
+				controller.disableHard();
+			}
 			controller.setMainApp(this);
 
 		} catch (IOException e) {

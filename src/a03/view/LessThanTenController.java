@@ -11,14 +11,13 @@ import a03.Level;
 import a03.generators.Generator;
 import a03.generators.Processor;
 import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Line;
 
 public class LessThanTenController {
 
@@ -39,7 +38,6 @@ public class LessThanTenController {
 	private boolean _tryAgainPressed=true;
 //	private int _incorrectAnswers;
 	private int _correctAnswers;
-	private AnchorPane _root;
 	private Generator _generator;
 
 	public LessThanTenController() {
@@ -61,43 +59,52 @@ public class LessThanTenController {
 			_tryAgainPressed=false;
 			_record.setText("Record");
 		}else{
-//			Task<Void> record = new Task<Void>() { 
-//				@Override
-//				protected Void call() throws Exception {
-//					String cmd = "arecord -d 2 -r 22050 -c 1 -i -t wav -f s16_LE " + _numbers.get(_currentQuestion).toString() + ".wav;echo record passed; HVite -H HMMs/hmm15/macros -H HMMs/hmm15/hmmdefs -C user/configLR  -w user/wordNetworkNum -o SWT -l '*' -i recout.mlf -p 0.0 -s 5.0  user/dictionaryD user/tiedList "+ _numbers.get(_currentQuestion).toString() + ".wav; echo processing passed;";
-//					System.out.println(cmd);
-//					ProcessBuilder pb = new ProcessBuilder("bash", "-c", cmd);
-//					try {
-//						Process p = pb.start();
-//						String line = "test";
-//						int exitStatus = p.waitFor();
-//						Processor processor = new Processor();
-//						if(processor.processAnswer(_numbers.get(_currentQuestion))) {
-//							_correct=true;
-//						}else {
-//							_correct=false;
-//						}
-//					} catch (IOException IOe) {
-//						IOe.printStackTrace();
-//					}
-//					return null;
-//				}
-//			};
-//			Thread recordThread = new Thread(record);
-//			recordThread.start();
-			check();
+			Task<Void> record = new Task<Void>() { 
+				@Override
+				protected Void call() throws Exception {
+					_record.setDisable(true);
+					String cmd = "arecord -d 2 -r 22050 -c 1 -i -t wav -f s16_LE " + _numbers.get(_currentQuestion).toString() + ".wav;echo record passed; HVite -H HMMs/hmm15/macros -H HMMs/hmm15/hmmdefs -C user/configLR  -w user/wordNetworkNum -o SWT -l '*' -i recout.mlf -p 0.0 -s 5.0  user/dictionaryD user/tiedList "+ _numbers.get(_currentQuestion).toString() + ".wav; echo processing passed;";
+					System.out.println(cmd);
+					ProcessBuilder pb = new ProcessBuilder("bash", "-c", cmd);
+					try {
+						Process p = pb.start();
+						p.waitFor();
+						_record.setDisable(false);
+						Processor processor = new Processor();
+						if(processor.processAnswer(_numbers.get(_currentQuestion))) {
+							_correct=true;
+						}else {
+							_correct=false;
+						}
+					} catch (IOException IOe) {
+						IOe.printStackTrace();
+					}
+					return null;
+				}
+			};
+			record.setOnFailed(this::failed);
+			record.setOnSucceeded(this::check);
+			Thread recordThread = new Thread(record);
+			recordThread.start();
+			
 		}
 	}
+	
+	private void failed(WorkerStateEvent e) {
+		System.out.println("failed");
+	}
 
-	public void check(){
+	public void check(WorkerStateEvent e){
 		if (_failed){
+			System.out.println("failed");
 			File file = new File(System.getProperty("user.dir")+"/failed/" + _numbers.get(_currentQuestion) + ".jpg");
 			setImage(file);
 		}else if(_correct){
+			System.out.println("Broken");
 			File file = new File(System.getProperty("user.dir")+"/Correct/" + _numbers.get(_currentQuestion) + ".jpg");
 			setImage(file);
-			_theCorrectAnswer.setText((_numbers.get(_currentQuestion)).toString());
-			_theirAnswer.setText((_numbers.get(_currentQuestion)).toString());
+			_theCorrectAnswer.setText((Processor.toMaori(_numbers.get(_currentQuestion))));
+			_theirAnswer.setText((Processor.getUserAnswer()));
 			_currentQuestion++;
 			_record.setDisable(true);
 			_nextQuestion.setVisible(true);
@@ -110,8 +117,8 @@ public class LessThanTenController {
 			setImage(file);
 			System.out.println("you said this");
 			if (_secondTry){
-				_theCorrectAnswer.setText((_numbers.get(_currentQuestion)).toString());
-				_theirAnswer.setText((_numbers.get(_currentQuestion)).toString()+"??????????????????");
+				_theCorrectAnswer.setText((Processor.toMaori(_numbers.get(_currentQuestion))));
+				_theirAnswer.setText(Processor.getUserAnswer());
 				_secondTry = false;
 				_currentQuestion++;
 				_record.setDisable(true);
@@ -120,11 +127,12 @@ public class LessThanTenController {
 				_tryAgainPressed=false;
 			}else{
 				_secondTry = true;
+				_theirAnswer.setText(Processor.getUserAnswer());
 				_record.setText("Try Again");
 				_tryAgainPressed=true;
 			}
 		}
-		if (_currentQuestion==2){
+		if (_currentQuestion==10){
 			displayFinalScore();
 		}
 	}
