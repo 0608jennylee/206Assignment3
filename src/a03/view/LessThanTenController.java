@@ -207,6 +207,7 @@ public class LessThanTenController {
 	public void handleNextQuestion(){
 		setQuestion();
 	}
+	
 	@FXML
 	public void handleMainMenu(){
 		_mainApp.mainMenuContents();
