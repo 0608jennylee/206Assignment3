@@ -20,6 +20,23 @@ public class Processor {
 					return i.getMaoriName();
 				}
 			}
+		}else if(num <= 19) {
+			maoriName[0] = "tekau";
+			maoriName[1] = "maa";
+			for(Number i : Number.values()) {
+				if(i.getNumber() == num % 10) {
+					maoriName[2] = i.getMaoriName();
+				}
+			}
+			return maoriName[0] + " " + maoriName[1] + " " + maoriName[2];
+		}else if(num % 10 == 0) {
+			for(Number i : Number.values()) {
+				if(i.getNumber() == num / 10) {
+					maoriName[0] = i.getMaoriName();
+				}
+			}
+			maoriName[1] = "tekau";
+			return maoriName[0] + " " + maoriName[1];
 		}else {
 			maoriName[1] = "tekau";
 			for(Number i : Number.values()) {

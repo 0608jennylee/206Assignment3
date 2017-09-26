@@ -77,7 +77,9 @@ public class LessThanTenController {
 					ProcessBuilder pb = new ProcessBuilder("bash", "-c", cmd);
 					try {
 						Process p = pb.start();
+						System.out.println("pre-stuck");
 						p.waitFor();
+						System.out.println("post waitfor");
 						Processor processor = new Processor();
 						if(processor.processAnswer(_numbers.get(_currentQuestion))) {
 							_correct=true;
@@ -92,25 +94,25 @@ public class LessThanTenController {
 					return null;
 				}
 			};
-
-			record.setOnFailed(this::failed);
 			record.setOnSucceeded(this::playBack);
 			Thread recordThread = new Thread(record);
 			recordThread.start();
-			
 		}
 	}
 	
-	private void failed(WorkerStateEvent e) {
-		System.out.println("failed");
-	}
+//	private void failed(WorkerStateEvent e) {
+//		System.out.println("failed");
+//	}
 	
 	public void playBack(WorkerStateEvent e) {
+		System.out.println("playback entered");
 		String filepath = _numbers.get(_currentQuestion) + ".wav";
 		Media sound = new Media(new File(filepath).toURI().toString());
 		MediaPlayer mp = new MediaPlayer(sound);
+		System.out.println("Media files created properly");
 		mp.setOnEndOfMedia(this::check);
 		mp.play();
+		System.out.println("Play");
 	}
 
 	public void check(){
@@ -128,7 +130,9 @@ public class LessThanTenController {
 			_theirAnswer.setText((Processor.getUserAnswer()));
 			_currentQuestion++;
 			_record.setDisable(true);
-			_nextQuestion.setVisible(true);
+			if(_currentQuestion != 10) {
+				_nextQuestion.setVisible(true);
+			}
 			_secondTry = false;
 			_record.setText("Record");
 			_correctAnswers++;
@@ -144,7 +148,9 @@ public class LessThanTenController {
 				_currentQuestion++;
 				_record.setDisable(true);
 				_record.setText("Record");
+				if(_currentQuestion != 10) {
 				_nextQuestion.setVisible(true);
+				}
 				_tryAgainPressed=false;
 			}else{
 				_secondTry = true;
@@ -189,7 +195,6 @@ public class LessThanTenController {
 
 		_theirAnswer.setText("");
 		_theCorrectAnswer.setText("");
-
 		_nextQuestion.setVisible(false);
 		File file = new File(System.getProperty("user.dir")+"/Video/" + _numbers.get(_currentQuestion) + ".jpg");
 		setImage(file);

@@ -4,14 +4,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GameStats {
-	private static GameStats _gamestats;
+	static GameStats _gamestats = null;
 	private Map<String,Integer> _numVals = new HashMap<String,Integer>();
 	
 	private GameStats() {
+		for(Stats i : Stats.values()) {
+			_numVals.put(i.toString(), new Integer(0));
+		}
 	}
 	
 	public Integer getTimePlayed() {
-		return _numVals.get(Stats.APPSTARTTIME.toString()) - (int)(System.currentTimeMillis()/(1000*60));
+		return (int)(System.currentTimeMillis()/(1000*60)) - _numVals.get(Stats.APPSTARTTIME.toString());
 	}
 	
 	public Integer getHardHighestScore() {
@@ -43,15 +46,25 @@ public class GameStats {
 	}
 	
 	public int getAverageEasyScore() {
-		return _numVals.get(Stats.EASYCUMULATIVESCORE.toString()) / _numVals.get(Stats.NUMBEROFEASYPLAYS.toString());
+		if(_numVals.get(Stats.NUMBEROFEASYPLAYS.toString()) == 0) {
+			return 0;
+		}else {
+			return _numVals.get(Stats.EASYCUMULATIVESCORE.toString()) / _numVals.get(Stats.NUMBEROFEASYPLAYS.toString());
+		}
+
 	}
 	
 	public int getAverageHardScore() {
-		return _numVals.get(Stats.HARDCUMULATIVESCORE.toString()) / _numVals.get(Stats.NUMBEROFHARDPLAYS.toString());
+		if(_numVals.get(Stats.NUMBEROFHARDPLAYS.toString()) == 0) {
+			return 0;
+		}else {
+			return _numVals.get(Stats.HARDCUMULATIVESCORE.toString()) / _numVals.get(Stats.NUMBEROFHARDPLAYS.toString());
+		}
 	}
 
 	public void update(Level level, int correctAnswers) {
 		if(level == Level.EASY) {
+			_numVals.put("hello", new Integer(1));
 			_numVals.put(Stats.NUMBEROFEASYPLAYS.toString(), _numVals.get(Stats.NUMBEROFEASYPLAYS.toString()) + new Integer(1));
 			_numVals.put(Stats.EASYCUMULATIVESCORE.toString(), _numVals.get(Stats.EASYCUMULATIVESCORE.toString()) + new Integer(correctAnswers));
 			if(correctAnswers > _numVals.get(Stats.EASYHIGHESTSCORE.toString())) {
