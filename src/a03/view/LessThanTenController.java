@@ -8,7 +8,6 @@ import java.util.List;
 
 import a03.MainApp;
 import a03.Settings;
-import a03.Stats;
 import a03.GameStats;
 import a03.HTKError;
 import a03.Level;
@@ -18,7 +17,6 @@ import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -80,7 +78,6 @@ public class LessThanTenController {
 					try {
 						Process p = pb.start();
 						p.waitFor();
-						_record.setDisable(false);
 						Processor processor = new Processor();
 						if(processor.processAnswer(_numbers.get(_currentQuestion))) {
 							_correct=true;
@@ -117,6 +114,7 @@ public class LessThanTenController {
 	}
 
 	public void check(){
+		_record.setDisable(false);
 		if (_failed){
 			//TODO still need to implement what happens when fail.
 			System.out.println("failed");
