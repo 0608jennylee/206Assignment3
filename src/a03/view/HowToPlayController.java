@@ -9,7 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class HowToPlayController {
-	private final int _numberOfImages=4;
+	private final int _numberOfImages=5;
 	private int _count=1;
 	private String _imageDirectory = System.getProperty("user.dir")+"/HowToPlayImages/";
 	@FXML private Button _next;
