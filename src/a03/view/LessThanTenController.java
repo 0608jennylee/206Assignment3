@@ -43,6 +43,7 @@ public class LessThanTenController {
 	private int _currentQuestion = 0;
 	private boolean _secondTry = false;
 	private boolean _tryAgainPressed=true;
+	private MediaPlayer mp;
 	
 //	private int _incorrectAnswers;
 	private int _correctAnswers;
@@ -108,9 +109,10 @@ public class LessThanTenController {
 		System.out.println("playback entered");
 		String filepath = _numbers.get(_currentQuestion) + ".wav";
 		Media sound = new Media(new File(filepath).toURI().toString());
-		MediaPlayer mp = new MediaPlayer(sound);
+		mp = new MediaPlayer(sound);
 		System.out.println("Media files created properly");
 		mp.setOnEndOfMedia(this::check);
+		mp.setOnError(this::check);
 		mp.play();
 		System.out.println("Play");
 	}
