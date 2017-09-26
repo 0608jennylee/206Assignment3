@@ -18,6 +18,7 @@ import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -30,6 +31,8 @@ public class LessThanTenController {
 	@FXML private ImageView _imageView;
 	@FXML private Button _record;
 	@FXML private Button _nextQuestion;
+	@FXML private Button _mainMenuTop;
+	@FXML private Button _mainMenuBottom;
 	@FXML private ImageView _score;
 	@FXML private Label _theCorrectAnswer;
 	@FXML private Label _theirAnswer;
@@ -42,21 +45,22 @@ public class LessThanTenController {
 	private int _currentQuestion = 0;
 	private boolean _secondTry = false;
 	private boolean _tryAgainPressed=true;
+	
 //	private int _incorrectAnswers;
 	private int _correctAnswers;
 	private Generator _generator;
 	private Level _level;
-
+	@FXML private Button _nextLevel;
 	public LessThanTenController() {
 		_generator = new Generator();
 //		_numbers = eg.getNumbers();
 	}
 
-	// Event Listener on Button.onAction
-	@FXML
-	public void handleBack(ActionEvent event) {
-		_mainApp.mainMenuContents();
-	}
+//	// Event Listener on Button.onAction
+//	@FXML
+//	public void handleBack(ActionEvent event) {
+//		_mainApp.mainMenuContents();
+//	}
 
 	// Event Listener on Button[#_record].onAction
 	@FXML
@@ -76,11 +80,7 @@ public class LessThanTenController {
 					try {
 						Process p = pb.start();
 						p.waitFor();
-//						String filepath = _numbers.get(_currentQuestion) + ".wav";
-//						Media sound = new Media(new File(filepath).toURI().toString());
-//						MediaPlayer mp = new MediaPlayer(sound);
-//						mp.setOnEndOfMedia(this::enableRecord);
-//						mp.play();
+						_record.setDisable(false);
 						Processor processor = new Processor();
 						if(processor.processAnswer(_numbers.get(_currentQuestion))) {
 							_correct=true;
@@ -95,6 +95,7 @@ public class LessThanTenController {
 					return null;
 				}
 			};
+
 			record.setOnFailed(this::failed);
 			record.setOnSucceeded(this::playBack);
 			Thread recordThread = new Thread(record);
@@ -165,6 +166,11 @@ public class LessThanTenController {
 			Settings.getSettings().enableHard();
 		}
 		GameStats.getGameStats().update(_level, _correctAnswers);
+		if (_correctAnswers>=8){
+			_mainMenuTop.setVisible(false);
+			_mainMenuBottom.setVisible(true);
+			_nextLevel.setVisible(true);
+		}
 		_theirAnswer.setText("");
 		_theCorrectAnswer.setText("");
 		_text1.setText("");
@@ -201,6 +207,10 @@ public class LessThanTenController {
 	public void handleNextQuestion(){
 		setQuestion();
 	}
+	@FXML
+	public void handleMainMenu(){
+		_mainApp.mainMenuContents();
+	}
 //	public void setRoot(AnchorPane lessThanTen){
 //		_root = lessThanTen;
 //	}
@@ -217,5 +227,10 @@ public class LessThanTenController {
 		_level = level;
 		_generator.setLevel(level);
 		_numbers = _generator.getNumbers();
+		_mainMenuBottom.setVisible(false);
+		_mainMenuTop.setVisible(true);
+	}
+	public void handleNextLevel(){
+		_mainApp.Level(Level.HARD);
 	}
 }

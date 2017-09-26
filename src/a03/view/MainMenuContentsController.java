@@ -26,6 +26,12 @@ public class MainMenuContentsController {
 		_mainApp.exit();
 	}
 	
+	// Event Listener on Button.onAction
+	@FXML
+	public void handleStatistics(ActionEvent event) {
+		_mainApp.Statistics();
+	}
+	
 	/**
 	 * Sets the mainApp for the MainContentsController
 	 * @param mainApp the mainApp
