@@ -32,6 +32,7 @@ public class MainApp extends Application {
 		_primaryStage = primaryStage;
 		_primaryStage.setTitle("Tatai");
 		_primaryStage.initStyle(StageStyle.UNDECORATED);
+		GameStats.getGameStats().updateDiscrete(Stats.APPSTARTTIME.toString(), new Integer((int) (System.currentTimeMillis() / (1000 * 60))));
 		mainMenuContents();
 	}
 
@@ -153,9 +154,13 @@ public class MainApp extends Application {
 			// Give the controller access to the main app.
 			StatisticsController controller = loader.getController();
 			controller.setMainApp(this);
+			controller.setScores();
+			System.out.println("Statistics run");
 
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (NullPointerException e) {
+			
 		}
 	}
 
