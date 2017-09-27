@@ -24,7 +24,7 @@ public class Generator {
 			Collections.shuffle(_numbers);
 			return _numbers;
 		}else{
-			for(int i = 1; i < 10; i++) {
+			for(int i = 0; i < 10; i++) {
 				Integer randNum = new Integer((int)(Math.random() * _level.getRange() + 1));
 				_numbers.add(randNum);
 			}

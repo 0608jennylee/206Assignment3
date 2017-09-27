@@ -10,11 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<<<<<<< HEAD
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a03.view.StatisticsController">
-=======
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a03.view.StatisticsController">
->>>>>>> bebdcf95d149d4949d4642496fce7d81af8d2a9c
    <center>
       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
@@ -32,11 +28,7 @@
                               <Font name="Purisa" size="20.0" />
                            </font>
                         </Label>
-<<<<<<< HEAD
                         <Label layoutX="221.0" layoutY="360.0" text="Minutes played" AnchorPane.leftAnchor="221.0" AnchorPane.topAnchor="360.0">
-=======
-                        <Label layoutX="221.0" layoutY="360.0" text="Hours played" AnchorPane.leftAnchor="221.0" AnchorPane.topAnchor="360.0">
->>>>>>> bebdcf95d149d4949d4642496fce7d81af8d2a9c
                            <font>
                               <Font name="Purisa" size="20.0" />
                            </font>
@@ -84,11 +76,7 @@
                               <Font name="Purisa" size="20.0" />
                            </font>
                         </Label>
-<<<<<<< HEAD
                         <Label layoutX="221.0" layoutY="360.0" text="Minutes played" AnchorPane.leftAnchor="221.0" AnchorPane.topAnchor="360.0">
-=======
-                        <Label layoutX="221.0" layoutY="360.0" text="Hours played" AnchorPane.leftAnchor="221.0" AnchorPane.topAnchor="360.0">
->>>>>>> bebdcf95d149d4949d4642496fce7d81af8d2a9c
                            <font>
                               <Font name="Purisa" size="20.0" />
                            </font>
