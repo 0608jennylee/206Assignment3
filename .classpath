@@ -4,8 +4,11 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	<classpathentry kind="lib" path="/home/se206/Downloads/opt/SceneBuilder/runtime/lib/ext/jfxrt.jar"/>
 >>>>>>> bebdcf95d149d4949d4642496fce7d81af8d2a9c
+=======
+>>>>>>> f010c4a9e5b43a3f1587a10d8620c44edd718be6
 	<classpathentry kind="output" path="bin"/>
 </classpath>
