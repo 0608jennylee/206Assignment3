@@ -20,10 +20,10 @@
          <top>
             <Button fx:id="_mainMenuTop" mnemonicParsing="false" onAction="#handleMainMenu" text="&lt; Main Menu" BorderPane.alignment="TOP_LEFT">
                <font>
-                  <Font name="Purisa Bold" size="16.0" />
+                  <Font name="Purisa Bold" size="13.0" />
                </font>
                <BorderPane.margin>
-                  <Insets left="25.0" top="25.0" />
+                  <Insets left="15.0" top="15.0" />
                </BorderPane.margin>
             </Button>
          </top>
@@ -33,7 +33,7 @@
             <Font name="Purisa Bold" size="16.0" />
          </font>
       </Button>
-      <Button fx:id="_nextQuestion" layoutX="431.0" layoutY="531.0" mnemonicParsing="false" onAction="#handleNextQuestion" text="Next Question &gt;" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="30.0">
+      <Button fx:id="_nextQuestion" layoutX="431.0" layoutY="531.0" mnemonicParsing="false" onAction="#handleNextQuestion" text="Next Question &gt;" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0">
          <font>
             <Font name="Purisa Bold" size="14.0" />
          </font>
@@ -42,7 +42,7 @@
       <Label fx:id="_text2" text="The correct answer is: " AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="460.0" />
       <Label fx:id="_theirAnswer" AnchorPane.leftAnchor="220.0" AnchorPane.topAnchor="430.0" />
       <Label fx:id="_theCorrectAnswer" AnchorPane.leftAnchor="220.0" AnchorPane.topAnchor="460.0" />
-      <Button fx:id="_mainMenuBottom" mnemonicParsing="false" onAction="#handleMainMenu" text="&lt; Main Menu" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0">
+      <Button fx:id="_mainMenuBottom" mnemonicParsing="false" onAction="#handleMainMenu" text="&lt; Main Menu" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0">
          <font>
             <Font name="Purisa Bold" size="14.0" />
          </font>
@@ -52,5 +52,10 @@
             <Font name="Purisa Bold" size="13.0" />
          </font>
       </Button>
+      <Label fx:id="_title" text="Label" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="30.0">
+         <font>
+            <Font name="Purisa Bold" size="37.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

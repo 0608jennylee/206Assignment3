@@ -36,6 +36,7 @@ public class LessThanTenController {
 	@FXML private Label _theirAnswer;
 	@FXML private Label _text1;
 	@FXML private Label _text2;
+	@FXML private Label _title;
 	private MainApp _mainApp;
 	private List<Integer> _numbers;
 	private boolean _correct=true;
@@ -99,6 +100,7 @@ public class LessThanTenController {
 			Thread recordThread = new Thread(record);
 			recordThread.start();
 		}
+		check();
 	}
 	
 //	private void failed(WorkerStateEvent e) {
@@ -168,6 +170,7 @@ public class LessThanTenController {
 	}
 
 	private void displayFinalScore() {
+		_title.setVisible(false);
 		if(_correctAnswers >= 8) {
 			Settings.getSettings().enableHard();
 		}
@@ -204,6 +207,9 @@ public class LessThanTenController {
 	}
 
 	private void setImage(File file){
+		int display = _currentQuestion+1;
+		String level = _title.getText();
+		_title.setText(level +"Question: "+display);
 		Image image = new Image(file.toURI().toString());
 		_imageView.setImage(image);
 	}
@@ -217,19 +223,13 @@ public class LessThanTenController {
 	public void handleMainMenu(){
 		_mainApp.mainMenuContents();
 	}
-//	public void setRoot(AnchorPane lessThanTen){
-//		_root = lessThanTen;
-//	}
-//	public void score(){
-//		Line line = new Line();
-//		//Setting the Properties of the Line 
-//		line.setStartX(150.0f); 
-//		line.setStartY(0.0f);         
-//		line.setEndX(450.0f); 
-//		line.setEndY(140.0f);
-//		_root.getChildren().add(line);
-//	}
+
 	public void setLevel(Level level){
+		if (level==level.HARD){
+			_title.setText("HARD ");
+		}else{
+			_title.setText("EASY ");
+		}
 		_level = level;
 		_generator.setLevel(level);
 		_numbers = _generator.getNumbers();
