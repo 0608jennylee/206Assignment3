@@ -57,19 +57,19 @@
             <Font name="Purisa Bold" size="37.0" />
          </font>
       </Label>
-      <Label fx:id="_sorry" text="Sorry" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="180.0">
+      <Label fx:id="_sorry" text="Sorry" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="140.0">
          <font>
-            <Font name="Purisa" size="40.0" />
+            <Font name="Purisa" size="34.0" />
          </font>
       </Label>
-      <Label text="we mucked up" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="240.0">
+      <Label fx:id="_weMuckedUp" text="we mucked up" AnchorPane.leftAnchor="170.0" AnchorPane.topAnchor="190.0">
          <font>
-            <Font name="Purisa" size="40.0" />
+            <Font name="Purisa" size="34.0" />
          </font>
       </Label>
-      <Label text="Try Again" AnchorPane.leftAnchor="190.0" AnchorPane.topAnchor="300.0">
+      <Label fx:id="_tryAgain" text="Try Again" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="250.0">
          <font>
-            <Font name="Purisa" size="40.0" />
+            <Font name="Purisa" size="34.0" />
          </font>
       </Label>
    </children>

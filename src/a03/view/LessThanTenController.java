@@ -38,6 +38,9 @@ public class LessThanTenController {
 	@FXML private Label _text1;
 	@FXML private Label _text2;
 	@FXML private Label _title;
+	@FXML private Label _sorry;
+	@FXML private Label _weMuckedUp;
+	@FXML private Label _tryAgain;
 	private MainApp _mainApp;
 	private List<Integer> _numbers;
 	private boolean _correct=true;
@@ -67,42 +70,41 @@ public class LessThanTenController {
 	// Event Listener on Button[#_record].onAction
 	@FXML
 	public void handleRecord(ActionEvent event) {
-//		if (_secondTry&&_tryAgainPressed){
-//			setQuestion();
-//			_tryAgainPressed=false;
-//			_record.setText("Record");
-//		}else{
-//			Task<Void> record = new Task<Void>() { 
-//				@Override
-//				protected Void call() throws Exception {
-//					_record.setDisable(true);
-//					String cmd = "arecord -d 2 -r 22050 -c 1 -i -t wav -f s16_LE " + _numbers.get(_currentQuestion).toString() + ".wav;echo record passed; HVite -H HMMs/hmm15/macros -H HMMs/hmm15/hmmdefs -C user/configLR  -w user/wordNetworkNum -o SWT -l '*' -i recout.mlf -p 0.0 -s 5.0  user/dictionaryD user/tiedList "+ _numbers.get(_currentQuestion).toString() + ".wav; echo processing passed;";
-//					System.out.println(cmd);
-//					ProcessBuilder pb = new ProcessBuilder("bash", "-c", cmd);
-//					try {
-//						Process p = pb.start();
-//						System.out.println("pre-stuck");
-//						p.waitFor();
-//						System.out.println("post waitfor");
-//						Processor processor = new Processor();
-//						if(processor.processAnswer(_numbers.get(_currentQuestion))) {
-//							_correct=true;
-//						}else {
-//							_correct=false;
-//						}
-//					} catch (IOException IOe) {
-//						IOe.printStackTrace();
-//					} catch (HTKError HTKe) {
-//						_failed = true;
-//					}
-//					return null;
-//				}
-//			};
-//			record.setOnSucceeded(this::playBack);
-//			Thread recordThread = new Thread(record);
-//			recordThread.start();
-//		}
-		check();
+		if (_secondTry&&_tryAgainPressed){
+			setQuestion();
+			_tryAgainPressed=false;
+			_record.setText("Record");
+		}else{
+			Task<Void> record = new Task<Void>() { 
+				@Override
+				protected Void call() throws Exception {
+					_record.setDisable(true);
+					String cmd = "arecord -d 2 -r 22050 -c 1 -i -t wav -f s16_LE " + _numbers.get(_currentQuestion).toString() + ".wav;echo record passed; HVite -H HMMs/hmm15/macros -H HMMs/hmm15/hmmdefs -C user/configLR  -w user/wordNetworkNum -o SWT -l '*' -i recout.mlf -p 0.0 -s 5.0  user/dictionaryD user/tiedList "+ _numbers.get(_currentQuestion).toString() + ".wav; echo processing passed;";
+					System.out.println(cmd);
+					ProcessBuilder pb = new ProcessBuilder("bash", "-c", cmd);
+					try {
+						Process p = pb.start();
+						System.out.println("pre-stuck");
+						p.waitFor();
+						System.out.println("post waitfor");
+						Processor processor = new Processor();
+						if(processor.processAnswer(_numbers.get(_currentQuestion))) {
+							_correct=true;
+						}else {
+							_correct=false;
+						}
+					} catch (IOException IOe) {
+						IOe.printStackTrace();
+					} catch (HTKError HTKe) {
+						_failed = true;
+					}
+					return null;
+				}
+			};
+			record.setOnSucceeded(this::playBack);
+			Thread recordThread = new Thread(record);
+			recordThread.start();
+		}
 	}
 	
 //	private void failed(WorkerStateEvent e) {
@@ -110,23 +112,26 @@ public class LessThanTenController {
 //	}
 	
 	public void playBack(WorkerStateEvent e) {
-//		System.out.println("playback entered");
-//		String filepath = _numbers.get(_currentQuestion) + ".wav";
-//		Media sound = new Media(new File(filepath).toURI().toString());
-//		mp = new MediaPlayer(sound);
-//		System.out.println("Media files created properly");
-//		mp.setOnEndOfMedia(this::check);
-//		mp.setOnError(this::check);
-//		mp.play();
-//		System.out.println("Play");
+		System.out.println("playback entered");
+		String filepath = _numbers.get(_currentQuestion) + ".wav";
+		Media sound = new Media(new File(filepath).toURI().toString());
+		mp = new MediaPlayer(sound);
+		System.out.println("Media files created properly");
+		mp.setOnEndOfMedia(this::check);
+		mp.setOnError(this::check);
+		mp.play();
+		System.out.println("Play");
 	}
 
 	public void check(){
 		_record.setDisable(false);
 		if (_failed){
 			System.out.println("failed");
-			File file = new File(System.getProperty("user.dir")+"/failed/1.jpg");
-			_text.setVisible(true);
+			_sorry.setVisible(true);
+			_weMuckedUp.setVisible(true);
+			_tryAgain.setVisible(true);
+			File file = new File(System.getProperty("user.dir")+"/Fail/1.jpg");
+			//_text.setVisible(true);
 			setImage(file);
 		}else if(_correct){
 			System.out.println("Broken");
@@ -199,7 +204,9 @@ public class LessThanTenController {
 	}
 
 	public void setQuestion(){
-
+		_sorry.setVisible(false);
+		_weMuckedUp.setVisible(false);
+		_tryAgain.setVisible(false);
 		_theirAnswer.setText("");
 		_theCorrectAnswer.setText("");
 		_nextQuestion.setVisible(false);
