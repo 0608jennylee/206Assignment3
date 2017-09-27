@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import a03.HTKError;
 import a03.Number;
 
 public class Processor {
@@ -19,6 +20,23 @@ public class Processor {
 					return i.getMaoriName();
 				}
 			}
+		}else if(num <= 19) {
+			maoriName[0] = "tekau";
+			maoriName[1] = "maa";
+			for(Number i : Number.values()) {
+				if(i.getNumber() == num % 10) {
+					maoriName[2] = i.getMaoriName();
+				}
+			}
+			return maoriName[0] + " " + maoriName[1] + " " + maoriName[2];
+		}else if(num % 10 == 0) {
+			for(Number i : Number.values()) {
+				if(i.getNumber() == num / 10) {
+					maoriName[0] = i.getMaoriName();
+				}
+			}
+			maoriName[1] = "tekau";
+			return maoriName[0] + " " + maoriName[1];
 		}else {
 			maoriName[1] = "tekau";
 			for(Number i : Number.values()) {
@@ -37,18 +55,22 @@ public class Processor {
 		return null;
 	}
 	
-	public static String getUserAnswer() {
+	public static String getUserAnswer() throws HTKError {
 		try {
 			List<String> lines = new ArrayList<String>();
 			@SuppressWarnings("resource")
 			BufferedReader br = new BufferedReader(new FileReader("recout.mlf"));
-			String temp = null;
-			while((temp = br.readLine()) != null) {
-				lines.add(temp);
+			String answer = null;
+			while((answer = br.readLine()) != null) {
+				lines.add(answer);
 			}
-			String answer = lines.get(3);
-			for(int i = 4; i < lines.size() - 2; i++) {
-				answer = answer + " " + lines.get(i);
+			if(lines.size() != 1){
+				answer = lines.get(3);
+				for(int i = 4; i < lines.size() - 2; i++) {
+					answer = answer + " " + lines.get(i);
+				}
+			}else {
+				throw new HTKError();
 			}
 			return answer;
 		} catch (FileNotFoundException e) {
@@ -61,7 +83,7 @@ public class Processor {
 		return null;
 	}
 	
-	public boolean processAnswer(int num) {
+	public boolean processAnswer(int num) throws HTKError {
 		String line = getUserAnswer();
 		String[] words = line.split(" ");
 		if(num <= 10) {
@@ -87,5 +109,5 @@ public class Processor {
 			}
 
 		}
-	}
+		}
 }

@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.List;
 
 import a03.MainApp;
+import a03.Settings;
+import a03.GameStats;
+import a03.HTKError;
 import a03.Level;
 import a03.generators.Generator;
 import a03.generators.Processor;
@@ -14,11 +17,12 @@ import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class LessThanTenController {
 
@@ -39,12 +43,13 @@ public class LessThanTenController {
 	private int _currentQuestion = 0;
 	private boolean _secondTry = false;
 	private boolean _tryAgainPressed=true;
+	private MediaPlayer mp;
 	
 //	private int _incorrectAnswers;
 	private int _correctAnswers;
 	private Generator _generator;
+	private Level _level;
 	@FXML private Button _nextLevel;
-
 	public LessThanTenController() {
 		_generator = new Generator();
 //		_numbers = eg.getNumbers();
@@ -73,9 +78,9 @@ public class LessThanTenController {
 					ProcessBuilder pb = new ProcessBuilder("bash", "-c", cmd);
 					try {
 						Process p = pb.start();
+						System.out.println("pre-stuck");
 						p.waitFor();
-						_record.setDisable(false);
-
+						System.out.println("post waitfor");
 						Processor processor = new Processor();
 						if(processor.processAnswer(_numbers.get(_currentQuestion))) {
 							_correct=true;
@@ -84,25 +89,38 @@ public class LessThanTenController {
 						}
 					} catch (IOException IOe) {
 						IOe.printStackTrace();
+					} catch (HTKError HTKe) {
+						_failed = true;
 					}
 					return null;
 				}
 			};
-
-			record.setOnFailed(this::failed);
-			record.setOnSucceeded(this::check);
+			record.setOnSucceeded(this::playBack);
 			Thread recordThread = new Thread(record);
 			recordThread.start();
-			
 		}
 	}
 	
-	private void failed(WorkerStateEvent e) {
-		System.out.println("failed");
+//	private void failed(WorkerStateEvent e) {
+//		System.out.println("failed");
+//	}
+	
+	public void playBack(WorkerStateEvent e) {
+		System.out.println("playback entered");
+		String filepath = _numbers.get(_currentQuestion) + ".wav";
+		Media sound = new Media(new File(filepath).toURI().toString());
+		mp = new MediaPlayer(sound);
+		System.out.println("Media files created properly");
+		mp.setOnEndOfMedia(this::check);
+		mp.setOnError(this::check);
+		mp.play();
+		System.out.println("Play");
 	}
 
-	public void check(WorkerStateEvent e){
+	public void check(){
+		_record.setDisable(false);
 		if (_failed){
+			//TODO still need to implement what happens when fail.
 			System.out.println("failed");
 			File file = new File(System.getProperty("user.dir")+"/failed/" + _numbers.get(_currentQuestion) + ".jpg");
 			setImage(file);
@@ -114,7 +132,9 @@ public class LessThanTenController {
 			_theirAnswer.setText((Processor.getUserAnswer()));
 			_currentQuestion++;
 			_record.setDisable(true);
-			_nextQuestion.setVisible(true);
+			if(_currentQuestion != 10) {
+				_nextQuestion.setVisible(true);
+			}
 			_secondTry = false;
 			_record.setText("Record");
 			_correctAnswers++;
@@ -130,12 +150,15 @@ public class LessThanTenController {
 				_currentQuestion++;
 				_record.setDisable(true);
 				_record.setText("Record");
+				if(_currentQuestion != 10) {
 				_nextQuestion.setVisible(true);
+				}
 				_tryAgainPressed=false;
 			}else{
 				_secondTry = true;
 				_theirAnswer.setText(Processor.getUserAnswer());
 				_record.setText("Try Again");
+				_record.setDisable(false);
 				_tryAgainPressed=true;
 			}
 		}
@@ -145,6 +168,10 @@ public class LessThanTenController {
 	}
 
 	private void displayFinalScore() {
+		if(_correctAnswers >= 8) {
+			Settings.getSettings().enableHard();
+		}
+		GameStats.getGameStats().update(_level, _correctAnswers);
 		if (_correctAnswers>=8){
 			_mainMenuTop.setVisible(false);
 			_mainMenuBottom.setVisible(true);
@@ -170,7 +197,6 @@ public class LessThanTenController {
 
 		_theirAnswer.setText("");
 		_theCorrectAnswer.setText("");
-
 		_nextQuestion.setVisible(false);
 		File file = new File(System.getProperty("user.dir")+"/Video/" + _numbers.get(_currentQuestion) + ".jpg");
 		setImage(file);
@@ -186,6 +212,7 @@ public class LessThanTenController {
 	public void handleNextQuestion(){
 		setQuestion();
 	}
+	
 	@FXML
 	public void handleMainMenu(){
 		_mainApp.mainMenuContents();
@@ -203,6 +230,7 @@ public class LessThanTenController {
 //		_root.getChildren().add(line);
 //	}
 	public void setLevel(Level level){
+		_level = level;
 		_generator.setLevel(level);
 		_numbers = _generator.getNumbers();
 		_mainMenuBottom.setVisible(false);

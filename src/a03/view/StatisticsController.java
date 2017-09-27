@@ -6,12 +6,13 @@ import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import a03.GameStats;
 import a03.MainApp;
 import javafx.event.ActionEvent;
 
 import javafx.scene.control.Label;
 
-public class StatisticsController implements Initializable{
+public class StatisticsController{
 	@FXML private Label _easyHoursPlayed;
 	@FXML private Label _easyTopScore;
 	@FXML private Label _EasyLowestScore;
@@ -32,18 +33,19 @@ public class StatisticsController implements Initializable{
 		_mainApp = mainApp;
 	}
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		setScores();
-	}
+//	@Override
+//	public void initialize(URL location, ResourceBundle resources) {
+//		setScores();
+//	}
+	
 	public void setScores(){
-//		_easyHoursPlayed;
-//		_easyTopScore;
-//		_EasyLowestScore;
-//		_easyAverageScore;
-//		_hardHoursPlayed;
-//		_hardTopScore;
-//		_hardLowestScore;
-//		_hardAverageScore;
+		_easyTopScore.setText(GameStats.getGameStats().getEasyHighestScore().toString());
+		_easyHoursPlayed.setText(GameStats.getGameStats().getTimePlayed().toString());
+		_EasyLowestScore.setText(GameStats.getGameStats().getEasyLowestScore().toString());;
+		_easyAverageScore.setText("" + GameStats.getGameStats().getAverageEasyScore());
+		_hardHoursPlayed.setText(GameStats.getGameStats().getTimePlayed().toString());
+		_hardTopScore.setText(GameStats.getGameStats().getHardHighestScore().toString());
+		_hardLowestScore.setText(GameStats.getGameStats().getHardLowestScore().toString());
+		_hardAverageScore.setText("" + GameStats.getGameStats().getAverageHardScore());
 	}
 }
