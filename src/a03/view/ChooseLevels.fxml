@@ -7,9 +7,9 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a03.view.ChooseLevelsController">
    <children>
-      <Button layoutX="38.0" layoutY="39.0" mnemonicParsing="false" onAction="#handleBack" text="&lt; Main Menu" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="30.0">
+      <Button layoutX="38.0" layoutY="39.0" mnemonicParsing="false" onAction="#handleBack" text="&lt; Main Menu" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
          <font>
-            <Font name="Purisa Bold" size="19.0" />
+            <Font name="Purisa Bold" size="13.0" />
          </font>
       </Button>
       <Button layoutX="217.0" layoutY="241.0" mnemonicParsing="false" onAction="#handleEasySelection" text="Easy">
