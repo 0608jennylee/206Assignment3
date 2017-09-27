@@ -30,7 +30,10 @@ hs_err_pid*
 
 # End of https://www.gitignore.io/api/java
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2b3078f982345472bd28ec08c9457c1c3a9d55b9
 # Created by https://www.gitignore.io/api/eclipse
 
 ### Eclipse ###
