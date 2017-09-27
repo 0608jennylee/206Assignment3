@@ -3,5 +3,9 @@
 	<classpathentry excluding="a03/view/StartController.java" kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
+<<<<<<< HEAD
+=======
+	<classpathentry kind="lib" path="/home/se206/Downloads/opt/SceneBuilder/runtime/lib/ext/jfxrt.jar"/>
+>>>>>>> bebdcf95d149d4949d4642496fce7d81af8d2a9c
 	<classpathentry kind="output" path="bin"/>
 </classpath>
