@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+<<<<<<< HEAD
 	<classpathentry excluding="a03/view/StartController.java" kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+=======
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="/home/jenny/Documents/usr/java/jdk1.8.0_144/jre/lib/ext/jfxrt.jar"/>
+>>>>>>> bb9730b3838bf969eb06ddce4fc5e7e8b9db41bf
 	<classpathentry kind="output" path="bin"/>
 </classpath>

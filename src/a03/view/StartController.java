@@ -13,10 +13,10 @@ public class StartController {
 	@FXML
 	public void handleStart(ActionEvent event) {
 		if (_level==Level.EASY){
-			//_mainApp.easyLevel();
+			_mainApp.Level(_level);
 			
 		}else if (_level==Level.HARD){
-			_mainApp.hardLevel();
+			_mainApp.Level(_level);
 		}
 	}
 
