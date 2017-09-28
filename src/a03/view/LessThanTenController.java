@@ -49,9 +49,9 @@ public class LessThanTenController {
 	private boolean _secondTry = false;
 	private boolean _tryAgainPressed=true;
 	private MediaPlayer mp;
-
-	//	private int _incorrectAnswers;
-	private int _correctAnswers;
+	
+//	private int _incorrectAnswers;
+	private int _correctAnswers = 0;
 	private Generator _generator;
 	private Level _level;
 	@FXML private Button _nextLevel;
