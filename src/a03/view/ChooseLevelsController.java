@@ -18,12 +18,12 @@ public class ChooseLevelsController {
 	// Event Listener on Button.onAction
 	@FXML
 	public void handleEasySelection(ActionEvent event) {
-		_mainApp.Level(Level.EASY);
+		_mainApp.Start(Level.EASY);
 	}
 	// Event Listener on Button.onAction
 	@FXML
 	public void handleHardSelection(ActionEvent event) {
-		_mainApp.Level(Level.HARD);
+		_mainApp.Start(Level.HARD);
 	}
 	// Event Listener on Button.onAction
 	@FXML
