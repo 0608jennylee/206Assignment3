@@ -11,6 +11,10 @@ import a03.HTKError;
 import a03.Number;
 
 public class Processor {
+	private final int LESSTHAN10 = 1;
+	private final int LESSTHAN19 = 3;
+	private final int MULTIPLEOFTEN = 2;
+	private final int LENGTHOFOTHERS = 4;
 	
 	public static String toMaori(int num) {
 		String[] maoriName = new String[4];
@@ -85,7 +89,11 @@ public class Processor {
 	
 	public boolean processAnswer(int num) throws HTKError {
 		String line = getUserAnswer();
+		System.out.println(line);
 		String[] words = line.split(" ");
+		for(String i : words) {
+			System.out.println(i);
+		}
 		if(num <= 10) {
 			for(Number i : Number.values()) {
 				if(num == i.getNumber() && i.getMaoriName().equals(line) && words.length == 1) {
@@ -97,11 +105,11 @@ public class Processor {
 			String[] maoriName;
 			String temp = toMaori(num);
 			maoriName = temp.split(" ");
-			if(words.length != 3) {
+			if(words.length != maoriName.length) {
 				return false;
 			}else {
-				for(int i = 0; i < 3; i++) {
-					if(!maoriName[i].equals(line)) {
+				for(int i = 0; i < maoriName.length; i++) {
+					if(!maoriName[i].equals(words[i])) {
 						return false;
 					}
 				}
