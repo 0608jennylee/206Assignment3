@@ -49,8 +49,8 @@ public class LessThanTenController {
 	private boolean _secondTry = false;
 	private boolean _tryAgainPressed=true;
 	private MediaPlayer mp;
-	
-//	private int _incorrectAnswers;
+
+	//	private int _incorrectAnswers;
 	private int _correctAnswers;
 	private Generator _generator;
 	private Level _level;
@@ -58,22 +58,25 @@ public class LessThanTenController {
 	private String _display;
 	public LessThanTenController() {
 		_generator = new Generator();
-//		_numbers = eg.getNumbers();
+		//		_numbers = eg.getNumbers();
 	}
 
-//	// Event Listener on Button.onAction
-//	@FXML
-//	public void handleBack(ActionEvent event) {
-//		_mainApp.mainMenuContents();
-//	}
+	//	// Event Listener on Button.onAction
+	//	@FXML
+	//	public void handleBack(ActionEvent event) {
+	//		_mainApp.mainMenuContents();
+	//	}
 
 	// Event Listener on Button[#_record].onAction
 	@FXML
 	public void handleRecord(ActionEvent event) {
-		if (_secondTry&&_tryAgainPressed){
+		if (_secondTry&&_tryAgainPressed||_failed){
 			setQuestion();
-			_tryAgainPressed=false;
+			if(!_failed) {
+				_tryAgainPressed=false;
+			}
 			_record.setText("Record");
+			_failed=false;
 		}else{
 			Task<Void> record = new Task<Void>() { 
 				@Override
@@ -106,11 +109,11 @@ public class LessThanTenController {
 			recordThread.start();
 		}
 	}
-	
-//	private void failed(WorkerStateEvent e) {
-//		System.out.println("failed");
-//	}
-	
+
+	//	private void failed(WorkerStateEvent e) {
+	//		System.out.println("failed");
+	//	}
+
 	public void playBack(WorkerStateEvent e) {
 		System.out.println("playback entered");
 		String filepath = _numbers.get(_currentQuestion) + ".wav";
@@ -126,10 +129,13 @@ public class LessThanTenController {
 	public void check(){
 		_record.setDisable(false);
 		if (_failed){
+			//			_secondTry=true;
+			//			_tryAgainPressed=true;
 			System.out.println("failed");
 			_sorry.setVisible(true);
 			_weMuckedUp.setVisible(true);
 			_tryAgain.setVisible(true);
+			_record.setText("Try Again");
 			File file = new File(System.getProperty("user.dir")+"/Fail/1.jpg");
 			//_text.setVisible(true);
 			setImage(file);
@@ -147,7 +153,7 @@ public class LessThanTenController {
 			_secondTry = false;
 			_record.setText("Record");
 			_correctAnswers++;
-			
+
 		}else{
 			File file = new File(System.getProperty("user.dir")+"/Incorrect/" + _numbers.get(_currentQuestion) + ".jpg");
 			setImage(file);
@@ -160,7 +166,7 @@ public class LessThanTenController {
 				_record.setDisable(true);
 				_record.setText("Record");
 				if(_currentQuestion != 10) {
-				_nextQuestion.setVisible(true);
+					_nextQuestion.setVisible(true);
 				}
 				_tryAgainPressed=false;
 			}else{
@@ -184,7 +190,7 @@ public class LessThanTenController {
 		GameStats.getGameStats().update(_level, _correctAnswers);
 		if (_correctAnswers>=8){
 			_mainMenuTop.setVisible(true);
-//			_mainMenuBottom.setVisible(true);
+			//			_mainMenuBottom.setVisible(true);
 			_nextLevel.setVisible(true);
 		}
 		_theirAnswer.setText("");
@@ -221,12 +227,12 @@ public class LessThanTenController {
 		Image image = new Image(file.toURI().toString());
 		_imageView.setImage(image);
 	}
-	
+
 	@FXML 
 	public void handleNextQuestion(){
 		setQuestion();
 	}
-	
+
 	@FXML
 	public void handleMainMenu(){
 		_mainApp.mainMenuContents();
