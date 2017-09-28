@@ -165,6 +165,7 @@ public class MainApp extends Application {
 	}
 
 	public void exit() {
+		Settings.getSettings().save();
 		Platform.exit();
 	}
 
