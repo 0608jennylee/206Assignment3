@@ -23,61 +23,70 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-
+/**
+ * this controller, controls the scene for displaying the level
+ * @author edwar jenny
+ *
+ */
 public class LessThanTenController {
 
 	@FXML private ImageView _imageView;
+	@FXML private ImageView _score;
 	@FXML private Button _record;
 	@FXML private Button _nextQuestion;
 	@FXML private Button _mainMenuTop;
 	@FXML private Button _mainMenuBottom;
-	@FXML private Label _text;
-	@FXML private ImageView _score;
+	@FXML private Button _nextLevel;
 	@FXML private Label _theCorrectAnswer;
 	@FXML private Label _theirAnswer;
+	//@FXML private Label _text;
 	@FXML private Label _text1;
 	@FXML private Label _text2;
 	@FXML private Label _title;
 	@FXML private Label _sorry;
 	@FXML private Label _weMuckedUp;
 	@FXML private Label _tryAgain;
-	private MainApp _mainApp;
-	private List<Integer> _numbers;
+
 	private boolean _correct=true;
 	private boolean _failed=false;
-	private int _currentQuestion = 0;
 	private boolean _secondTry = false;
 	private boolean _tryAgainPressed=true;
-	private MediaPlayer mp;
-	
-//	private int _incorrectAnswers;
+	private int _currentQuestion = 0;
 	private int _correctAnswers = 0;
-	private Generator _generator;
+
+	private MainApp _mainApp;
+	private List<Integer> _numbers;
 	private Level _level;
-	@FXML private Button _nextLevel;
 	private String _display;
+	private MediaPlayer mp;
+	private Generator _generator;
+
+	/**
+	 * constructor for the controller and generates a new generator instance 
+	 * for the current instance of lessThanTenController
+	 */
 	public LessThanTenController() {
 		_generator = new Generator();
-		//		_numbers = eg.getNumbers();
 	}
 
-	//	// Event Listener on Button.onAction
-	//	@FXML
-	//	public void handleBack(ActionEvent event) {
-	//		_mainApp.mainMenuContents();
-	//	}
 
+	/**
+	 * when the record button is clicked, the recording starts in a background 
+	 * thread, and changes correct based on whether they are wrong or correct
+	 * @param event
+	 */
 	// Event Listener on Button[#_record].onAction
 	@FXML
 	public void handleRecord(ActionEvent event) {
-		if (_secondTry&&_tryAgainPressed||_failed){
+		if (_secondTry&&_tryAgainPressed||_failed){ //if it fails or is the second try for the user
 			setQuestion();
+			//if its failed will change the tryAgainPressed to false
 			if(!_failed) {
 				_tryAgainPressed=false;
 			}
 			_record.setText("Record");
 			_failed=false;
-		}else{
+		}else{//recording
 			Task<Void> record = new Task<Void>() { 
 				@Override
 				protected Void call() throws Exception {
@@ -110,10 +119,10 @@ public class LessThanTenController {
 		}
 	}
 
-	//	private void failed(WorkerStateEvent e) {
-	//		System.out.println("failed");
-	//	}
-
+	/**
+	 * playsback the recording to the user
+	 * @param e
+	 */
 	public void playBack(WorkerStateEvent e) {
 		System.out.println("playback entered");
 		String filepath = _numbers.get(_currentQuestion) + ".wav";
@@ -125,12 +134,16 @@ public class LessThanTenController {
 		mp.play();
 		System.out.println("Play");
 	}
+	
+	/**
+	 * checks whether the HTK failed to recognize anything, the user got the 
+	 * correct or incorrect answer, then displays the corresponding result to 
+	 * the user
+	 */
 
 	public void check(){
 		_record.setDisable(false);
-		if (_failed){
-			//			_secondTry=true;
-			//			_tryAgainPressed=true;
+		if (_failed){//HTK failed
 			System.out.println("failed");
 			_sorry.setVisible(true);
 			_weMuckedUp.setVisible(true);
@@ -139,7 +152,7 @@ public class LessThanTenController {
 			File file = new File(System.getProperty("user.dir")+"/Fail/1.jpg");
 			//_text.setVisible(true);
 			setImage(file);
-		}else if(_correct){
+		}else if(_correct){//user gets correct answer
 			System.out.println("Broken");
 			File file = new File(System.getProperty("user.dir")+"/Correct/" + _numbers.get(_currentQuestion) + ".jpg");
 			setImage(file);
@@ -154,11 +167,11 @@ public class LessThanTenController {
 			_record.setText("Record");
 			_correctAnswers++;
 
-		}else{
+		}else{//user gets incorrect answer
 			File file = new File(System.getProperty("user.dir")+"/Incorrect/" + _numbers.get(_currentQuestion) + ".jpg");
 			setImage(file);
 			System.out.println("you said this");
-			if (_secondTry){
+			if (_secondTry){//user gets the answer incorrect the second time
 				_theCorrectAnswer.setText((Processor.toMaori(_numbers.get(_currentQuestion))));
 				_theirAnswer.setText(Processor.getUserAnswer());
 				_secondTry = false;
@@ -169,7 +182,7 @@ public class LessThanTenController {
 					_nextQuestion.setVisible(true);
 				}
 				_tryAgainPressed=false;
-			}else{
+			}else{//user gets the answer incorrect the first time
 				_secondTry = true;
 				_theirAnswer.setText(Processor.getUserAnswer());
 				_record.setText("Try Again");
@@ -177,22 +190,27 @@ public class LessThanTenController {
 				_tryAgainPressed=true;
 			}
 		}
-		if (_currentQuestion==10){
+		if (_currentQuestion==10){//the user has answered the all questions for this level
 			displayFinalScore();
 		}
 	}
 
+	/**
+	 * at the end of each game, displays the score, and gives the user 
+	 * the option to go back to main menu play again or go to next level 
+	 * if they are on easy and have passed it
+	 */
 	private void displayFinalScore() {
 		_title.setVisible(false);
-		if(_correctAnswers >= 8) {
+		if(_correctAnswers >= 8&&_level==Level.EASY) {
 			Settings.getSettings().enableHard();
-		}
-		GameStats.getGameStats().update(_level, _correctAnswers);
-		if (_correctAnswers>=8){
 			_mainMenuTop.setVisible(true);
-			//			_mainMenuBottom.setVisible(true);
+			_nextLevel.setVisible(true);
+		}else {
+			_nextLevel.setText("Play Again");
 			_nextLevel.setVisible(true);
 		}
+		GameStats.getGameStats().update(_level, _correctAnswers);
 		_theirAnswer.setText("");
 		_theCorrectAnswer.setText("");
 		_text1.setText("");
@@ -205,10 +223,61 @@ public class LessThanTenController {
 		setImage(file);
 	}
 
-	public void setMainApp(MainApp mainApp) {
-		_mainApp = mainApp;
+	/**
+	 * when the next question button is clicked notifies the stage 
+	 * to switch scenes to the level that will be played
+	 * @param event
+	 */
+	@FXML 
+	public void handleNextQuestion(){
+		setQuestion();
 	}
 
+	/**
+	 * when the mainmenu button is clicked notifies the stage 
+	 * to switch scenes back to the main menu
+	 * @param event
+	 */
+	@FXML
+	public void handleMainMenu(){
+		_mainApp.mainMenuContents();
+	}
+
+	/**
+	 * when the next level button is clicked at the end of the level 
+	 * notifies the stage to switch scenes to start to create a new instance 
+	 * of the level
+	 * @param event
+	 */
+	@FXML
+	public void handleNextLevel(){
+		if (_level==Level.HARD||(_level==Level.EASY&&_correctAnswers>=8)) {
+			_mainApp.Start(Level.HARD);
+		}else {
+			_mainApp.Start(_level);
+		}
+	}
+	
+	/**
+	 * sets the level of the current scene
+	 * @param level
+	 */
+	public void setLevel(Level level){
+		if (level==Level.HARD){
+			_display = "HARD ";
+		}else{
+			_display = "EASY ";
+		}
+		_level = level;
+		_generator.setLevel(level);
+		_numbers = _generator.getNumbers();
+		_mainMenuBottom.setVisible(false);
+		_mainMenuTop.setVisible(true);
+	}
+	
+	/**
+	 * sets the question of the current scene
+	 */
 	public void setQuestion(){
 		_sorry.setVisible(false);
 		_weMuckedUp.setVisible(false);
@@ -221,36 +290,23 @@ public class LessThanTenController {
 		_record.setDisable(false);
 	}
 
+	/**
+	 * sets the image to be diaplyed
+	 * @param file the name of the directory of the image file
+	 */
 	private void setImage(File file){
 		int display = _currentQuestion+1;
 		_title.setText(_display +"Question: "+display);
 		Image image = new Image(file.toURI().toString());
 		_imageView.setImage(image);
 	}
-
-	@FXML 
-	public void handleNextQuestion(){
-		setQuestion();
-	}
-
-	@FXML
-	public void handleMainMenu(){
-		_mainApp.mainMenuContents();
-	}
-
-	public void setLevel(Level level){
-		if (level==level.HARD){
-			_display = "HARD ";
-		}else{
-			_display = "EASY ";
-		}
-		_level = level;
-		_generator.setLevel(level);
-		_numbers = _generator.getNumbers();
-		_mainMenuBottom.setVisible(false);
-		_mainMenuTop.setVisible(true);
-	}
-	public void handleNextLevel(){
-		_mainApp.Level(Level.HARD);
+	
+	/**
+	 * sets the mainApp for the controller in order for the 
+	 * controller know where to notify the events on the 
+	 * start stage
+	 * @param mainApp the mainApp that the scene is staged on
+	 */public void setMainApp(MainApp mainApp) {
+		_mainApp = mainApp;
 	}
 }
