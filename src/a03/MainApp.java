@@ -27,10 +27,15 @@ public class MainApp extends Application {
 	 */
 	public MainApp() {
 	}
-
+	
+	/**
+	 * sets the stage of the app
+	 */
 	@Override
 	public void start(Stage primaryStage) {
+		//sets the primary stage as the stage the app is running on
 		_primaryStage = primaryStage;
+		//sets the title
 		_primaryStage.setTitle("Tatai");
 		//_primaryStage.initStyle(StageStyle.UNDECORATED);
 		GameStats.getGameStats().updateDiscrete(Stats.APPSTARTTIME.toString(), new Integer((int) (System.currentTimeMillis() / (1000 * 60))));
@@ -38,7 +43,7 @@ public class MainApp extends Application {
 	}
 
 	/**
-	 * Shows the main menu inside the root layout.
+	 * Shows the main menu scene on the stage
 	 */
 	public void mainMenuContents() {
 		try {
@@ -46,7 +51,7 @@ public class MainApp extends Application {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/MainMenuContents.fxml"));
 			AnchorPane mainMenu = (AnchorPane) loader.load();
-			//main menu into the centre of root layout.
+			//load main menu scene on primary stage
 			Scene scene = new Scene(mainMenu);
 			_primaryStage.setScene(scene);
 			_primaryStage.show();
@@ -59,13 +64,17 @@ public class MainApp extends Application {
 		}
 	}
 
+	/**
+	 * shows the level scene on the stage, this is the scene where the game happens
+	 * @param level the level chosen by the user
+	 */
 	public void Level(Level level) {
 		try {
-			//Load main menu 
+			//Load level 
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/LessThanTen.fxml"));
 			AnchorPane lessThanTen = (AnchorPane) loader.load();
-			//main menu into the centre of root layout.
+			//load level scene on primary stage
 			Scene scene = new Scene(lessThanTen);
 			_primaryStage.setScene(scene);
 			_primaryStage.show();
@@ -74,20 +83,23 @@ public class MainApp extends Application {
 			controller.setMainApp(this);
 			controller.setLevel(level);
 			controller.setQuestion();
-			//			controller.setRoot(lessThanTen);
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * shows the how to play scene on the stage, displays a set of images that 
+	 * demonstrate how the game is played
+	 */
 	public void howToPlay() {
 		try {
-			//Load main menu 
+			//Load how to play 
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/HowToPlay.fxml"));
 			AnchorPane howToPlay = (AnchorPane) loader.load();
-			//main menu into the centre of root layout.
+			//mload how to play on primary stage
 			Scene scene = new Scene(howToPlay);
 			_primaryStage.setScene(scene);
 			_primaryStage.show();
@@ -100,13 +112,16 @@ public class MainApp extends Application {
 		}
 	}
 
+	/**
+	 * shows the start scene on the stage
+	 */
 	public void Start(Level level) {
 		try {
-			//Load main menu 
+			//Load start
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/Start.fxml"));
 			AnchorPane start = (AnchorPane) loader.load();
-			//main menu into the centre of root layout.
+			//load start scene on primary stage
 			Scene scene = new Scene(start);
 			_primaryStage.setScene(scene);
 			_primaryStage.show();
@@ -120,13 +135,16 @@ public class MainApp extends Application {
 		}
 	}
 
+	/**
+	 * shpws the choose level scene on the stage
+	 */
 	public void chooseLevels() {
 		try {
-			//Load main menu 
+			//Load choose level
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/ChooseLevels.fxml"));
 			AnchorPane chooseLevels = (AnchorPane) loader.load();
-			//main menu into the centre of root layout.
+			//load choose level scene on primary stage
 			Scene scene = new Scene(chooseLevels);
 			_primaryStage.setScene(scene);
 			_primaryStage.show();
@@ -142,13 +160,16 @@ public class MainApp extends Application {
 		}
 	}
 
+	/**
+	 * shows the statistics scene on the stage
+	 */
 	public void Statistics() {
 		try {
-			//Load main menu 
+			//Load statistics 
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/Statistics.fxml"));
 			BorderPane statistics = (BorderPane) loader.load();
-			//main menu into the centre of root layout.
+			//load statistics scene on the primary stage
 			Scene scene = new Scene(statistics);
 			_primaryStage.setScene(scene);
 			_primaryStage.show();
@@ -165,6 +186,9 @@ public class MainApp extends Application {
 		}
 	}
 
+	/**
+	 * closes the app and saves the settings
+	 */
 	public void exit() {
 		Settings.getSettings().save();
 		Platform.exit();
@@ -177,6 +201,10 @@ public class MainApp extends Application {
 		return _primaryStage;
 	}
 
+	/**
+	 * main to run the app
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}
