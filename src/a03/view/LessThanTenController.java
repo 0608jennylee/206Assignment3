@@ -92,13 +92,10 @@ public class LessThanTenController {
 				protected Void call() throws Exception {
 					_record.setDisable(true);
 					String cmd = "arecord -d 2 -r 22050 -c 1 -i -t wav -f s16_LE " + _numbers.get(_currentQuestion).toString() + ".wav;echo record passed; HVite -H HMMs/hmm15/macros -H HMMs/hmm15/hmmdefs -C user/configLR  -w user/wordNetworkNum -o SWT -l '*' -i recout.mlf -p 0.0 -s 5.0  user/dictionaryD user/tiedList "+ _numbers.get(_currentQuestion).toString() + ".wav; echo processing passed;";
-					System.out.println(cmd);
 					ProcessBuilder pb = new ProcessBuilder("bash", "-c", cmd);
 					try {
 						Process p = pb.start();
-						System.out.println("pre-stuck");
 						p.waitFor();
-						System.out.println("post waitfor");
 						Processor processor = new Processor();
 						if(processor.processAnswer(_numbers.get(_currentQuestion))) {
 							_correct=true;
@@ -124,15 +121,12 @@ public class LessThanTenController {
 	 * @param e
 	 */
 	public void playBack(WorkerStateEvent e) {
-		System.out.println("playback entered");
 		String filepath = _numbers.get(_currentQuestion) + ".wav";
 		Media sound = new Media(new File(filepath).toURI().toString());
 		mp = new MediaPlayer(sound);
-		System.out.println("Media files created properly");
 		mp.setOnEndOfMedia(this::check);
 		mp.setOnError(this::check);
 		mp.play();
-		System.out.println("Play");
 	}
 	
 	/**
@@ -144,7 +138,6 @@ public class LessThanTenController {
 	public void check(){
 		_record.setDisable(false);
 		if (_failed){//HTK failed
-			System.out.println("failed");
 			_sorry.setVisible(true);
 			_weMuckedUp.setVisible(true);
 			_tryAgain.setVisible(true);
@@ -153,7 +146,6 @@ public class LessThanTenController {
 			//_text.setVisible(true);
 			setImage(file);
 		}else if(_correct){//user gets correct answer
-			System.out.println("Broken");
 			File file = new File(System.getProperty("user.dir")+"/Correct/" + _numbers.get(_currentQuestion) + ".jpg");
 			setImage(file);
 			_theCorrectAnswer.setText((Processor.toMaori(_numbers.get(_currentQuestion))));
@@ -170,7 +162,6 @@ public class LessThanTenController {
 		}else{//user gets incorrect answer
 			File file = new File(System.getProperty("user.dir")+"/Incorrect/" + _numbers.get(_currentQuestion) + ".jpg");
 			setImage(file);
-			System.out.println("you said this");
 			if (_secondTry){//user gets the answer incorrect the second time
 				_theCorrectAnswer.setText((Processor.toMaori(_numbers.get(_currentQuestion))));
 				_theirAnswer.setText(Processor.getUserAnswer());
@@ -219,7 +210,6 @@ public class LessThanTenController {
 		_nextQuestion.setVisible(false);
 		_imageView.setTranslateY(150);
 		File file = new File(System.getProperty("user.dir")+"/Result/" + _correctAnswers + ".jpg");
-		System.out.println(file);
 		setImage(file);
 	}
 

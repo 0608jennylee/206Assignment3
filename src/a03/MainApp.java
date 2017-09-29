@@ -177,7 +177,6 @@ public class MainApp extends Application {
 			StatisticsController controller = loader.getController();
 			controller.setMainApp(this);
 			controller.setScores();
-			System.out.println("Statistics run");
 
 		} catch (IOException e) {
 			e.printStackTrace();
