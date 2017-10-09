@@ -1,10 +1,6 @@
 package a03.view;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 import a03.GameStats;
 import a03.MainApp;

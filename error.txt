@@ -1,0 +1,1 @@
+Recording WAVE '5.wav' : Signed 16 bit Little Endian, Rate 22050 Hz, Mono

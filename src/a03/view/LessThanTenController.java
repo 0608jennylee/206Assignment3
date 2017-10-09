@@ -142,11 +142,14 @@ public class LessThanTenController {
 			_weMuckedUp.setVisible(true);
 			_tryAgain.setVisible(true);
 			_record.setText("Try Again");
-			File file = new File(System.getProperty("user.dir")+"/Fail/1.jpg");
+//			File file = new File(System.getProperty("user.dir")+"/Fail/1.jpg");
+			Image file = new Image(getClass().getClassLoader().getResource("Fail/1.jpg").toString());
 			//_text.setVisible(true);
 			setImage(file);
 		}else if(_correct){//user gets correct answer
-			File file = new File(System.getProperty("user.dir")+"/Correct/" + _numbers.get(_currentQuestion) + ".jpg");
+			//File file = new File(System.getProperty("user.dir")+"/Correct/" + _numbers.get(_currentQuestion) + ".jpg");
+//			File file = new File(System.getProperty("user.dir")+"/Correct/" + _numbers.get(_currentQuestion) + ".jpg");
+			Image file = new Image(getClass().getClassLoader().getResource("Correct/" + _numbers.get(_currentQuestion) + ".jpg").toString());
 			setImage(file);
 			_theCorrectAnswer.setText((Processor.toMaori(_numbers.get(_currentQuestion))));
 			_theirAnswer.setText((Processor.getUserAnswer()));
@@ -160,7 +163,8 @@ public class LessThanTenController {
 			_correctAnswers++;
 
 		}else{//user gets incorrect answer
-			File file = new File(System.getProperty("user.dir")+"/Incorrect/" + _numbers.get(_currentQuestion) + ".jpg");
+//			File file = new File(System.getProperty("user.dir")+"/Incorrect/" + _numbers.get(_currentQuestion) + ".jpg");
+			Image file = new Image(getClass().getClassLoader().getResource("Incorrect/" + _numbers.get(_currentQuestion) + ".jpg").toString());
 			setImage(file);
 			if (_secondTry){//user gets the answer incorrect the second time
 				_theCorrectAnswer.setText((Processor.toMaori(_numbers.get(_currentQuestion))));
@@ -209,7 +213,8 @@ public class LessThanTenController {
 		_record.setVisible(false);
 		_nextQuestion.setVisible(false);
 		_imageView.setTranslateY(150);
-		File file = new File(System.getProperty("user.dir")+"/Result/" + _correctAnswers + ".jpg");
+//		File file = new File(System.getProperty("user.dir")+"/Result/" + _correctAnswers + ".jpg");
+		Image file = new Image(getClass().getClassLoader().getResource("Result/" + _correctAnswers + ".jpg").toString());
 		setImage(file);
 	}
 
@@ -275,7 +280,8 @@ public class LessThanTenController {
 		_theirAnswer.setText("");
 		_theCorrectAnswer.setText("");
 		_nextQuestion.setVisible(false);
-		File file = new File(System.getProperty("user.dir")+"/Video/" + _numbers.get(_currentQuestion) + ".jpg");
+		//File file = new File(System.getProperty("user.dir")+"/Video/" + _numbers.get(_currentQuestion) + ".jpg");
+		Image file = new Image(getClass().getClassLoader().getResource("Video/" + _numbers.get(_currentQuestion) + ".jpg").toString());//
 		setImage(file);
 		_record.setDisable(false);
 	}
@@ -284,11 +290,10 @@ public class LessThanTenController {
 	 * sets the image to be diaplyed
 	 * @param file the name of the directory of the image file
 	 */
-	private void setImage(File file){
+	private void setImage(Image file){
 		int display = _currentQuestion+1;
 		_title.setText(_display +"Question: "+display);
-		Image image = new Image(file.toURI().toString());
-		_imageView.setImage(image);
+		_imageView.setImage(file);
 	}
 	
 	/**

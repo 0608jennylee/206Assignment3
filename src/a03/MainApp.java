@@ -37,7 +37,8 @@ public class MainApp extends Application {
 		_primaryStage = primaryStage;
 		//sets the title
 		_primaryStage.setTitle("Tatai");
-		//_primaryStage.initStyle(StageStyle.UNDECORATED);
+		_primaryStage.setResizable(false);
+//		_primaryStage.initStyle(StageStyle.UNDECORATED);
 		GameStats.getGameStats().updateDiscrete(Stats.APPSTARTTIME.toString(), new Integer((int) (System.currentTimeMillis() / (1000 * 60))));
 		mainMenuContents();
 	}
