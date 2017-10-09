@@ -4,5 +4,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
 	<classpathentry kind="lib" path="/home/jenny/Documents/usr/java/jdk1.8.0_144/jre/lib/ext/jfxrt.jar"/>
+	<classpathentry kind="lib" path="/home/jenny/Downloads/jfoenix.jar"/>
+	<classpathentry kind="lib" path="/home/jenny/ProjectFolder/206Assignment3/Icons"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
