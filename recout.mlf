@@ -1,8 +1,13 @@
 #!MLF!#
+<<<<<<< HEAD
 "*/4.rec"
 sil
 whaa
 ono
+=======
+"*/foo.rec"
+sil
+>>>>>>> a43bbf5d7bd2c9dd67cde51c4152101d86286d66
 rima
 sil
 .
