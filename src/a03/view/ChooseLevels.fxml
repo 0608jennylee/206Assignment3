@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a03.view.ChooseLevelsController">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a03.view.ChooseLevelsController">
    <children>
       <Button layoutX="38.0" layoutY="39.0" mnemonicParsing="false" onAction="#handleBack" text="&lt; Main Menu" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
          <font>

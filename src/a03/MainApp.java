@@ -38,7 +38,9 @@ public class MainApp extends Application {
 		//sets the title
 		_primaryStage.setTitle("Tatai");
 		//_primaryStage.initStyle(StageStyle.UNDECORATED);
-		_primaryStage.setResizable(false);
+//		_primaryStage.setResizable(false);
+		_primaryStage.setMinHeight(500);
+		_primaryStage.setMinWidth(700);
 		GameStats.getGameStats().updateDiscrete(Stats.APPSTARTTIME.toString(), new Integer((int) (System.currentTimeMillis() / (1000 * 60))));
 		mainMenuContents();
 	}
@@ -59,7 +61,7 @@ public class MainApp extends Application {
 			// Give the controller access to the main app.
 			MainMenuContentsController controller = loader.getController();
 			controller.setMainApp(this);
-
+controller.setStage(_primaryStage);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
