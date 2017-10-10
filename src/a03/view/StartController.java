@@ -1,7 +1,16 @@
 package a03.view;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import a03.MainApp;
+
+import java.io.File;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import a03.Level;
 import javafx.event.ActionEvent;
 /**
@@ -9,11 +18,12 @@ import javafx.event.ActionEvent;
  * @author jenny
  *
  */
-public class StartController {
+public class StartController implements Initializable{
 	//fields that are used to switch scenes on the stage
 	private MainApp _mainApp;
 	private Level _level;
-
+	@FXML private Button _back;
+	@FXML private ImageView _imageView;
 	/**
 	 * when the start button is clicked notifies the stage 
 	 * to switch scenes to the level that will be played
@@ -22,11 +32,7 @@ public class StartController {
 	// Event Listener on Button.onAction
 	@FXML
 	public void handleStart(ActionEvent event) {
-		if (_level==Level.EASY){//starts the game with easy level for the scene
 			_mainApp.Level(_level);
-		}else if (_level==Level.HARD){//starts the game with hard level for the scene
-			_mainApp.Level(_level);
-		}
 	}
 
 	/**
@@ -57,5 +63,17 @@ public class StartController {
 	 */
 	public void setMainApp(MainApp mainApp){
 		_mainApp = mainApp;
+	}
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		File file4 = new File(System.getProperty("user.dir")+"/Icons/png/quit.png");
+		Image image4 = new Image(file4.toURI().toString());
+		_back.setGraphic(new ImageView(image4));
+		File file5 = new File(System.getProperty("user.dir")+"/fern.jpg");
+		Image image5 = new Image(file5.toURI().toString());
+		_imageView.setImage(image5);
+		_imageView.setOpacity(0.2);
+		
 	}
 }

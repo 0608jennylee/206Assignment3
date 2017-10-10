@@ -40,7 +40,7 @@ public class MainMenuContentsController implements Initializable {
 	@FXML private JFXButton _trophyButton;
 	@FXML private Button button;
 	@FXML private ImageView _imageView;
-	@FXML private AnchorPane _anchor;
+//	@FXML private AnchorPane _anchor;
 	private Stage _stage;
 	/**
 	 * when the play button is clicked notifies the stage 
@@ -141,7 +141,7 @@ public class MainMenuContentsController implements Initializable {
 		//	                "-fx-max-width: 30px; " +
 		//	                "-fx-max-height: 30px;"
 		//	        );
-		_anchor.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+//		_anchor.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 
 		File file = new File(System.getProperty("user.dir")+"/Icons/png/media-play-4x.png");
 		Image image = new Image(file.toURI().toString());
@@ -159,9 +159,10 @@ public class MainMenuContentsController implements Initializable {
 		File file4 = new File(System.getProperty("user.dir")+"/Icons/icons8-Trophy-48.png");
 		Image image4 = new Image(file4.toURI().toString());
 		_trophyButton.setGraphic(new ImageView(image4));
-		File file5 = new File(System.getProperty("user.dir")+"/koru.jpg");
+		File file5 = new File(System.getProperty("user.dir")+"/fern.jpg");
 		Image image5 = new Image(file5.toURI().toString());
 		_imageView.setImage(image5);
+		_imageView.setOpacity(0.4);
 //				_imageView.setPreserveRatio(true); 
 //				_imageView.fitWidthProperty().bind(_stage.widthProperty()); 
 //				_imageView.fitHeightProperty().bind(_stage.heightProperty());
@@ -169,9 +170,9 @@ public class MainMenuContentsController implements Initializable {
 
 	public void setStage(Stage stage) {
 		_stage=stage;
-		_imageView.setPreserveRatio(true); 
-		_imageView.fitWidthProperty().bind(_stage.widthProperty().divide(2)); 
-		_imageView.fitHeightProperty().bind(_stage.heightProperty().divide(2));
+//		_imageView.setPreserveRatio(true); 
+//		_imageView.fitWidthProperty().bind(_stage.widthProperty().divide(2)); 
+//		_imageView.fitHeightProperty().bind(_stage.heightProperty().divide(2));
 	}
 
 }

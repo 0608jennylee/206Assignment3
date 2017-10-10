@@ -4,7 +4,9 @@ import java.io.File;
 
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import a03.MainApp;
 import a03.Settings;
@@ -17,8 +19,10 @@ import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
@@ -28,24 +32,28 @@ import javafx.scene.media.MediaPlayer;
  * @author edwar jenny
  *
  */
-public class LessThanTenController {
+public class LessThanTenController implements Initializable{
 
 	@FXML private ImageView _imageView;
 	@FXML private ImageView _score;
 	@FXML private Button _record;
+	@FXML private Button _submit;
+	@FXML private Button _playback;
+
 	@FXML private Button _nextQuestion;
-	@FXML private Button _mainMenuTop;
-	@FXML private Button _mainMenuBottom;
+//	@FXML private Button _mainMenuTop;
+//	@FXML private Button _mainMenuBottom;
 	@FXML private Button _nextLevel;
 	@FXML private Label _theCorrectAnswer;
 	@FXML private Label _theirAnswer;
+	@FXML private Label _question;
 	//@FXML private Label _text;
 	@FXML private Label _text1;
 	@FXML private Label _text2;
 	@FXML private Label _title;
-	@FXML private Label _sorry;
-	@FXML private Label _weMuckedUp;
-	@FXML private Label _tryAgain;
+//	@FXML private Label _sorry;
+//	@FXML private Label _weMuckedUp;
+//	@FXML private Label _tryAgain;
 
 	private boolean _correct=true;
 	private boolean _failed=false;
@@ -60,6 +68,7 @@ public class LessThanTenController {
 	private String _display;
 	private MediaPlayer mp;
 	private Generator _generator;
+	@FXML private Button _back;
 
 	/**
 	 * constructor for the controller and generates a new generator instance 
@@ -84,7 +93,7 @@ public class LessThanTenController {
 			if(!_failed) {
 				_tryAgainPressed=false;
 			}
-			_record.setText("Record");
+			recordButton();
 			_failed=false;
 		}else{//recording
 			Task<Void> record = new Task<Void>() { 
@@ -145,10 +154,10 @@ public class LessThanTenController {
 		_record.setDisable(false);
 		if (_failed){//HTK failed
 			System.out.println("failed");
-			_sorry.setVisible(true);
-			_weMuckedUp.setVisible(true);
-			_tryAgain.setVisible(true);
-			_record.setText("Try Again");
+//			_sorry.setVisible(true);
+//			_weMuckedUp.setVisible(true);
+//			_tryAgain.setVisible(true);
+			tryAgain();
 			File file = new File(System.getProperty("user.dir")+"/Fail/1.jpg");
 			//_text.setVisible(true);
 			setImage(file);
@@ -164,7 +173,7 @@ public class LessThanTenController {
 				_nextQuestion.setVisible(true);
 			}
 			_secondTry = false;
-			_record.setText("Record");
+			recordButton();
 			_correctAnswers++;
 
 		}else{//user gets incorrect answer
@@ -177,7 +186,7 @@ public class LessThanTenController {
 				_secondTry = false;
 				_currentQuestion++;
 				_record.setDisable(true);
-				_record.setText("Record");
+				recordButton();
 				if(_currentQuestion != 10) {
 					_nextQuestion.setVisible(true);
 				}
@@ -185,7 +194,7 @@ public class LessThanTenController {
 			}else{//user gets the answer incorrect the first time
 				_secondTry = true;
 				_theirAnswer.setText(Processor.getUserAnswer());
-				_record.setText("Try Again");
+				tryAgain();
 				_record.setDisable(false);
 				_tryAgainPressed=true;
 			}
@@ -198,13 +207,13 @@ public class LessThanTenController {
 	/**
 	 * at the end of each game, displays the score, and gives the user 
 	 * the option to go back to main menu play again or go to next level 
-	 * if they are on easy and have passed it
+	 * if they are on easy and have passed i
 	 */
 	private void displayFinalScore() {
 		_title.setVisible(false);
 		if(_correctAnswers >= 8&&_level==Level.EASY) {
 			Settings.getSettings().enableHard();
-			_mainMenuTop.setVisible(true);
+//			_mainMenuTop.setVisible(true);
 			_nextLevel.setVisible(true);
 		}else {
 			_nextLevel.setText("Play Again");
@@ -239,7 +248,7 @@ public class LessThanTenController {
 	 * @param event
 	 */
 	@FXML
-	public void handleMainMenu(){
+	public void handleBack(){
 		_mainApp.mainMenuContents();
 	}
 
@@ -271,17 +280,15 @@ public class LessThanTenController {
 		_level = level;
 		_generator.setLevel(level);
 		_numbers = _generator.getNumbers();
-		_mainMenuBottom.setVisible(false);
-		_mainMenuTop.setVisible(true);
 	}
 	
 	/**
 	 * sets the question of the current scene
 	 */
 	public void setQuestion(){
-		_sorry.setVisible(false);
-		_weMuckedUp.setVisible(false);
-		_tryAgain.setVisible(false);
+//		_sorry.setVisible(false);
+//		_weMuckedUp.setVisible(false);
+//		_tryAgain.setVisible(false);
 		_theirAnswer.setText("");
 		_theCorrectAnswer.setText("");
 		_nextQuestion.setVisible(false);
@@ -297,8 +304,9 @@ public class LessThanTenController {
 	private void setImage(File file){
 		int display = _currentQuestion+1;
 		_title.setText(_display +"Question: "+display);
-		Image image = new Image(file.toURI().toString());
-		_imageView.setImage(image);
+		_question.setText((_numbers.get(_currentQuestion)).toString());
+//		Image image = new Image(file.toURI().toString());
+//		_imageView.setImage(image);
 	}
 	
 	/**
@@ -308,5 +316,47 @@ public class LessThanTenController {
 	 * @param mainApp the mainApp that the scene is staged on
 	 */public void setMainApp(MainApp mainApp) {
 		_mainApp = mainApp;
+	}
+	 @FXML
+	 public void handleSubmit() {
+		// TODO Auto-generated method stub
+	 }
+	 @FXML
+	 public void handlePlayback() {
+		// TODO Auto-generated method stub
+	 }
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		File file4 = new File(System.getProperty("user.dir")+"/Icons/png/quit.png");
+		Image image4 = new Image(file4.toURI().toString());
+		_back.setGraphic(new ImageView(image4));
+		File file = new File(System.getProperty("user.dir")+"/Icons/png/data-transfer-upload-6x.png");
+		Image image = new Image(file.toURI().toString());
+		_submit.setGraphic(new ImageView(image));
+		File file1 = new File(System.getProperty("user.dir")+"/Icons/png/bullhorn-6x.png");
+		Image image1 = new Image(file1.toURI().toString());
+		_playback.setGraphic(new ImageView(image1));
+		recordButton();
+		File file3 = new File(System.getProperty("user.dir")+"/Icons/png/arrow-circle-right-8x.png");
+		Image image3 = new Image(file3.toURI().toString());
+		_nextQuestion.setGraphic(new ImageView(image3));
+		File file5 = new File(System.getProperty("user.dir")+"/fern.jpg");
+		Image image5 = new Image(file5.toURI().toString());
+		_imageView.setImage(image5);
+		_imageView.setOpacity(0.1);
+		
+	}
+	public void tryAgain() {
+		File file3 = new File(System.getProperty("user.dir")+"/Icons/png/reload-6x.png");
+		Image image3 = new Image(file3.toURI().toString());
+		_record.setGraphic(new ImageView(image3));
+		
+	}
+	public void recordButton() {
+		File file3 = new File(System.getProperty("user.dir")+"/Icons/png/microphone-6x.png");
+		Image image3 = new Image(file3.toURI().toString());
+		_record.setGraphic(new ImageView(image3));
+		
 	}
 }
