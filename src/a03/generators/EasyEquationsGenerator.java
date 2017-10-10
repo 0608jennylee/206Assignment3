@@ -1,0 +1,20 @@
+package a03.generators;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import a03.Level;
+
+public class EasyEquationsGenerator extends Generator{
+
+	public EasyEquationsGenerator(Level level) {
+		super(level);
+	}
+
+	@Override
+	public List<String> getNumbers() {
+		List<String> _numbers = new ArrayList<String>();
+		return _numbers;
+	}
+
+}

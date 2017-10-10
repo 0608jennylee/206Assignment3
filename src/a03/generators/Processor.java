@@ -5,12 +5,24 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import a03.HTKError;
 import a03.Number;
 
 public class Processor {
+	public static int toInt(String formula) {
+		if(formula.contains("+")) {
+			return Integer.parseInt(formula.split(" ")[0]) + Integer.parseInt(formula.split(" ")[2]);
+		}else if(formula.contains("-")) {
+			return Integer.parseInt(formula.split(" ")[0]) - Integer.parseInt(formula.split(" ")[2]);
+		}else {
+			return Integer.parseInt(formula);
+		}
+	}
 	
 	public static String toMaori(int num) {
 		String[] maoriName = new String[4];
@@ -22,7 +34,7 @@ public class Processor {
 			}
 		}else if(num <= 19) {
 			maoriName[0] = "tekau";
-			maoriName[1] = "maa";
+			maoriName[1] = "mā";
 			for(Number i : Number.values()) {
 				if(i.getNumber() == num % 10) {
 					maoriName[2] = i.getMaoriName();
@@ -44,7 +56,7 @@ public class Processor {
 					maoriName[0] = i.getMaoriName();
 				}
 			}
-			maoriName[2] = "maa";
+			maoriName[2] = "mā";
 			for(Number i: Number.values()) {
 				if(num % 10 == i.getNumber()) {
 					maoriName[3] = i.getMaoriName();
@@ -62,6 +74,11 @@ public class Processor {
 			BufferedReader br = new BufferedReader(new FileReader("recout.mlf"));
 			String answer = null;
 			while((answer = br.readLine()) != null) {
+				if(answer.equals("maa")) {
+					answer = "mā";
+				}else if(answer.equals("whaa")) {
+					answer = "whā";
+				}
 				lines.add(answer);
 			}
 			if(lines.size() != 1){
@@ -83,31 +100,48 @@ public class Processor {
 		return null;
 	}
 	
-	public boolean processAnswer(int num) throws HTKError {
+	
+	public boolean processAnswer(int num) throws HTKError{
 		String line = getUserAnswer();
 		String[] words = line.split(" ");
-		if(num <= 10) {
-			for(Number i : Number.values()) {
-				if(num == i.getNumber() && i.getMaoriName().equals(line) && words.length == 1) {
-					return true;
-				} 
+		LinkedList<String> maoriName = new LinkedList<String>(Arrays.asList(toMaori(num).split(" ")));
+		for(int i = 0; i < words.length; i++) {
+			if(words[i].equals(maoriName.peek())) {
+				maoriName.pop();
 			}
-			return false;
+		}
+		if(maoriName.size() == 0) {
+			return true;
 		}else {
-			String[] maoriName;
-			String temp = toMaori(num);
-			maoriName = temp.split(" ");
-			if(words.length != maoriName.length) {
-				return false;
-			}else {
-				for(int i = 0; i < maoriName.length; i++) {
-					if(!maoriName[i].equals(words[i])) {
-						return false;
-					}
-				}
-				return true;
-			}
-
+			return false;
 		}
-		}
+		
+	}
+//	public boolean processAnswer(int num) throws HTKError {
+//		String line = getUserAnswer();
+//		String[] words = line.split(" ");
+//		if(num <= 10) {
+//			for(Number i : Number.values()) {
+//				if(num == i.getNumber() && i.getMaoriName().equals(line) && words.length == 1) {
+//					return true;
+//				} 
+//			}
+//			return false;
+//		}else {
+//			String[] maoriName;
+//			String temp = toMaori(num);
+//			maoriName = temp.split(" ");
+//			if(words.length != maoriName.length) {
+//				return false;
+//			}else {
+//				for(int i = 0; i < maoriName.length; i++) {
+//					if(!maoriName[i].equals(words[i])) {
+//						return false;
+//					}
+//				}
+//				return true;
+//			}
+//
+//		}
+//		}
 }

@@ -12,9 +12,16 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 import a03.Level;
 
 public class MainApp extends Application {
@@ -34,6 +41,7 @@ public class MainApp extends Application {
 	public void start(Stage primaryStage) {
 		//sets the primary stage as the stage the app is running on
 		_primaryStage = primaryStage;
+		_primaryStage.setOnCloseRequest(this::exit);
 		//sets the title
 		_primaryStage.setTitle("Tatai");
 		_primaryStage.setMinHeight(450);
@@ -186,11 +194,15 @@ public class MainApp extends Application {
 
 		}
 	}
+	
 
 	/**
 	 * closes the app and saves the settings
 	 */
-	public void exit() {
+	public void exit(WindowEvent e) {
+		Alert alert = new Alert(AlertType.CONFIRMATION, "Are you sure you would like to exit the game?", new ButtonType("Save and Quit"), new ButtonType("Quit"), new ButtonType("Stay"));;
+		alert.getDialogPane().setMinWidth(Region.USE_COMPUTED_SIZE);
+		alert.showAndWait();
 		Settings.getSettings().save();
 		Platform.exit();
 	}

@@ -40,7 +40,7 @@ public class ChooseLevelsController implements Initializable{
 	// Event Listener on Button.onAction
 	@FXML
 	public void handleEasySelection(ActionEvent event) {
-		_mainApp.Start(Level.EASY);
+		_mainApp.Start(Level.EASYNUMBERS);
 	}
 
 	/**
@@ -51,7 +51,7 @@ public class ChooseLevelsController implements Initializable{
 	// Event Listener on Button.onAction
 	@FXML
 	public void handleHardSelection(ActionEvent event) {
-		_mainApp.Start(Level.HARD);
+		_mainApp.Start(Level.HARDEQUATIONS);
 	}
 
 	/**

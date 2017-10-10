@@ -77,7 +77,7 @@ public class MainMenuContentsController implements Initializable {
 		_playButton.setGraphic(new ImageView(image));
 		//Image Play = new Image(getClass().getResourceAsStream(System.getProperty("user.dir")+"/Icons/playmini.png"));
 		System.out.print(System.getProperty("user.dir")+"/Icons/playmini.png");
-		_mainApp.exit();
+		_mainApp.exit(null);
 	}
 
 	/**
