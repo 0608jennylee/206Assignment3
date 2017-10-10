@@ -15,7 +15,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import a03.Level;
 
 public class MainApp extends Application {
@@ -27,7 +26,7 @@ public class MainApp extends Application {
 	 */
 	public MainApp() {
 	}
-	
+
 	/**
 	 * sets the stage of the app
 	 */
@@ -37,6 +36,8 @@ public class MainApp extends Application {
 		_primaryStage = primaryStage;
 		//sets the title
 		_primaryStage.setTitle("Tatai");
+		_primaryStage.setMinHeight(450);
+		_primaryStage.setMinWidth(700);
 		_primaryStage.setResizable(false);
 //		_primaryStage.initStyle(StageStyle.UNDECORATED);
 		GameStats.getGameStats().updateDiscrete(Stats.APPSTARTTIME.toString(), new Integer((int) (System.currentTimeMillis() / (1000 * 60))));
@@ -59,7 +60,7 @@ public class MainApp extends Application {
 			// Give the controller access to the main app.
 			MainMenuContentsController controller = loader.getController();
 			controller.setMainApp(this);
-
+			controller.setStage(_primaryStage);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
