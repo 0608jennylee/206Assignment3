@@ -12,6 +12,7 @@ import a03.GameStats;
 import a03.HTKError;
 import a03.Level;
 import a03.generators.Generator;
+import a03.generators.GeneratorFactory;
 import a03.generators.Processor;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
@@ -21,8 +22,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.text.Font;
 /**
  * this controller, controls the scene for displaying the level
  * @author edwar jenny
@@ -30,7 +33,7 @@ import javafx.scene.media.MediaPlayer;
  */
 public class LessThanTenController {
 
-	@FXML private ImageView _imageView;
+//	@FXML private ImageView _imageView;
 	@FXML private ImageView _score;
 	@FXML private Button _record;
 	@FXML private Button _nextQuestion;
@@ -46,6 +49,9 @@ public class LessThanTenController {
 	@FXML private Label _sorry;
 	@FXML private Label _weMuckedUp;
 	@FXML private Label _tryAgain;
+	@FXML private BorderPane _root;
+	@FXML private Label _question;
+	
 
 	private boolean _correct=true;
 	private boolean _failed=false;
@@ -55,20 +61,11 @@ public class LessThanTenController {
 	private int _correctAnswers = 0;
 
 	private MainApp _mainApp;
-	private List<Integer> _numbers;
+	private List<String> _numbers;
 	private Level _level;
 	private String _display;
 	private MediaPlayer mp;
 	private Generator _generator;
-
-	/**
-	 * constructor for the controller and generates a new generator instance 
-	 * for the current instance of lessThanTenController
-	 */
-	public LessThanTenController() {
-		_generator = new Generator();
-	}
-
 
 	/**
 	 * when the record button is clicked, the recording starts in a background 
@@ -91,13 +88,15 @@ public class LessThanTenController {
 				@Override
 				protected Void call() throws Exception {
 					_record.setDisable(true);
-					String cmd = "arecord -d 2 -r 22050 -c 1 -i -t wav -f s16_LE " + _numbers.get(_currentQuestion).toString() + ".wav;echo record passed; HVite -H HMMs/hmm15/macros -H HMMs/hmm15/hmmdefs -C user/configLR  -w user/wordNetworkNum -o SWT -l '*' -i recout.mlf -p 0.0 -s 5.0  user/dictionaryD user/tiedList "+ _numbers.get(_currentQuestion).toString() + ".wav; echo processing passed;";
+					String cmd = "arecord -d 2 -r 22050 -c 1 -i -t wav -f s16_LE " + Processor.toInt(_numbers.get(_currentQuestion)) + ".wav;echo record passed; HVite -H HMMs/hmm15/macros -H HMMs/hmm15/hmmdefs -C user/configLR  -w user/wordNetworkNum -o SWT -l '*' -i recout.mlf -p 0.0 -s 5.0  user/dictionaryD user/tiedList "+ Processor.toInt(_numbers.get(_currentQuestion)) + ".wav; echo processing passed;";
 					ProcessBuilder pb = new ProcessBuilder("bash", "-c", cmd);
 					try {
 						Process p = pb.start();
+						pb.redirectOutput(new File("output.txt"));
 						p.waitFor();
 						Processor processor = new Processor();
-						if(processor.processAnswer(_numbers.get(_currentQuestion))) {
+						System.out.print(Processor.toInt(_numbers.get(_currentQuestion)));
+						if(processor.processAnswer(Processor.toInt(_numbers.get(_currentQuestion)))) {
 							_correct=true;
 						}else {
 							_correct=false;
@@ -121,7 +120,7 @@ public class LessThanTenController {
 	 * @param e
 	 */
 	public void playBack(WorkerStateEvent e) {
-		String filepath = _numbers.get(_currentQuestion) + ".wav";
+		String filepath = Processor.toInt(_numbers.get(_currentQuestion)) + ".wav";
 		Media sound = new Media(new File(filepath).toURI().toString());
 		mp = new MediaPlayer(sound);
 		mp.setOnEndOfMedia(this::check);
@@ -149,9 +148,7 @@ public class LessThanTenController {
 		}else if(_correct){//user gets correct answer
 			//File file = new File(System.getProperty("user.dir")+"/Correct/" + _numbers.get(_currentQuestion) + ".jpg");
 //			File file = new File(System.getProperty("user.dir")+"/Correct/" + _numbers.get(_currentQuestion) + ".jpg");
-			Image file = new Image(getClass().getClassLoader().getResource("Correct/" + _numbers.get(_currentQuestion) + ".jpg").toString());
-			setImage(file);
-			_theCorrectAnswer.setText((Processor.toMaori(_numbers.get(_currentQuestion))));
+			_theCorrectAnswer.setText((Processor.toMaori(Processor.toInt(_numbers.get(_currentQuestion)))));
 			_theirAnswer.setText((Processor.getUserAnswer()));
 			_currentQuestion++;
 			_record.setDisable(true);
@@ -164,10 +161,10 @@ public class LessThanTenController {
 
 		}else{//user gets incorrect answer
 //			File file = new File(System.getProperty("user.dir")+"/Incorrect/" + _numbers.get(_currentQuestion) + ".jpg");
-			Image file = new Image(getClass().getClassLoader().getResource("Incorrect/" + _numbers.get(_currentQuestion) + ".jpg").toString());
-			setImage(file);
+//			Image file = new Image(getClass().getClassLoader().getResource("Incorrect/" + _numbers.get(_currentQuestion) + ".jpg").toString());
+//			setImage(file);
 			if (_secondTry){//user gets the answer incorrect the second time
-				_theCorrectAnswer.setText((Processor.toMaori(_numbers.get(_currentQuestion))));
+				_theCorrectAnswer.setText((Processor.toMaori(Processor.toInt(_numbers.get(_currentQuestion)))));
 				_theirAnswer.setText(Processor.getUserAnswer());
 				_secondTry = false;
 				_currentQuestion++;
@@ -197,7 +194,7 @@ public class LessThanTenController {
 	 */
 	private void displayFinalScore() {
 		_title.setVisible(false);
-		if(_correctAnswers >= 8&&_level==Level.EASY) {
+		if(_correctAnswers >= 8&&_level==Level.EASYNUMBERS) {
 			Settings.getSettings().enableHard();
 			_mainMenuTop.setVisible(true);
 			_nextLevel.setVisible(true);
@@ -212,7 +209,7 @@ public class LessThanTenController {
 		_text2.setText("");
 		_record.setVisible(false);
 		_nextQuestion.setVisible(false);
-		_imageView.setTranslateY(150);
+//		_imageView.setTranslateY(150);
 //		File file = new File(System.getProperty("user.dir")+"/Result/" + _correctAnswers + ".jpg");
 		Image file = new Image(getClass().getClassLoader().getResource("Result/" + _correctAnswers + ".jpg").toString());
 		setImage(file);
@@ -246,8 +243,8 @@ public class LessThanTenController {
 	 */
 	@FXML
 	public void handleNextLevel(){
-		if (_level==Level.HARD||(_level==Level.EASY&&_correctAnswers>=8)) {
-			_mainApp.Start(Level.HARD);
+		if (_level==Level.HARDNUMBERS||(_level==Level.EASYNUMBERS&&_correctAnswers>=8)) {
+			_mainApp.Start(Level.HARDNUMBERS);
 		}else {
 			_mainApp.Start(_level);
 		}
@@ -258,13 +255,14 @@ public class LessThanTenController {
 	 * @param level
 	 */
 	public void setLevel(Level level){
-		if (level==Level.HARD){
+		if (level==Level.HARDNUMBERS){
 			_display = "HARD ";
 		}else{
 			_display = "EASY ";
 		}
 		_level = level;
-		_generator.setLevel(level);
+		GeneratorFactory gf = new GeneratorFactory();
+		_generator = gf.getGenerator(_level);
 		_numbers = _generator.getNumbers();
 		_mainMenuBottom.setVisible(false);
 		_mainMenuTop.setVisible(true);
@@ -280,9 +278,11 @@ public class LessThanTenController {
 		_theirAnswer.setText("");
 		_theCorrectAnswer.setText("");
 		_nextQuestion.setVisible(false);
+		_question.setFont(new Font("Ubuntu",50));
+		_question.setText(_numbers.get(_currentQuestion));
 		//File file = new File(System.getProperty("user.dir")+"/Video/" + _numbers.get(_currentQuestion) + ".jpg");
-		Image file = new Image(getClass().getClassLoader().getResource("Video/" + _numbers.get(_currentQuestion) + ".jpg").toString());//
-		setImage(file);
+//		Image file = new Image(getClass().getClassLoader().getResource("Video/" + _numbers.get(_currentQuestion) + ".jpg").toString());//
+//		setImage(file);
 		_record.setDisable(false);
 	}
 
@@ -293,7 +293,8 @@ public class LessThanTenController {
 	private void setImage(Image file){
 		int display = _currentQuestion+1;
 		_title.setText(_display +"Question: "+display);
-		_imageView.setImage(file);
+		
+//		_imageView.setImage(file);
 	}
 	
 	/**

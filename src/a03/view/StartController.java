@@ -22,11 +22,11 @@ public class StartController {
 	// Event Listener on Button.onAction
 	@FXML
 	public void handleStart(ActionEvent event) {
-		if (_level==Level.EASY){//starts the game with easy level for the scene
+//		if (_level==Level.EASYNUMBERS){//starts the game with easy level for the scene
 			_mainApp.Level(_level);
-		}else if (_level==Level.HARD){//starts the game with hard level for the scene
-			_mainApp.Level(_level);
-		}
+//		}else if (_level==Level.HARDNUMBERS){//starts the game with hard level for the scene
+//			_mainApp.Level(_level);
+//		}
 	}
 
 	/**

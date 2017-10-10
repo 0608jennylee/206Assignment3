@@ -1,7 +1,7 @@
 package a03;
 
 public enum Level {
-	EASY(9), HARD(99);
+	EASYNUMBERS(9), HARDNUMBERS(99), EASYEQUATIONS(9), HARDEQUATIONS(99);
 	
 	private final int _range;
 	
