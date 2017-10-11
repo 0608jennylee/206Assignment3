@@ -13,6 +13,7 @@ import a03.Settings;
 import a03.GameStats;
 import a03.HTKError;
 import a03.Level;
+import a03.Difficulty;
 import a03.generators.Generator;
 import a03.generators.Processor;
 import javafx.concurrent.Task;
@@ -69,6 +70,7 @@ public class LessThanTenController implements Initializable{
 	private MediaPlayer mp;
 	private Generator _generator;
 	@FXML private Button _back;
+	private Difficulty _difficulty;
 
 	/**
 	 * constructor for the controller and generates a new generator instance 
@@ -211,7 +213,7 @@ public class LessThanTenController implements Initializable{
 	 */
 	private void displayFinalScore() {
 		_title.setVisible(false);
-		if(_correctAnswers >= 8&&_level==Level.EASY) {
+		if(_correctAnswers >= 8&&_difficulty==Difficulty.EASY) {
 			Settings.getSettings().enableHard();
 //			_mainMenuTop.setVisible(true);
 			_nextLevel.setVisible(true);
@@ -219,7 +221,7 @@ public class LessThanTenController implements Initializable{
 			_nextLevel.setText("Play Again");
 			_nextLevel.setVisible(true);
 		}
-		GameStats.getGameStats().update(_level, _correctAnswers);
+		GameStats.getGameStats().update(_difficulty,_level, _correctAnswers);
 		_theirAnswer.setText("");
 		_theCorrectAnswer.setText("");
 		_text1.setText("");
@@ -260,10 +262,10 @@ public class LessThanTenController implements Initializable{
 	 */
 	@FXML
 	public void handleNextLevel(){
-		if (_level==Level.HARD||(_level==Level.EASY&&_correctAnswers>=8)) {
-			_mainApp.Start(Level.HARD);
+		if (_difficulty==Difficulty.HARD||(_difficulty==Difficulty.EASY&&_correctAnswers>=8)) {
+			_mainApp.Start(_level, Difficulty.HARD);
 		}else {
-			_mainApp.Start(_level);
+			_mainApp.Start(_level, _difficulty);
 		}
 	}
 	
@@ -271,14 +273,14 @@ public class LessThanTenController implements Initializable{
 	 * sets the level of the current scene
 	 * @param level
 	 */
-	public void setLevel(Level level){
-		if (level==Level.HARD){
+	public void setDifficulty(Difficulty difficulty){
+		if (difficulty==Difficulty.HARD){
 			_display = "HARD ";
 		}else{
 			_display = "EASY ";
 		}
-		_level = level;
-		_generator.setLevel(level);
+		_difficulty = difficulty;
+		_generator.setLevel(difficulty);
 		_numbers = _generator.getNumbers();
 	}
 	
@@ -357,6 +359,12 @@ public class LessThanTenController implements Initializable{
 		File file3 = new File(System.getProperty("user.dir")+"/Icons/png/microphone-6x.png");
 		Image image3 = new Image(file3.toURI().toString());
 		_record.setGraphic(new ImageView(image3));
+		
+	}
+
+
+	public void setLevel(Level level) {
+		_level=level;
 		
 	}
 }

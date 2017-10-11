@@ -20,7 +20,7 @@
             <HBox fx:id="_buttonBar" alignment="TOP_CENTER" layoutX="103.0" layoutY="10.0" prefHeight="472.0" prefWidth="420.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <JFXButton fx:id="_playButton" onAction="#handlePlay" prefHeight="54.0" prefWidth="89.0" ripplerFill="#827c7c00" style="-fx-border-radius: 30;" />
-                  <JFXButton fx:id="_statisticsButton" buttonType="RAISED" onAction="#handleStatistics" prefHeight="54.0" prefWidth="89.0" ripplerFill="#837c7cc2" style="-fx-border-radius: 30;" />
+                  <JFXButton fx:id="_statisticsButton" buttonType="RAISED" onAction="#handleCharts" prefHeight="54.0" prefWidth="89.0" ripplerFill="#837c7cc2" style="-fx-border-radius: 30;" />
                   <JFXButton fx:id="_trophyButton" buttonType="RAISED" onAction="#handleStatistics" prefHeight="54.0" prefWidth="89.0" ripplerFill="#837c7cc2" style="-fx-border-radius: 30;" />
                   <JFXButton fx:id="_infoButton" alignment="CENTER" buttonType="RAISED" onAction="#handleHowToPlay" prefHeight="54.0" prefWidth="89.0" ripplerFill="#837c7cc2" style="-fx-border-radius: 30;" HBox.hgrow="ALWAYS" />
                   <JFXButton fx:id="_exitButton" buttonType="RAISED" onAction="#handleExit" prefHeight="54.0" prefWidth="89.0" ripplerFill="#837c7cc2" style="-fx-border-radius: 30;" />

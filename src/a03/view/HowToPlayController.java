@@ -40,14 +40,14 @@ public class HowToPlayController {
 	 */
 	@FXML
 	public void handlePrevious(){
-		if (_count<=_numberOfImages){
-			_next.setDisable(false);
-		}
-		_count--;
-		setImage();
-		if (_count==1){
-			_previous.setDisable(true);
-		}
+//		if (_count<=_numberOfImages){
+//			_next.setDisable(false);
+//		}
+//		_count--;
+//		setImage();
+//		if (_count==1){
+//			_previous.setDisable(true);
+//		}
 	}
 	
 	/**
@@ -57,14 +57,14 @@ public class HowToPlayController {
 	 */
 	@FXML
 	public void handleNext(){
-		if (_count>=1){
-			_previous.setDisable(false);
-		}
-		_count++;
-		setImage();
-		if (_count==_numberOfImages){
-			_next.setDisable(true);
-		}
+//		if (_count>=1){
+//			_previous.setDisable(false);
+//		}
+//		_count++;
+//		setImage();
+//		if (_count==_numberOfImages){
+//			_next.setDisable(true);
+//		}
 	}
 
 	/**
@@ -73,8 +73,8 @@ public class HowToPlayController {
 	 * and there is no previous image
 	 */
 	public void setFirstImage() {
-		setImage();
-		_previous.setDisable(true);
+//		setImage();
+//		_previous.setDisable(true);
 	}
 	
 	/**
@@ -82,9 +82,9 @@ public class HowToPlayController {
 	 * corresponds to a number from a list of images
 	 */
 	private void setImage(){
-		File file = new File(_imageDirectory+_count+".jpg");
-		Image image = new Image(file.toURI().toString());
-		_imageView.setImage(image);
+//		File file = new File(_imageDirectory+_count+".jpg");
+//		Image image = new Image(file.toURI().toString());
+//		_imageView.setImage(image);
 	}	
 	
 	/**

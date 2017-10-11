@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import a03.Level;
+import a03.Difficulty;
 
 public class Generator {
-	private Level _level;
+	private Difficulty _level;
 
-	public void setLevel(Level level){
+	public void setLevel(Difficulty level){
 		_level = level;
 	}
 
 	public List<Integer> getNumbers(){
 		List<Integer> _numbers = new ArrayList<Integer>();
-		if (_level==Level.EASY){
+		if (_level==Difficulty.EASY){
 			for(int i = 1; i < 10; i++) {
 				_numbers.add(new Integer(i));
 			}
