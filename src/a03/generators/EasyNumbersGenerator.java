@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import a03.Difficulty;
+import a03.enumerations.Difficulty;
 
 public class EasyNumbersGenerator extends Generator{
 

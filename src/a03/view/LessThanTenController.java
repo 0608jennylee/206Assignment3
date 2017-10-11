@@ -12,10 +12,10 @@ import com.google.gson.Gson;
 
 import a03.Saveable;
 import a03.Settings;
+import a03.enumerations.Difficulty;
 import a03.enumerations.Level;
 import a03.errors.HTKError;
 import a03.GameStats;
-import a03.Difficulty;
 import a03.generators.Generator;
 import a03.generators.GeneratorFactory;
 import a03.generators.Processor;

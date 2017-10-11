@@ -3,7 +3,7 @@ package a03.generators;
 import java.util.ArrayList;
 import java.util.List;
 
-import a03.Difficulty;
+import a03.enumerations.Difficulty;
 import a03.enumerations.Level;
 
 public class EasyEquationsGenerator extends Generator{

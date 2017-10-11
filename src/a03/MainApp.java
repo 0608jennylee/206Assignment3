@@ -1,6 +1,7 @@
 package a03;
 import java.io.IOException;
 import a03.Settings;
+import a03.enumerations.Difficulty;
 import a03.enumerations.GameState;
 import a03.enumerations.Level;
 import a03.enumerations.Stats;
@@ -30,7 +31,6 @@ import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.stage.StageStyle;
-import a03.Difficulty;
 
 public class MainApp extends Application {
 	//	public enum Level {hard(""),easy};

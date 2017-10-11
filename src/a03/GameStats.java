@@ -3,6 +3,7 @@ package a03;
 import java.util.HashMap;
 import java.util.Map;
 
+import a03.enumerations.Difficulty;
 import a03.enumerations.Level;
 import a03.enumerations.Stats;
 

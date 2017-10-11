@@ -1,4 +1,4 @@
-package a03;
+package a03.enumerations;
 
 public enum Difficulty {
 	EASY(9), HARD(99);

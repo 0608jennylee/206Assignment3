@@ -10,7 +10,7 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 
-import a03.Difficulty;
+import a03.enumerations.Difficulty;
 import a03.enumerations.Level;
 import a03.MainApp;
 import javafx.event.ActionEvent;

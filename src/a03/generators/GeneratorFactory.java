@@ -1,6 +1,6 @@
 package a03.generators;
 
-import a03.Difficulty;
+import a03.enumerations.Difficulty;
 import a03.enumerations.Level;
 
 public class GeneratorFactory {

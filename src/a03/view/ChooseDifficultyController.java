@@ -8,11 +8,11 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import a03.Difficulty;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import a03.MainApp;
+import a03.enumerations.Difficulty;
 import a03.enumerations.Level;
 import javafx.event.ActionEvent;
 /**
