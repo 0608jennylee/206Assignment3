@@ -1,6 +1,6 @@
 *.wav
 /bin/
-
+NUMBERS.dat
 # Created by https://www.gitignore.io/api/java
 
 ### Java ###
