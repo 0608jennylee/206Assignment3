@@ -6,9 +6,9 @@ import java.util.List;
 import a03.enumerations.Difficulty;
 import a03.enumerations.Level;
 
-public class HardNumbersGenerator extends Generator{
+public class NumbersGenerator extends Generator{
 
-	public HardNumbersGenerator(Difficulty level) {
+	public NumbersGenerator(Difficulty level) {
 		super(level);
 	}
 

@@ -5,18 +5,10 @@ import a03.enumerations.Level;
 
 public class GeneratorFactory {
 	public Generator getGenerator(Difficulty difficulty, Level level) {
-		if(difficulty == Difficulty.EASY) {
-			if(level == Level.EQUATIONS) {
-				return new EasyEquationsGenerator(difficulty);
-			}else {
-				return new EasyNumbersGenerator(difficulty);
-			}
+		if(level == Level.EQUATIONS) {
+			return new EquationsGenerator(difficulty);
 		}else {
-			if(level == Level.EQUATIONS) {
-				return new HardEquationsGenerator(difficulty);
-			}else {
-				return new HardNumbersGenerator(difficulty);
-			}
+			return new NumbersGenerator(difficulty);
 		}
 	}
 }
