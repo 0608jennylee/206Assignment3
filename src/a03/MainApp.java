@@ -106,7 +106,6 @@ public class MainApp extends Application {
 			LTTController.setMainApp(this);
 			LTTController.setDifficulty(difficulty, level);
 			LTTController.setQuestion();
-			LTTController.save();
 			
 		} catch (IOException e) {
 			e.printStackTrace();
