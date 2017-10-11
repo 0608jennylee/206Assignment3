@@ -170,9 +170,9 @@ public class MainMenuContentsController implements Initializable {
 
 	public void setStage(Stage stage) {
 		_stage=stage;
-//		_imageView.setPreserveRatio(true); 
-//		_imageView.fitWidthProperty().bind(_stage.widthProperty().divide(2)); 
-//		_imageView.fitHeightProperty().bind(_stage.heightProperty().divide(2));
+		_imageView.setPreserveRatio(false); 
+		_imageView.fitWidthProperty().bind(_stage.widthProperty()); 
+		_imageView.fitHeightProperty().bind(_stage.heightProperty());
 	}
 
 }

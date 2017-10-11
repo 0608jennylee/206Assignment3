@@ -1,4 +1,4 @@
-package a03;
+package a03.enumerations;
 
 public enum Level {
 	EASYNUMBERS(9), HARDNUMBERS(99), EASYEQUATIONS(9), HARDEQUATIONS(99);

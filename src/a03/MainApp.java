@@ -1,6 +1,9 @@
 package a03;
 import java.io.IOException;
 import a03.Settings;
+import a03.enumerations.GameState;
+import a03.enumerations.Level;
+import a03.enumerations.Stats;
 import a03.view.ChooseLevelsController;
 import a03.view.HowToPlayController;
 import a03.view.LessThanTenController;
@@ -22,11 +25,11 @@ import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
-import a03.Level;
 
 public class MainApp extends Application {
 	//	public enum Level {hard(""),easy};
 	private Stage _primaryStage;
+	private GameState _gameState;
 
 	/**
 	 * Constructor
@@ -41,12 +44,13 @@ public class MainApp extends Application {
 	public void start(Stage primaryStage) {
 		//sets the primary stage as the stage the app is running on
 		_primaryStage = primaryStage;
+		_gameState = GameState.MENU;
 		_primaryStage.setOnCloseRequest(this::exit);
 		//sets the title
 		_primaryStage.setTitle("Tatai");
 		_primaryStage.setMinHeight(450);
 		_primaryStage.setMinWidth(700);
-		_primaryStage.setResizable(false);
+//		_primaryStage.setResizable(false);
 //		_primaryStage.initStyle(StageStyle.UNDECORATED);
 		GameStats.getGameStats().updateDiscrete(Stats.APPSTARTTIME.toString(), new Integer((int) (System.currentTimeMillis() / (1000 * 60))));
 		mainMenuContents();
@@ -57,6 +61,7 @@ public class MainApp extends Application {
 	 */
 	public void mainMenuContents() {
 		try {
+			_gameState = GameState.MENU;
 			//Load main menu 
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/MainMenuContents.fxml"));
@@ -80,6 +85,7 @@ public class MainApp extends Application {
 	 */
 	public void Level(Level level) {
 		try {
+			_gameState = GameState.INGAME;
 			//Load level 
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/LessThanTen.fxml"));
@@ -105,6 +111,7 @@ public class MainApp extends Application {
 	 */
 	public void howToPlay() {
 		try {
+			_gameState = GameState.MENU;
 			//Load how to play 
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/HowToPlay.fxml"));
@@ -127,6 +134,7 @@ public class MainApp extends Application {
 	 */
 	public void Start(Level level) {
 		try {
+			_gameState = GameState.MENU;
 			//Load start
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/Start.fxml"));
@@ -150,6 +158,7 @@ public class MainApp extends Application {
 	 */
 	public void chooseLevels() {
 		try {
+			_gameState = GameState.MENU;
 			//Load choose level
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/ChooseLevels.fxml"));
@@ -175,6 +184,7 @@ public class MainApp extends Application {
 	 */
 	public void Statistics() {
 		try {
+			_gameState = GameState.MENU;
 			//Load statistics 
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/Statistics.fxml"));
@@ -200,9 +210,14 @@ public class MainApp extends Application {
 	 * closes the app and saves the settings
 	 */
 	public void exit(WindowEvent e) {
-		Alert alert = new Alert(AlertType.CONFIRMATION, "Are you sure you would like to exit the game?", new ButtonType("Save and Quit"), new ButtonType("Quit"), new ButtonType("Stay"));;
-		alert.getDialogPane().setMinWidth(Region.USE_COMPUTED_SIZE);
-		alert.showAndWait();
+		Alert alert = new Alert(AlertType.CONFIRMATION, "Are you sure you would like to exit the game?", new ButtonType("Stay"), new ButtonType("Quit"));
+		if(_gameState == GameState.INGAME){
+			alert.getButtonTypes().add(new ButtonType("Save and Quit"));
+			alert.showAndWait();
+		}else {
+			alert.getDialogPane().setMinWidth(Region.USE_COMPUTED_SIZE);
+			alert.showAndWait();
+		}
 		Settings.getSettings().save();
 		Platform.exit();
 	}

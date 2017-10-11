@@ -5,14 +5,18 @@ import java.io.File;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import a03.MainApp;
+import a03.Saveable;
 import a03.Settings;
+import a03.enumerations.Level;
+import a03.errors.HTKError;
 import a03.GameStats;
-import a03.HTKError;
-import a03.Level;
 import a03.generators.Generator;
 import a03.generators.GeneratorFactory;
 import a03.generators.Processor;
@@ -36,7 +40,7 @@ import javafx.scene.text.Font;
  * @author edwar jenny
  *
  */
-public class LessThanTenController implements Initializable{
+public class LessThanTenController implements Initializable, Saveable{
 
 //	@FXML private ImageView _imageView;
 	@FXML private ImageView _score;
@@ -361,6 +365,31 @@ public class LessThanTenController implements Initializable{
 		File file3 = new File(System.getProperty("user.dir")+"/Icons/png/microphone-6x.png");
 		Image image3 = new Image(file3.toURI().toString());
 		_record.setGraphic(new ImageView(image3));
+		
+	}
+
+	@Override
+	public void save() {
+		List<String> lines = new ArrayList<String>();
+		lines.add("CORRECT=" + Boolean.toString(_correct));
+		lines.add("FAILED=" + Boolean.toString(_failed));
+		lines.add("SECONDTRY=" + Boolean.toString(_secondTry));
+		lines.add("TRYAGAINPRESSED=" + Boolean.toString(_tryAgainPressed));
+		lines.add("CURRENTQUESTION=" + Integer.toString(_currentQuestion));
+		lines.add("CORRECTANSWERS=" + Integer.toString(_correctAnswers));
+		lines.add("LEVEL=" + _level.name());
+		lines.add("DISPLAY=" + _display);
+		lines.addAll(_numbers);
+		
+		try {
+			Files.write(new File(_level.toString() + ".dat").toPath(), lines);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
+	public void load() {
 		
 	}
 }

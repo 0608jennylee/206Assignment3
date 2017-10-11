@@ -10,8 +10,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import a03.HTKError;
-import a03.Number;
+import a03.enumerations.Number;
+import a03.errors.HTKError;
 
 public class Processor {
 	public static int toInt(String formula) {

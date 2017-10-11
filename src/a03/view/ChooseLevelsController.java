@@ -8,7 +8,6 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import a03.Level;
 import javafx.scene.control.Button;
 import javafx.scene.control.Labeled;
 import javafx.scene.image.Image;
@@ -18,6 +17,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import a03.MainApp;
+import a03.enumerations.Level;
 import javafx.event.ActionEvent;
 /**
  * Displays the level available to the user to play

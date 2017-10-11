@@ -1,6 +1,6 @@
 package a03.generators;
 
-import a03.Level;
+import a03.enumerations.Level;
 
 public class GeneratorFactory {
 	public Generator getGenerator(Level level) {

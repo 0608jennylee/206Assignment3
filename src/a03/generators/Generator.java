@@ -2,7 +2,7 @@ package a03.generators;
 
 import java.util.List;
 
-import a03.Level;
+import a03.enumerations.Level;
 
 public abstract class Generator {
 	protected Level _level;

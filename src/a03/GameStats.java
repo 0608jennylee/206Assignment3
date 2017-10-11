@@ -3,6 +3,9 @@ package a03;
 import java.util.HashMap;
 import java.util.Map;
 
+import a03.enumerations.Level;
+import a03.enumerations.Stats;
+
 public class GameStats {
 	static GameStats _gamestats = null;
 	private Map<String,Integer> _numVals = new HashMap<String,Integer>();
