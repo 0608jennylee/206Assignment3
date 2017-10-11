@@ -29,6 +29,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaPlayer.Status;
 import javafx.scene.text.Font;
 /**
  * this controller, controls the scene for displaying the level
@@ -83,6 +84,8 @@ public class LessThanTenController implements Initializable{
 	// Event Listener on Button[#_record].onAction
 	@FXML
 	public void handleRecord(ActionEvent event) {
+		_playback.setDisable(true);
+		_submit.setDisable(true);
 		if (_secondTry&&_tryAgainPressed||_failed){ //if it fails or is the second try for the user
 			setQuestion();
 			//if its failed will change the tryAgainPressed to false
@@ -100,24 +103,16 @@ public class LessThanTenController implements Initializable{
 					ProcessBuilder pb = new ProcessBuilder("bash", "-c", cmd);
 					try {
 						Process p = pb.start();
-						pb.redirectOutput(new File("output.txt"));
 						p.waitFor();
-						Processor processor = new Processor();
-						System.out.print(Processor.toInt(_numbers.get(_currentQuestion)));
-						if(processor.processAnswer(Processor.toInt(_numbers.get(_currentQuestion)))) {
-							_correct=true;
-						}else {
-							_correct=false;
-						}
+						_playback.setDisable(false);
+						_submit.setDisable(false);
+						_record.setDisable(false);
 					} catch (IOException IOe) {
 						IOe.printStackTrace();
-					} catch (HTKError HTKe) {
-						_failed = true;
 					}
 					return null;
 				}
 			};
-			record.setOnSucceeded(this::playBack);
 			Thread recordThread = new Thread(record);
 			recordThread.start();
 		}
@@ -127,13 +122,21 @@ public class LessThanTenController implements Initializable{
 	 * playsback the recording to the user
 	 * @param e
 	 */
-	public void playBack(WorkerStateEvent e) {
+	public void handlePlayback(ActionEvent e) {
+		_record.setDisable(true);
+		_playback.setDisable(true);
+		_submit.setDisable(true);
 		String filepath = Processor.toInt(_numbers.get(_currentQuestion)) + ".wav";
 		Media sound = new Media(new File(filepath).toURI().toString());
 		mp = new MediaPlayer(sound);
-		mp.setOnEndOfMedia(this::check);
-		mp.setOnError(this::check);
+		mp.setOnEndOfMedia(this::enable);
 		mp.play();
+	}
+	
+	private void enable() {
+		_record.setDisable(false);
+		_playback.setDisable(false);
+		_submit.setDisable(false);
 	}
 	
 	/**
@@ -141,16 +144,18 @@ public class LessThanTenController implements Initializable{
 	 * correct or incorrect answer, then displays the corresponding result to 
 	 * the user
 	 */
-
+	
 	public void check(){
-		_record.setDisable(false);
+		_submit.setDisable(true);
+		_record.setDisable(true);
+		_playback.setDisable(true);
 		if (_failed){//HTK failed
 			System.out.println("failed");
 //			_sorry.setVisible(true);
 //			_weMuckedUp.setVisible(true);
 //			_tryAgain.setVisible(true);
 			tryAgain();
-			File file = new File(System.getProperty("user.dir")+"/Fail/1.jpg");
+			_record.setDisable(false);
 			//_text.setVisible(true);
 		}else if(_correct){//user gets correct answer
 			//File file = new File(System.getProperty("user.dir")+"/Correct/" + _numbers.get(_currentQuestion) + ".jpg");
@@ -158,7 +163,6 @@ public class LessThanTenController implements Initializable{
 			_theCorrectAnswer.setText((Processor.toMaori(Processor.toInt(_numbers.get(_currentQuestion)))));
 			_theirAnswer.setText((Processor.getUserAnswer()));
 			_currentQuestion++;
-			_record.setDisable(true);
 			if(_currentQuestion != 10) {
 				_nextQuestion.setVisible(true);
 			}
@@ -218,8 +222,8 @@ public class LessThanTenController implements Initializable{
 		_nextQuestion.setVisible(false);
 //		_imageView.setTranslateY(150);
 //		File file = new File(System.getProperty("user.dir")+"/Result/" + _correctAnswers + ".jpg");
-		Image file = new Image(getClass().getClassLoader().getResource("Result/" + _correctAnswers + ".jpg").toString());
-		setImage(file);
+//		Image file = new Image(getClass().getClassLoader().getResource("Result/" + _correctAnswers + ".jpg").toString());
+//		setImage(file);
 	}
 
 	/**
@@ -277,6 +281,14 @@ public class LessThanTenController implements Initializable{
 	 * sets the question of the current scene
 	 */
 	public void setQuestion(){
+		if(!_secondTry) {
+			_playback.setDisable(true);
+			_submit.setDisable(true);
+		}else {
+		_record.setDisable(false);
+		_submit.setDisable(false);
+		_playback.setDisable(false);
+		}
 //		_sorry.setVisible(false);
 //		_weMuckedUp.setVisible(false);
 //		_tryAgain.setVisible(false);
@@ -287,17 +299,10 @@ public class LessThanTenController implements Initializable{
 		_question.setText(_numbers.get(_currentQuestion));
 		//File file = new File(System.getProperty("user.dir")+"/Video/" + _numbers.get(_currentQuestion) + ".jpg");
 //		Image file = new Image(getClass().getClassLoader().getResource("Video/" + _numbers.get(_currentQuestion) + ".jpg").toString());//
-//		setImage(file);
-		_record.setDisable(false);
-	}
-
-	/**
-	 * sets the image to be diaplyed
-	 * @param file the name of the directory of the image file
-	 */
-	private void setImage(Image file){
 		int display = _currentQuestion+1;
 		_title.setText(_display +"Question: "+display);
+		//		setImage(file);
+		_record.setDisable(false);
 	}
 	
 	/**
@@ -310,11 +315,19 @@ public class LessThanTenController implements Initializable{
 	}
 	 @FXML
 	 public void handleSubmit() {
-		// TODO Auto-generated method stub
-	 }
-	 @FXML
-	 public void handlePlayback() {
-		// TODO Auto-generated method stub
+		 try {
+		 Processor processor = new Processor();
+			System.out.print(Processor.toInt(_numbers.get(_currentQuestion)));
+			if(processor.processAnswer(Processor.toInt(_numbers.get(_currentQuestion)))) {
+				_correct=true;
+			}else {
+				_correct=false;
+			}
+		 }catch(HTKError e) {
+			 _failed = true;
+		 }finally {
+			 check();
+		 }
 	 }
 
 	@Override
