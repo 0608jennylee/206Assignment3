@@ -36,14 +36,14 @@ public class HowToPlayController extends Controller{
 	 */
 	@FXML
 	public void handlePrevious(){
-		if (_count<=_numberOfImages){
-			_next.setDisable(false);
-		}
-		_count--;
-		setImage();
-		if (_count==1){
-			_previous.setDisable(true);
-		}
+//		if (_count<=_numberOfImages){
+//			_next.setDisable(false);
+//		}
+//		_count--;
+//		setImage();
+//		if (_count==1){
+//			_previous.setDisable(true);
+//		}
 	}
 	
 	/**
@@ -53,14 +53,14 @@ public class HowToPlayController extends Controller{
 	 */
 	@FXML
 	public void handleNext(){
-		if (_count>=1){
-			_previous.setDisable(false);
-		}
-		_count++;
-		setImage();
-		if (_count==_numberOfImages){
-			_next.setDisable(true);
-		}
+//		if (_count>=1){
+//			_previous.setDisable(false);
+//		}
+//		_count++;
+//		setImage();
+//		if (_count==_numberOfImages){
+//			_next.setDisable(true);
+//		}
 	}
 
 	/**
@@ -69,18 +69,8 @@ public class HowToPlayController extends Controller{
 	 * and there is no previous image
 	 */
 	public void setFirstImage() {
-		setImage();
-		_previous.setDisable(true);
+//		setImage();
+//		_previous.setDisable(true);
 	}
-	
-	/**
-	 * Displays the image with the current count number that 
-	 * corresponds to a number from a list of images
-	 */
-	private void setImage(){
-//		File file = new File(_imageDirectory+_count+".jpg");
-		Image image = new Image(getClass().getClassLoader().getResourceAsStream(_imageDirectory+_count+".jpg"));
-		_imageView.setImage(image);
-	}	
 
 }

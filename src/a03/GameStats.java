@@ -65,8 +65,8 @@ public class GameStats {
 		}
 	}
 
-	public void update(Level level, int correctAnswers) {
-		if(level == Level.EASYNUMBERS) {
+	public void update(Difficulty level, Level _level, int correctAnswers) {
+		if(level == Difficulty.EASY) {
 			_numVals.put("hello", new Integer(1));
 			_numVals.put(Stats.NUMBEROFEASYPLAYS.toString(), _numVals.get(Stats.NUMBEROFEASYPLAYS.toString()) + new Integer(1));
 			_numVals.put(Stats.EASYCUMULATIVESCORE.toString(), _numVals.get(Stats.EASYCUMULATIVESCORE.toString()) + new Integer(correctAnswers));

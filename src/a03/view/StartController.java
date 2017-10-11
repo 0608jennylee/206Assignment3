@@ -12,6 +12,8 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import a03.Difficulty;
+
 import javafx.event.ActionEvent;
 /**
  * Controller for the start scene
@@ -23,6 +25,7 @@ public class StartController extends Controller implements Initializable{
 	private Level _level;
 	@FXML private Button _back;
 	@FXML private ImageView _imageView;
+	private Difficulty _difficulty;
 	/**
 	 * when the start button is clicked notifies the stage 
 	 * to switch scenes to the level that will be played
@@ -31,7 +34,7 @@ public class StartController extends Controller implements Initializable{
 	// Event Listener on Button.onAction
 	@FXML
 	public void handleStart(ActionEvent event) {
-			_mainApp.Level(_level);
+			_mainApp.Game(_difficulty, _level);
 	}
 
 	/**
@@ -42,7 +45,7 @@ public class StartController extends Controller implements Initializable{
 	// Event Listener on Button.onAction
 	@FXML
 	public void handleBack(ActionEvent event) {
-		_mainApp.chooseLevels();
+		_mainApp.chooseDifficulty(_level);
 	}
 	
 	/**
@@ -63,6 +66,11 @@ public class StartController extends Controller implements Initializable{
 		Image image5 = new Image(file5.toURI().toString());
 		_imageView.setImage(image5);
 		_imageView.setOpacity(0.2);
+		
+	}
+
+	public void setDifficulty(Difficulty difficulty) {
+		_difficulty=difficulty;
 		
 	}
 }

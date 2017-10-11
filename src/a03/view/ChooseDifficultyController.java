@@ -1,12 +1,14 @@
 package a03.view;
 
 import javafx.fxml.FXML;
+
 import javafx.fxml.Initializable;
 
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import a03.Difficulty;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,14 +17,19 @@ import a03.enumerations.Level;
 import javafx.event.ActionEvent;
 /**
  * Displays the level available to the user to play
+
  * @author edwar jenny
  *
  */
-public class ChooseLevelsController extends Controller implements Initializable{
+
+public class ChooseDifficultyController extends Controller implements Initializable{
+
 	@FXML private Button _hard;
 	@FXML private ImageView _imageView;
 	@FXML private Button _easy;
 	@FXML private Button _back;
+	private Level _level;
+	private boolean _something=false;
 
 
 	/**
@@ -33,7 +40,12 @@ public class ChooseLevelsController extends Controller implements Initializable{
 	// Event Listener on Button.onAction
 	@FXML
 	public void handleEasySelection(ActionEvent event) {
-		_mainApp.Start(Level.EASYNUMBERS);
+		//TODO
+		if(_something) {
+			_mainApp.LoadLevel(_level,Difficulty.EASY);
+		}else {
+			_mainApp.Start(_level,Difficulty.EASY);
+		}
 	}
 
 	/**
@@ -44,7 +56,12 @@ public class ChooseLevelsController extends Controller implements Initializable{
 	// Event Listener on Button.onAction
 	@FXML
 	public void handleHardSelection(ActionEvent event) {
-		_mainApp.Start(Level.HARDEQUATIONS);
+		//TODO
+		if(_something) {
+			_mainApp.LoadLevel(_level,Difficulty.HARD);
+		}else {
+			_mainApp.Start(_level,Difficulty.HARD);
+		}
 	}
 
 	/**
@@ -57,7 +74,7 @@ public class ChooseLevelsController extends Controller implements Initializable{
 	public void handleBack(ActionEvent event) {
 		_mainApp.mainMenuContents();
 	}
-	
+
 	/**
 	 * disables the hard button
 	 */
@@ -67,7 +84,7 @@ public class ChooseLevelsController extends Controller implements Initializable{
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-//		_anchor.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+		//		_anchor.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 
 		File file4 = new File(System.getProperty("user.dir")+"/Icons/png/quit.png");
 		Image image4 = new Image(file4.toURI().toString());
@@ -76,7 +93,12 @@ public class ChooseLevelsController extends Controller implements Initializable{
 		Image image5 = new Image(file5.toURI().toString());
 		_imageView.setImage(image5);
 		_imageView.setOpacity(0.3);
-		
+
+	}
+
+	public void setLevel(Level level) {
+		_level=level;
+
 	}
 
 }

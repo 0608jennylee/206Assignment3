@@ -30,8 +30,6 @@ public class MainMenuContentsController extends Controller implements Initializa
 	@FXML private JFXButton _trophyButton;
 	@FXML private Button button;
 	@FXML private ImageView _imageView;
-//	@FXML private AnchorPane _anchor;
-	private Stage _stage;
 	/**
 	 * when the play button is clicked notifies the stage 
 	 * to switch scenes to chooselevels
@@ -40,7 +38,7 @@ public class MainMenuContentsController extends Controller implements Initializa
 	// Event Listener on Button.onAction
 	@FXML
 	public void handlePlay(ActionEvent event) {
-		_mainApp.chooseLevels();
+		_mainApp.chooseLevel();
 	}
 
 	/**
@@ -79,6 +77,10 @@ public class MainMenuContentsController extends Controller implements Initializa
 	@FXML
 	public void handleStatistics(ActionEvent event) {
 		_mainApp.Statistics();
+	}
+	@FXML
+	public void handleCharts(ActionEvent event) {
+		_mainApp.Charts();
 	}
 	@FXML
 	public void handleActivityLog(ActionEvent event) {
@@ -125,17 +127,17 @@ public class MainMenuContentsController extends Controller implements Initializa
 		//	        );
 //		_anchor.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 
-		File file = new File(System.getProperty("user.dir")+"/Icons/png/media-play-4x.png");
+		File file = new File(System.getProperty("user.dir")+"/Icons/png/media-play-6x.png");
 		Image image = new Image(file.toURI().toString());
 		_playButton.setGraphic(new ImageView(image));
-		File file1 = new File(System.getProperty("user.dir")+"/Icons/png/graph-4x.png");
+		File file1 = new File(System.getProperty("user.dir")+"/Icons/png/graph-6x.png");
 		//button.setGraphic(new ImageView(image));
 		Image image1 = new Image(file1.toURI().toString());
 		_statisticsButton.setGraphic(new ImageView(image1));
-		File file2 = new File(System.getProperty("user.dir")+"/Icons/png/info-4x.png");
+		File file2 = new File(System.getProperty("user.dir")+"/Icons/png/info-6x.png");
 		Image image2 = new Image(file2.toURI().toString());
 		_infoButton.setGraphic(new ImageView(image2));
-		File file3 = new File(System.getProperty("user.dir")+"/Icons/png/power-standby-4x.png");
+		File file3 = new File(System.getProperty("user.dir")+"/Icons/png/power-standby-6x.png");
 		Image image3 = new Image(file3.toURI().toString());
 		_exitButton.setGraphic(new ImageView(image3));
 		File file4 = new File(System.getProperty("user.dir")+"/Icons/icons8-Trophy-48.png");
@@ -145,16 +147,5 @@ public class MainMenuContentsController extends Controller implements Initializa
 		Image image5 = new Image(file5.toURI().toString());
 		_imageView.setImage(image5);
 		_imageView.setOpacity(0.4);
-//				_imageView.setPreserveRatio(true); 
-//				_imageView.fitWidthProperty().bind(_stage.widthProperty()); 
-//				_imageView.fitHeightProperty().bind(_stage.heightProperty());
 	}
-
-	public void setStage(Stage stage) {
-		_stage=stage;
-		_imageView.setPreserveRatio(false); 
-		_imageView.fitWidthProperty().bind(_stage.widthProperty()); 
-		_imageView.fitHeightProperty().bind(_stage.heightProperty());
-	}
-
 }

@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import a03.enumerations.Level;
+import a03.Difficulty;
 
 public class EasyNumbersGenerator extends Generator{
 
-	public EasyNumbersGenerator(Level level) {
+	public EasyNumbersGenerator(Difficulty level) {
 		super(level);
 	}
 

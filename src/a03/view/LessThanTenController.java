@@ -15,6 +15,7 @@ import a03.Settings;
 import a03.enumerations.Level;
 import a03.errors.HTKError;
 import a03.GameStats;
+import a03.Difficulty;
 import a03.generators.Generator;
 import a03.generators.GeneratorFactory;
 import a03.generators.Processor;
@@ -73,6 +74,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 	private transient MediaPlayer mp;
 	private transient Generator _generator;
 	@FXML private transient Button _back;
+	private Difficulty _difficulty;
 
 	/**
 	 * when the record button is clicked, the recording starts in a background 
@@ -203,7 +205,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 	 */
 	private void displayFinalScore() {
 		_title.setVisible(false);
-		if(_correctAnswers >= 8&&_level==Level.EASYNUMBERS) {
+		if(_correctAnswers >= 8&&_difficulty==Difficulty.EASY) {
 			Settings.getSettings().enableHard();
 //			_mainMenuTop.setVisible(true);
 			_nextLevel.setVisible(true);
@@ -211,7 +213,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 			_nextLevel.setText("Play Again");
 			_nextLevel.setVisible(true);
 		}
-		GameStats.getGameStats().update(_level, _correctAnswers);
+		GameStats.getGameStats().update(_difficulty,_level, _correctAnswers);
 		_theirAnswer.setText("");
 		_theCorrectAnswer.setText("");
 		_text1.setText("");
@@ -252,10 +254,10 @@ public class LessThanTenController extends Controller implements Initializable, 
 	 */
 	@FXML
 	public void handleNextLevel(){
-		if (_level==Level.HARDNUMBERS||(_level==Level.EASYNUMBERS&&_correctAnswers>=8)) {
-			_mainApp.Start(Level.HARDNUMBERS);
+		if (_difficulty==Difficulty.HARD||(_difficulty==Difficulty.EASY&&_correctAnswers>=8)) {
+			_mainApp.Start(_level, Difficulty.HARD);
 		}else {
-			_mainApp.Start(_level);
+			_mainApp.Start(_level, _difficulty);
 		}
 	}
 	
@@ -263,15 +265,17 @@ public class LessThanTenController extends Controller implements Initializable, 
 	 * sets the level of the current scene
 	 * @param level
 	 */
-	public void setLevel(Level level){
-		if (level==Level.HARDNUMBERS){
+	public void setDifficulty(Difficulty difficulty, Level level){
+		_level=level;
+		if (difficulty==Difficulty.HARD){
 			_display = "HARD ";
 		}else{
 			_display = "EASY ";
 		}
-		_level = level;
+		
+		_difficulty = difficulty;
 		GeneratorFactory gf = new GeneratorFactory();
-		_generator = gf.getGenerator(_level);
+		_generator = gf.getGenerator(_difficulty, _level);
 		_numbers = _generator.getNumbers();
 	}
 	

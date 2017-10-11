@@ -3,11 +3,12 @@ package a03.generators;
 import java.util.ArrayList;
 import java.util.List;
 
+import a03.Difficulty;
 import a03.enumerations.Level;
 
 public class EasyEquationsGenerator extends Generator{
 
-	public EasyEquationsGenerator(Level level) {
+	public EasyEquationsGenerator(Difficulty level) {
 		super(level);
 	}
 

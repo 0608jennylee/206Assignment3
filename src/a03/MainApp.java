@@ -4,11 +4,15 @@ import a03.Settings;
 import a03.enumerations.GameState;
 import a03.enumerations.Level;
 import a03.enumerations.Stats;
-import a03.view.ChooseLevelsController;
 import a03.view.Controller;
+import a03.view.ChartsController;
+import a03.view.ChooseDifficultyController;
+import a03.view.ChooseLevelController;
 import a03.view.HowToPlayController;
 import a03.view.LessThanTenController;
+import a03.view.LoadLevelController;
 import a03.view.MainMenuContentsController;
+import a03.view.ScoreBoardController;
 import a03.view.StartController;
 import a03.view.StatisticsController;
 //import a03.view.StartController;
@@ -25,6 +29,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.stage.StageStyle;
+import a03.Difficulty;
 
 public class MainApp extends Application {
 	//	public enum Level {hard(""),easy};
@@ -75,7 +81,6 @@ public class MainApp extends Application {
 			// Give the controller access to the main app.
 			MainMenuContentsController controller = loader.getController();
 			controller.setMainApp(this);
-			controller.setStage(_primaryStage);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -85,7 +90,7 @@ public class MainApp extends Application {
 	 * shows the level scene on the stage, this is the scene where the game happens
 	 * @param level the level chosen by the user
 	 */
-	public void Level(Level level) {
+	public void Game(Difficulty difficulty, Level level) {
 		try {
 			_gameState = GameState.INGAME;
 			//Load level 
@@ -99,9 +104,10 @@ public class MainApp extends Application {
 			// Give the controller access to the main app.
 			LTTController = loader.getController();
 			LTTController.setMainApp(this);
-			LTTController.setLevel(level);
+			LTTController.setDifficulty(difficulty, level);
 			LTTController.setQuestion();
 			LTTController.save();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -133,8 +139,9 @@ public class MainApp extends Application {
 
 	/**
 	 * shows the start scene on the stage
+	 * @param _level 
 	 */
-	public void Start(Level level) {
+	public void Start(Level level, Difficulty difficulty) {
 		try {
 			_gameState = GameState.MENU;
 			//Load start
@@ -149,32 +156,56 @@ public class MainApp extends Application {
 			StartController controller = loader.getController();
 			controller.setMainApp(this);
 			controller.setLevel(level);
+			controller.setDifficulty(difficulty);
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-
 	/**
 	 * shpws the choose level scene on the stage
+	 * @param numbers 
 	 */
-	public void chooseLevels() {
+	public void chooseLevel() {
 		try {
-			_gameState = GameState.MENU;
 			//Load choose level
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/ChooseLevels.fxml"));
+			loader.setLocation(MainApp.class.getResource("view/ChooseLevel.fxml"));
 			AnchorPane chooseLevels = (AnchorPane) loader.load();
 			//load choose level scene on primary stage
 			Scene scene = new Scene(chooseLevels);
 			_primaryStage.setScene(scene);
 			_primaryStage.show();
 			// Give the controller access to the main app.
-			ChooseLevelsController controller = loader.getController();
+			ChooseLevelController controller = loader.getController();
+			controller.setMainApp(this);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	/**
+	 * shpws the choose level scene on the stage
+	 * @param numbers 
+	 */
+	public void chooseDifficulty(Level level) {
+		try {
+			_gameState = GameState.MENU;
+			//Load choose level
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/ChooseDifficulty.fxml"));
+			AnchorPane chooseLevels = (AnchorPane) loader.load();
+			//load choose level scene on primary stage
+			Scene scene = new Scene(chooseLevels);
+			_primaryStage.setScene(scene);
+			_primaryStage.show();
+			// Give the controller access to the main app.
+			ChooseDifficultyController controller = loader.getController();
 			if(!Settings.getSettings().settings.get("HARDLEVEL")) {
 				controller.disableHard();
 			}
 			controller.setMainApp(this);
+			controller.setLevel(level);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -189,21 +220,37 @@ public class MainApp extends Application {
 			_gameState = GameState.MENU;
 			//Load statistics 
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/Statistics.fxml"));
+			loader.setLocation(MainApp.class.getResource("view/ScoreBoard.fxml"));
 			BorderPane statistics = (BorderPane) loader.load();
 			//load statistics scene on the primary stage
 			Scene scene = new Scene(statistics);
 			_primaryStage.setScene(scene);
 			_primaryStage.show();
 			// Give the controller access to the main app.
-			StatisticsController controller = loader.getController();
+			ScoreBoardController controller = loader.getController();
 			controller.setMainApp(this);
 			controller.setScores();
 
 		} catch (IOException e) {
 			e.printStackTrace();
-		} catch (NullPointerException e) {
-
+		}
+	}
+	public void Charts() {
+		try {
+			//Load statistics 
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/Charts.fxml"));
+			AnchorPane charts = (AnchorPane) loader.load();
+			//load statistics scene on the primary stage
+			Scene scene = new Scene(charts);
+			_primaryStage.setScene(scene);
+			_primaryStage.show();
+			// Give the controller access to the main app.
+			ChartsController controller = loader.getController();
+			controller.setMainApp(this);
+			//controller.setScores();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -253,4 +300,27 @@ public class MainApp extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+
+	public void LoadLevel(Level level, Difficulty difficulty) {
+		try {
+			//Load statistics 
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/LoadLevel.fxml"));
+			AnchorPane charts = (AnchorPane) loader.load();
+			//load statistics scene on the primary stage
+			Scene scene = new Scene(charts);
+			_primaryStage.setScene(scene);
+			_primaryStage.show();
+			// Give the controller access to the main app.
+			LoadLevelController controller = loader.getController();
+			controller.setMainApp(this);
+			controller.setLevel(level);
+			controller.setDifficulty(difficulty);
+			//controller.setScores();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
 }

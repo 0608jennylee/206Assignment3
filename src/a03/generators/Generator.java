@@ -2,12 +2,12 @@ package a03.generators;
 
 import java.util.List;
 
-import a03.enumerations.Level;
+import a03.Difficulty;
 
 public abstract class Generator {
-	protected Level _level;
+	protected Difficulty _level;
 
-	public Generator(Level level) {
+	public Generator(Difficulty level) {
 		_level = level;
 	}
 	

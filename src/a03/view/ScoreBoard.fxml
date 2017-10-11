@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a03.view.ScoreBoardController">
+   <center>
+      <TabPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab text="EASY">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: white;">
+                     <children>
+                        <Label alignment="CENTER" layoutX="221.0" layoutY="240.0" text="Average Score" AnchorPane.bottomAnchor="160.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="180.0">
+                           <font>
+                              <Font name="Ubuntu Bold" size="25.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="_easyHoursPlayed" alignment="CENTER" layoutX="193.0" layoutY="313.0" text="-" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="310.0">
+                           <font>
+                              <Font name="Ubuntu Bold" size="25.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="221.0" layoutY="360.0" text="Minutes played" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="265.0">
+                           <font>
+                              <Font name="Ubuntu Bold" size="25.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="236.0" layoutY="30.0" text="Top Score" AnchorPane.bottomAnchor="320.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="20.0">
+                           <font>
+                              <Font name="Ubuntu Bold" size="25.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="_easyTopScore" alignment="CENTER" layoutX="284.0" layoutY="80.0" text="-" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="60.0">
+                           <font>
+                              <Font name="Ubuntu Bold" size="25.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="_EasyLowestScore" alignment="CENTER" layoutX="10.0" layoutY="146.0" text="-" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="140.0">
+                           <font>
+                              <Font name="Ubuntu Bold" size="25.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="_easyAverageScore" alignment="CENTER" layoutX="199.0" layoutY="229.0" text="-" AnchorPane.leftAnchor="199.0" AnchorPane.rightAnchor="201.0">
+                           <font>
+                              <Font name="Ubuntu Bold" size="25.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="221.0" layoutY="133.0" text="Lowest Score" AnchorPane.bottomAnchor="240.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="100.0">
+                           <font>
+                              <Font name="Ubuntu Bold" size="25.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="HARD">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: white;">
+                     <children>
+                        <Label alignment="CENTER" layoutX="221.0" layoutY="240.0" text="Average Score" AnchorPane.bottomAnchor="160.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="180.0">
+                           <font>
+                              <Font name="Ubuntu Bold" size="25.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="_hardHoursPlayed" alignment="CENTER" layoutX="193.0" layoutY="313.0" text="-" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="310.0">
+                           <font>
+                              <Font name="Ubuntu Bold" size="25.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="221.0" layoutY="360.0" text="Minutes played" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="265.0">
+                           <font>
+                              <Font name="Ubuntu Bold" size="25.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="236.0" layoutY="30.0" text="Top Score" AnchorPane.bottomAnchor="320.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="20.0">
+                           <font>
+                              <Font name="Ubuntu Bold" size="25.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="_hardTopScore" alignment="CENTER" layoutX="284.0" layoutY="80.0" text="-" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="60.0">
+                           <font>
+                              <Font name="Ubuntu Bold" size="25.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="_hardLowestScore" alignment="CENTER" layoutX="10.0" layoutY="146.0" text="-" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="140.0">
+                           <font>
+                              <Font name="Ubuntu Bold" size="25.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="_hardAverageScore" alignment="CENTER" layoutX="199.0" layoutY="229.0" text="-" AnchorPane.leftAnchor="199.0" AnchorPane.rightAnchor="201.0">
+                           <font>
+                              <Font name="Ubuntu Bold" size="25.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="221.0" layoutY="133.0" text="Lowest Score" AnchorPane.bottomAnchor="240.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="100.0">
+                           <font>
+                              <Font name="Ubuntu Bold" size="25.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </center>
+   <top>
+      <AnchorPane prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" text="Statistics" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="20.0">
+               <font>
+                  <Font name="Ubuntu Bold" size="48.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="_back" layoutX="20.0" layoutY="20.0" onAction="#handleBack" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+         </children>
+      </AnchorPane>
+   </top>
+</BorderPane>
