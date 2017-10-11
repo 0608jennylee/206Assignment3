@@ -6,9 +6,9 @@ import java.util.List;
 import a03.enumerations.Difficulty;
 import a03.enumerations.Level;
 
-public class HardEquationsGenerator extends Generator{
+public class EquationsGenerator extends Generator{
 
-	public HardEquationsGenerator(Difficulty level) {
+	public EquationsGenerator(Difficulty level) {
 		super(level);
 	}
 

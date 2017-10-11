@@ -370,5 +370,6 @@ public class LessThanTenController extends Controller implements Initializable, 
 	}
 	
 	public void load() {
+		Gson g = new Gson();
 	}
 }
