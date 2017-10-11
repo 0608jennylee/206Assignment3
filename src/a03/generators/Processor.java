@@ -1,6 +1,7 @@
 package a03.generators;
 
 import java.io.BufferedReader;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -8,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import a03.enumerations.Number;
 import a03.errors.HTKError;
@@ -117,31 +117,4 @@ public class Processor {
 		}
 		
 	}
-//	public boolean processAnswer(int num) throws HTKError {
-//		String line = getUserAnswer();
-//		String[] words = line.split(" ");
-//		if(num <= 10) {
-//			for(Number i : Number.values()) {
-//				if(num == i.getNumber() && i.getMaoriName().equals(line) && words.length == 1) {
-//					return true;
-//				} 
-//			}
-//			return false;
-//		}else {
-//			String[] maoriName;
-//			String temp = toMaori(num);
-//			maoriName = temp.split(" ");
-//			if(words.length != maoriName.length) {
-//				return false;
-//			}else {
-//				for(int i = 0; i < maoriName.length; i++) {
-//					if(!maoriName[i].equals(words[i])) {
-//						return false;
-//					}
-//				}
-//				return true;
-//			}
-//
-//		}
-//		}
 }

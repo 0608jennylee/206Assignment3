@@ -1,11 +1,11 @@
 package a03.view;
 
 import javafx.fxml.FXML;
+
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import a03.MainApp;
 import a03.enumerations.Level;
 
 import java.io.File;
@@ -18,9 +18,8 @@ import javafx.event.ActionEvent;
  * @author jenny
  *
  */
-public class StartController implements Initializable{
+public class StartController extends Controller implements Initializable{
 	//fields that are used to switch scenes on the stage
-	private MainApp _mainApp;
 	private Level _level;
 	@FXML private Button _back;
 	@FXML private ImageView _imageView;
@@ -53,16 +52,6 @@ public class StartController implements Initializable{
 	 */
 	public void setLevel(Level level) {
 		_level = level;
-	}
-	
-	/**
-	 * sets the mainApp for the controller in order for the 
-	 * controller know where to notify the events on the 
-	 * start stage
-	 * @param mainApp the mainApp that the scene is staged on
-	 */
-	public void setMainApp(MainApp mainApp){
-		_mainApp = mainApp;
 	}
 
 	@Override

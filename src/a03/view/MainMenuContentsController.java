@@ -2,20 +2,11 @@ package a03.view;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.File;
 import java.net.URL;
@@ -23,7 +14,6 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 
-import a03.MainApp;
 import javafx.event.ActionEvent;
 /**
  * The main menu controller, the first scene of the mainapp 
@@ -31,8 +21,8 @@ import javafx.event.ActionEvent;
  * @author jenny
  *
  */
-public class MainMenuContentsController implements Initializable {
-	private MainApp _mainApp;
+public class MainMenuContentsController extends Controller implements Initializable {
+
 	@FXML private JFXButton _playButton;
 	@FXML private JFXButton _statisticsButton;
 	@FXML private JFXButton _infoButton;
@@ -93,14 +83,6 @@ public class MainMenuContentsController implements Initializable {
 	@FXML
 	public void handleActivityLog(ActionEvent event) {
 		_mainApp.Statistics();
-	}
-
-	/**
-	 * Sets the mainApp for the MainContentsController
-	 * @param mainApp the mainApp
-	 */
-	public void setMainApp(MainApp mainApp) {
-		_mainApp = mainApp;
 	}
 
 	@Override

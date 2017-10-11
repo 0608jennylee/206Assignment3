@@ -1,6 +1,5 @@
 package a03.view;
 
-import a03.MainApp;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -12,13 +11,12 @@ import javafx.scene.image.ImageView;
  * @author jenny
  *
  */
-public class HowToPlayController {
+public class HowToPlayController extends Controller{
 	private final int _numberOfImages=5;
 	private int _count=1;
 	private String _imageDirectory = "HowToPlayImages/";
 	@FXML private Button _next;
 	@FXML private Button _previous;
-	@FXML private MainApp _mainApp;
 	@FXML private ImageView _imageView;
 	
 	/**
@@ -84,12 +82,5 @@ public class HowToPlayController {
 		Image image = new Image(getClass().getClassLoader().getResourceAsStream(_imageDirectory+_count+".jpg"));
 		_imageView.setImage(image);
 	}	
-	
-	/**
-	 * Sets the mainApp for the HowToPlayController
-	 * @param mainApp the mainApp
-	 */
-	public void setMainApp(MainApp mainApp) {
-		_mainApp = mainApp;
-	}
+
 }

@@ -2,20 +2,14 @@ package a03.view;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.scene.control.Button;
-import javafx.scene.control.Labeled;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.paint.Color;
 import a03.MainApp;
 import a03.enumerations.Level;
 import javafx.event.ActionEvent;
@@ -24,9 +18,8 @@ import javafx.event.ActionEvent;
  * @author edwar jenny
  *
  */
-public class ChooseLevelsController implements Initializable{
+public class ChooseLevelsController extends Controller implements Initializable{
 	@FXML private Button _hard;
-	private MainApp _mainApp;
 	@FXML private ImageView _imageView;
 	@FXML private Button _easy;
 	@FXML private Button _back;
@@ -70,16 +63,6 @@ public class ChooseLevelsController implements Initializable{
 	 */
 	public void disableHard() {
 		_hard.setDisable(true);
-	}
-	
-	/**
-	 * sets the mainApp for the controller in order for the 
-	 * controller know where to notify the events on the 
-	 * start stage
-	 * @param mainApp the mainApp that the scene is staged on
-	 */
-	public void setMainApp(MainApp mainApp){
-		_mainApp = mainApp;
 	}
 
 	@Override

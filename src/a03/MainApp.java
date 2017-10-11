@@ -5,6 +5,7 @@ import a03.enumerations.GameState;
 import a03.enumerations.Level;
 import a03.enumerations.Stats;
 import a03.view.ChooseLevelsController;
+import a03.view.Controller;
 import a03.view.HowToPlayController;
 import a03.view.LessThanTenController;
 import a03.view.MainMenuContentsController;
@@ -17,19 +18,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
 public class MainApp extends Application {
 	//	public enum Level {hard(""),easy};
 	private Stage _primaryStage;
 	private GameState _gameState;
+	private LessThanTenController LTTController;
 
 	/**
 	 * Constructor
@@ -61,6 +62,7 @@ public class MainApp extends Application {
 	 */
 	public void mainMenuContents() {
 		try {
+			LTTController = null;
 			_gameState = GameState.MENU;
 			//Load main menu 
 			FXMLLoader loader = new FXMLLoader();
@@ -95,11 +97,11 @@ public class MainApp extends Application {
 			_primaryStage.setScene(scene);
 			_primaryStage.show();
 			// Give the controller access to the main app.
-			LessThanTenController controller = loader.getController();
-			controller.setMainApp(this);
-			controller.setLevel(level);
-			controller.setQuestion();
-
+			LTTController = loader.getController();
+			LTTController.setMainApp(this);
+			LTTController.setLevel(level);
+			LTTController.setQuestion();
+			LTTController.save();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -210,16 +212,31 @@ public class MainApp extends Application {
 	 * closes the app and saves the settings
 	 */
 	public void exit(WindowEvent e) {
-		Alert alert = new Alert(AlertType.CONFIRMATION, "Are you sure you would like to exit the game?", new ButtonType("Stay"), new ButtonType("Quit"));
+		ButtonType stay = new ButtonType("Stay",ButtonBar.ButtonData.CANCEL_CLOSE);
+		ButtonType quit = new ButtonType("Quit");
+		ButtonType saveQuit = new ButtonType("Save and Quit");
+		Alert alert = new Alert(AlertType.CONFIRMATION, "Are you sure you would like to exit the game?", stay, quit);
 		if(_gameState == GameState.INGAME){
-			alert.getButtonTypes().add(new ButtonType("Save and Quit"));
+			alert.getButtonTypes().add(saveQuit);
 			alert.showAndWait();
 		}else {
 			alert.getDialogPane().setMinWidth(Region.USE_COMPUTED_SIZE);
 			alert.showAndWait();
 		}
-		Settings.getSettings().save();
-		Platform.exit();
+		if(alert.getResult().equals(quit)) {
+			Settings.getSettings().save();
+			Platform.exit();
+		}else if(alert.getResult().equals(stay)) {
+			if(e != null) {
+				e.consume();
+			}
+		}else {
+			if(LTTController != null) {
+				LTTController.save();
+			}
+			Settings.getSettings().save();
+			Platform.exit();
+		}
 	}
 
 	/**

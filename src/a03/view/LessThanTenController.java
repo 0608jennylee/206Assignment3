@@ -1,17 +1,15 @@
 package a03.view;
 
 import java.io.File;
-
-
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 
-import a03.MainApp;
+import com.google.gson.Gson;
+
 import a03.Saveable;
 import a03.Settings;
 import a03.enumerations.Level;
@@ -21,49 +19,46 @@ import a03.generators.Generator;
 import a03.generators.GeneratorFactory;
 import a03.generators.Processor;
 import javafx.concurrent.Task;
-import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Labeled;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaPlayer.Status;
 import javafx.scene.text.Font;
 /**
  * this controller, controls the scene for displaying the level
  * @author edwar jenny
  *
  */
-public class LessThanTenController implements Initializable, Saveable{
+public class LessThanTenController extends Controller implements Initializable, Saveable{
 
 //	@FXML private ImageView _imageView;
-	@FXML private ImageView _score;
-	@FXML private Button _record;
-	@FXML private Button _submit;
-	@FXML private Button _playback;
+	@FXML private transient ImageView _score;
+	@FXML private transient Button _record;
+	@FXML private transient Button _submit;
+	@FXML private transient Button _playback;
 
-	@FXML private Button _nextQuestion;
+	@FXML private transient Button _nextQuestion;
 //	@FXML private Button _mainMenuTop;
 //	@FXML private Button _mainMenuBottom;
-	@FXML private Button _nextLevel;
-	@FXML private Label _theCorrectAnswer;
-	@FXML private Label _theirAnswer;
-	@FXML private Label _question;
+	@FXML private transient Button _nextLevel;
+	@FXML private transient Label _theCorrectAnswer;
+	@FXML private transient Label _theirAnswer;
+	@FXML private transient Label _question;
 	//@FXML private Label _text;
-	@FXML private Label _text1;
-	@FXML private Label _text2;
-	@FXML private Label _title;
-	@FXML private ImageView _imageView;
+	@FXML private transient Label _text1;
+	@FXML private transient Label _text2;
+	@FXML private transient Label _title;
+	@FXML private transient ImageView _imageView;
 //	@FXML private Label _sorry;
 //	@FXML private Label _weMuckedUp;
 //	@FXML private Label _tryAgain;
-	@FXML private BorderPane _root;
+	@FXML private transient BorderPane _root;
 	
 	private boolean _correct=true;
 	private boolean _failed=false;
@@ -71,14 +66,13 @@ public class LessThanTenController implements Initializable, Saveable{
 	private boolean _tryAgainPressed=true;
 	private int _currentQuestion = 0;
 	private int _correctAnswers = 0;
-
-	private MainApp _mainApp;
+	
 	private List<String> _numbers;
 	private Level _level;
 	private String _display;
-	private MediaPlayer mp;
-	private Generator _generator;
-	@FXML private Button _back;
+	private transient MediaPlayer mp;
+	private transient Generator _generator;
+	@FXML private transient Button _back;
 
 	/**
 	 * when the record button is clicked, the recording starts in a background 
@@ -309,14 +303,6 @@ public class LessThanTenController implements Initializable, Saveable{
 		_record.setDisable(false);
 	}
 	
-	/**
-	 * sets the mainApp for the controller in order for the 
-	 * controller know where to notify the events on the 
-	 * start stage
-	 * @param mainApp the mainApp that the scene is staged on
-	 */public void setMainApp(MainApp mainApp) {
-		_mainApp = mainApp;
-	}
 	 @FXML
 	 public void handleSubmit() {
 		 try {
@@ -370,26 +356,15 @@ public class LessThanTenController implements Initializable, Saveable{
 
 	@Override
 	public void save() {
-		List<String> lines = new ArrayList<String>();
-		lines.add("CORRECT=" + Boolean.toString(_correct));
-		lines.add("FAILED=" + Boolean.toString(_failed));
-		lines.add("SECONDTRY=" + Boolean.toString(_secondTry));
-		lines.add("TRYAGAINPRESSED=" + Boolean.toString(_tryAgainPressed));
-		lines.add("CURRENTQUESTION=" + Integer.toString(_currentQuestion));
-		lines.add("CORRECTANSWERS=" + Integer.toString(_correctAnswers));
-		lines.add("LEVEL=" + _level.name());
-		lines.add("DISPLAY=" + _display);
-		lines.addAll(_numbers);
-		
-		try {
-			Files.write(new File(_level.toString() + ".dat").toPath(), lines);
+		Gson g = new Gson();
+		String j = g.toJson(this);
+		try (FileWriter filewriter = new FileWriter(_level.toString() + ".dat")){
+			filewriter.write(j.toString());
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
 	
 	public void load() {
-		
 	}
 }

@@ -2,13 +2,13 @@ package a03.view;
 
 import javafx.fxml.FXML;
 
+
 import a03.GameStats;
-import a03.MainApp;
 import javafx.event.ActionEvent;
 
 import javafx.scene.control.Label;
 
-public class StatisticsController{
+public class StatisticsController extends Controller{
 	@FXML private Label _easyHoursPlayed;
 	@FXML private Label _easyTopScore;
 	@FXML private Label _EasyLowestScore;
@@ -17,16 +17,11 @@ public class StatisticsController{
 	@FXML private Label _hardTopScore;
 	@FXML private Label _hardLowestScore;
 	@FXML private Label _hardAverageScore;
-	private MainApp _mainApp;
 
 	// Event Listener on Button.onAction
 	@FXML
 	public void handleMainMenu(ActionEvent event) {
 		_mainApp.mainMenuContents();
-	}
-	
-	public void setMainApp(MainApp mainApp){
-		_mainApp = mainApp;
 	}
 
 //	@Override
