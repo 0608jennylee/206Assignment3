@@ -220,7 +220,7 @@ public class MainApp extends Application {
 			//Load statistics 
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/ScoreBoard.fxml"));
-			BorderPane statistics = (BorderPane) loader.load();
+			AnchorPane statistics = (AnchorPane) loader.load();
 			//load statistics scene on the primary stage
 			Scene scene = new Scene(statistics);
 			_primaryStage.setScene(scene);

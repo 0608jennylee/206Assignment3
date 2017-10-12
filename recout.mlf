@@ -1,4 +1,5 @@
 #!MLF!#
+<<<<<<< HEAD
 "*/93.rec"
 sil
 iwa
@@ -6,5 +7,10 @@ iwa
 tekau
 maa
 toru
+=======
+"*/foo.rec"
+sil
+ono
+>>>>>>> 49584f353d649d40c75434f639eae410168df6e0
 sil
 .
