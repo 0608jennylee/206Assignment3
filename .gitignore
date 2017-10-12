@@ -1,6 +1,11 @@
 *.wav
 /bin/
+<<<<<<< HEAD
+recout.mlf
+
+=======
 NUMBERS.dat
+>>>>>>> 49584f353d649d40c75434f639eae410168df6e0
 # Created by https://www.gitignore.io/api/java
 
 ### Java ###
