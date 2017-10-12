@@ -56,6 +56,7 @@ public class ChooseLevelController implements Initializable{
 		Image image5 = new Image(file5.toURI().toString());
 		_imageView.setImage(image5);
 		_imageView.setOpacity(0.35);
+		//_back.setVisible(false);
 
 	}
 }
