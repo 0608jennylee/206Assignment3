@@ -1,4 +1,5 @@
 package a03;
+import java.io.File;
 import java.io.IOException;
 import a03.Settings;
 import a03.enumerations.Difficulty;
@@ -103,10 +104,10 @@ public class MainApp extends Application {
 			_primaryStage.show();
 			// Give the controller access to the main app.
 			LTTController = loader.getController();
-			LTTController.setMainApp(this);
 			LTTController.setDifficulty(difficulty, level);
+			LTTController.setMainApp(this);
 			LTTController.setQuestion();
-			
+//			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -271,7 +272,9 @@ public class MainApp extends Application {
 		}
 		if(alert.getResult().equals(quit)) {
 			Settings.getSettings().save();
+			deleteRecordings();
 			Platform.exit();
+			
 		}else if(alert.getResult().equals(stay)) {
 			if(e != null) {
 				e.consume();
@@ -280,8 +283,27 @@ public class MainApp extends Application {
 			if(LTTController != null) {
 				LTTController.save();
 			}
+			deleteRecordings();
 			Settings.getSettings().save();
 			Platform.exit();
+		}
+	}
+	
+	private void deleteRecordings() {
+		boolean found = false;
+		File[] files = new File("Saves").listFiles();
+		if(files != null) {
+			for(File f : new File("Recordings").listFiles()) {
+				for(File save : files) {
+					if(save.getName().equals(f.getName())) {
+						found = true;
+					}
+				}
+				if(!found) {
+					f.delete();
+				}
+				found = false;
+			}
 		}
 	}
 
@@ -320,6 +342,32 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public void loadGame(Level level, Difficulty difficulty) {
+		try {
+			_gameState = GameState.INGAME;
+			//Load level 
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/LessThanTen.fxml"));
+			AnchorPane lessThanTen = (AnchorPane) loader.load();
+			//load level scene on primary stage
+			Scene scene = new Scene(lessThanTen);
+			_primaryStage.setScene(scene);
+			_primaryStage.show();
+			// Give the controller access to the main app.
+			LTTController = loader.getController();
+			LTTController.load(level, difficulty);
+			LTTController.setMainApp(this);
+			LTTController.setQuestion();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void setGameState(GameState gamestate) {
+		_gameState = gamestate;
 	}
 
 }
