@@ -1,6 +1,7 @@
 package a03.view;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -9,13 +10,17 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonReader;
 
 import a03.Saveable;
 import a03.Settings;
 import a03.enumerations.Difficulty;
+import a03.enumerations.GameState;
 import a03.enumerations.Level;
 import a03.errors.HTKError;
 import a03.GameStats;
+import a03.LogData;
 import a03.generators.Generator;
 import a03.generators.GeneratorFactory;
 import a03.generators.Processor;
@@ -75,7 +80,13 @@ public class LessThanTenController extends Controller implements Initializable, 
 	private transient Generator _generator;
 	@FXML private transient Button _back;
 	private Difficulty _difficulty;
+	private final String SAVEFOLDER = "Saves";
+	private String RECORDINGSFOLDER = "";
 
+	@Override
+	public void setMainAppHook() {
+		RECORDINGSFOLDER = "Recordings/" + _level.toString() + _difficulty.toString() + "/";
+	}
 	/**
 	 * when the record button is clicked, the recording starts in a background 
 	 * thread, and changes correct based on whether they are wrong or correct
@@ -84,6 +95,9 @@ public class LessThanTenController extends Controller implements Initializable, 
 	// Event Listener on Button[#_record].onAction
 	@FXML
 	public void handleRecord(ActionEvent event) {
+		if(!new File(RECORDINGSFOLDER).exists()) {
+			new File(RECORDINGSFOLDER).mkdirs();
+		}
 		_playback.setDisable(true);
 		_submit.setDisable(true);
 		if (_secondTry&&_tryAgainPressed||_failed){ //if it fails or is the second try for the user
@@ -99,7 +113,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 				@Override
 				protected Void call() throws Exception {
 					_record.setDisable(true);
-					String cmd = "arecord -d 2 -r 22050 -c 1 -i -t wav -f s16_LE " + Processor.toInt(_numbers.get(_currentQuestion)) + ".wav;echo record passed; HVite -H HMMs/hmm15/macros -H HMMs/hmm15/hmmdefs -C user/configLR  -w user/wordNetworkNum -o SWT -l '*' -i recout.mlf -p 0.0 -s 5.0  user/dictionaryD user/tiedList "+ Processor.toInt(_numbers.get(_currentQuestion)) + ".wav; echo processing passed;";
+					String cmd = "arecord -d 2 -r 22050 -c 1 -i -t wav -f s16_LE " + RECORDINGSFOLDER + Processor.toInt(_numbers.get(_currentQuestion)) + ".wav;echo record passed; HVite -H HMMs/hmm15/macros -H HMMs/hmm15/hmmdefs -C user/configLR  -w user/wordNetworkNum -o SWT -l '*' -i recout.mlf -p 0.0 -s 5.0  user/dictionaryD user/tiedList " + RECORDINGSFOLDER + Processor.toInt(_numbers.get(_currentQuestion)) + ".wav; echo processing passed;";
 					ProcessBuilder pb = new ProcessBuilder("bash", "-c", cmd);
 					try {
 						Process p = pb.start();
@@ -126,7 +140,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 		_record.setDisable(true);
 		_playback.setDisable(true);
 		_submit.setDisable(true);
-		String filepath = Processor.toInt(_numbers.get(_currentQuestion)) + ".wav";
+		String filepath = RECORDINGSFOLDER + Processor.toInt(_numbers.get(_currentQuestion)) + ".wav";
 		Media sound = new Media(new File(filepath).toURI().toString());
 		mp = new MediaPlayer(sound);
 		mp.setOnEndOfMedia(this::enable);
@@ -160,6 +174,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 		}else if(_correct){//user gets correct answer
 			//File file = new File(System.getProperty("user.dir")+"/Correct/" + _numbers.get(_currentQuestion) + ".jpg");
 //			File file = new File(System.getProperty("user.dir")+"/Correct/" + _numbers.get(_currentQuestion) + ".jpg");
+			delete();
 			_theCorrectAnswer.setText((Processor.toMaori(Processor.toInt(_numbers.get(_currentQuestion)))));
 			_theirAnswer.setText((Processor.getUserAnswer()));
 			_currentQuestion++;
@@ -175,6 +190,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 //			Image file = new Image(getClass().getClassLoader().getResource("Incorrect/" + _numbers.get(_currentQuestion) + ".jpg").toString());
 //			setImage(file);
 			if (_secondTry){//user gets the answer incorrect the second time
+				delete();
 				_theCorrectAnswer.setText((Processor.toMaori(Processor.toInt(_numbers.get(_currentQuestion)))));
 				_theirAnswer.setText(Processor.getUserAnswer());
 				_secondTry = false;
@@ -204,26 +220,36 @@ public class LessThanTenController extends Controller implements Initializable, 
 	 * if they are on easy and have passed i
 	 */
 	private void displayFinalScore() {
+		//temp workout for them to not be able to save at the final score menu.
+		_mainApp.setGameState(GameState.MENU);
 		_title.setVisible(false);
 		if(_correctAnswers >= 8&&_difficulty==Difficulty.EASY) {
 			Settings.getSettings().enableHard();
-//			_mainMenuTop.setVisible(true);
 			_nextLevel.setVisible(true);
 		}else {
 			_nextLevel.setText("Play Again");
 			_nextLevel.setVisible(true);
 		}
 		GameStats.getGameStats().update(_difficulty,_level, _correctAnswers);
+		// work in progress to generate the data to populate the charts
+		//TODO
+//		Gson g = new Gson();
+//		String j = g.toJson(new LogData("" + _correctAnswers, _level, _difficulty));
+//		if(!new File("Logs").exists()) {
+//			new File("Logs").mkdir();
+//		}
+//		try (FileWriter filewriter = new FileWriter("Logs/" + _level.toString() + _difficulty.toString() + "History.dat")){
+//			filewriter.append(j.toString());
+//		} catch (IOException e1) {
+//			e1.printStackTrace();
+//		}
 		_theirAnswer.setText("");
 		_theCorrectAnswer.setText("");
 		_text1.setText("");
 		_text2.setText("");
 		_record.setVisible(false);
 		_nextQuestion.setVisible(false);
-//		_imageView.setTranslateY(150);
-//		File file = new File(System.getProperty("user.dir")+"/Result/" + _correctAnswers + ".jpg");
-//		Image file = new Image(getClass().getClassLoader().getResource("Result/" + _correctAnswers + ".jpg").toString());
-//		setImage(file);
+		_question.setText(_correctAnswers + "/10");
 	}
 
 	/**
@@ -297,7 +323,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 		_theirAnswer.setText("");
 		_theCorrectAnswer.setText("");
 		_nextQuestion.setVisible(false);
-		_question.setFont(new Font("Ubuntu",200));
+		_question.setFont(new Font("Ubuntu",100));
 		_question.setText(_numbers.get(_currentQuestion));
 		//File file = new File(System.getProperty("user.dir")+"/Video/" + _numbers.get(_currentQuestion) + ".jpg");
 //		Image file = new Image(getClass().getClassLoader().getResource("Video/" + _numbers.get(_currentQuestion) + ".jpg").toString());//
@@ -323,6 +349,12 @@ public class LessThanTenController extends Controller implements Initializable, 
 			 check();
 		 }
 	 }
+	 
+	private void delete() {
+		System.out.println("deleted");
+		File recordings = new File(RECORDINGSFOLDER + Processor.toInt(_numbers.get(_currentQuestion)) + ".wav");
+		recordings.delete();
+	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -362,14 +394,121 @@ public class LessThanTenController extends Controller implements Initializable, 
 	public void save() {
 		Gson g = new Gson();
 		String j = g.toJson(this);
-		try (FileWriter filewriter = new FileWriter(_level.toString() + ".dat")){
+		if(!new File(SAVEFOLDER).exists()) {
+			new File(SAVEFOLDER).mkdir();
+		}
+		try (FileWriter filewriter = new FileWriter(SAVEFOLDER + "/" + _level.toString() + _difficulty.toString() + ".dat")){
 			filewriter.write(j.toString());
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 	}
 	
-	public void load() {
+	public void load(Level level, Difficulty difficulty) {
 		Gson g = new Gson();
+		JsonReader reader;
+		try {
+			reader = new JsonReader(new FileReader(SAVEFOLDER + "/" + level.toString() + difficulty.toString() + ".dat"));
+			LessThanTenController controller = g.fromJson(reader, LessThanTenController.class);
+			_correct = controller.getCorrect();
+			_failed = controller.getFailed();
+			_secondTry = controller.getSecondTry();
+			_tryAgainPressed = controller.getTryAgainPressed();
+			_currentQuestion = controller.getCurrentQuestion();
+			_correctAnswers  = controller.getCorrectAnswers();
+			_numbers = controller.getNumbers();
+			_level = controller.getLevel();
+			_difficulty = controller.getDifficulty();
+			_display = controller.getDisplay();
+			new File(SAVEFOLDER + "/" + level.toString() + difficulty.toString() + ".dat").delete();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
 	}
+	
+	public boolean getCorrect() {
+		return _correct;
+	}
+	
+//	public void setCorrect(boolean bool) {
+//		_correct = bool;
+//	}
+	
+	public boolean getFailed() {
+		return _failed;
+	}
+	
+//	public void setFailed(boolean bool) {
+//		_failed = bool;
+//	}
+	
+	public boolean getSecondTry() {
+		return _secondTry;
+	}
+	
+//	public void setSecondTry(boolean bool) {
+//		_secondTry = bool;
+//	}
+	
+	public boolean getTryAgainPressed() {
+		return _tryAgainPressed;
+	}
+	
+//	public void setTryAgainPressed(boolean bool) {
+//		_tryAgainPressed = bool;
+//	}
+	
+	public int getCurrentQuestion() {
+		return _currentQuestion;
+	}
+	
+//	public void setCurrentQuestion(int question) {
+//		_currentQuestion = question;
+//	}
+	
+	public int getCorrectAnswers() {
+		return _correctAnswers;
+	}
+	
+//	public void setCorrectAnswers(int answers) {
+//		_correctAnswers = answers;
+//	}
+	
+	public List<String> getNumbers(){
+		return _numbers;
+	}
+	
+//	public void setNumbers(List<String> numbers) {
+//		_numbers = numbers;
+//	}
+	
+	public String getDisplay() {
+		return _display;
+	}
+	
+//	public void setDisplay(String string) {
+//		_display = string;
+//	}
+	
+	public Level getLevel() {
+		return _level;
+	}
+	
+//	public void setLevel(Level level) {
+//		_level = level;
+//	}
+	
+	public Difficulty getDifficulty() {
+		return _difficulty;
+	}
+	
+//	public void setDifficulty(Difficulty difficulty) {
+//		_difficulty = difficulty;
+//	}
 }

@@ -29,7 +29,6 @@ public class ChooseDifficultyController extends Controller implements Initializa
 	@FXML private Button _easy;
 	@FXML private Button _back;
 	private Level _level;
-	private boolean _something=false;
 
 
 	/**
@@ -40,8 +39,7 @@ public class ChooseDifficultyController extends Controller implements Initializa
 	// Event Listener on Button.onAction
 	@FXML
 	public void handleEasySelection(ActionEvent event) {
-		//TODO
-		if(_something) {
+		if((new File("Saves/" + _level.toString() + Difficulty.EASY + ".dat").exists())) {
 			_mainApp.LoadLevel(_level,Difficulty.EASY);
 		}else {
 			_mainApp.Start(_level,Difficulty.EASY);
@@ -57,7 +55,7 @@ public class ChooseDifficultyController extends Controller implements Initializa
 	@FXML
 	public void handleHardSelection(ActionEvent event) {
 		//TODO
-		if(_something) {
+		if(new File("Saves/" + _level.toString() + Difficulty.EASY + ".dat").exists()) {
 			_mainApp.LoadLevel(_level,Difficulty.HARD);
 		}else {
 			_mainApp.Start(_level,Difficulty.HARD);

@@ -40,15 +40,15 @@
 						<Font name="Ubuntu" size="16.0" />
 					</font>
 				</Label>
-				<JFXButton fx:id="_easy" maxHeight="-Infinity" maxWidth="-Infinity"
-					minHeight="-Infinity" minWidth="-Infinity" onAction="#handleEasySelection"
+				<JFXButton fx:id="_load" maxHeight="-Infinity" maxWidth="-Infinity"
+					minHeight="-Infinity" minWidth="-Infinity" onAction="#handleLoad"
 					prefWidth="300.0" style="-fx-background-radius: 10;" text="LOAD"
 					textAlignment="CENTER">
 					<font>
 						<Font name="Ubuntu" size="31.0" />
 					</font>
 				</JFXButton>
-				<JFXButton fx:id="_hard" onAction="#handleHardSelection"
+				<JFXButton fx:id="_new" onAction="#handleNew"
 					prefWidth="300.0" style="-fx-background-radius: 10;" text="NEW">
 					<font>
 						<Font name="Ubuntu" size="31.0" />
