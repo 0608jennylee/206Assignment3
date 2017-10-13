@@ -6,6 +6,7 @@ import a03.enumerations.GameState;
 import a03.enumerations.Level;
 import a03.enumerations.Stats;
 import a03.view.Controller;
+import a03.view.CustomizeController;
 import a03.view.ChartsController;
 import a03.view.ChooseDifficultyController;
 import a03.view.ChooseLevelController;
@@ -14,6 +15,7 @@ import a03.view.LessThanTenController;
 import a03.view.LoadLevelController;
 import a03.view.MainMenuContentsController;
 import a03.view.ScoreBoardController;
+import a03.view.ScoreboardController;
 import a03.view.StartController;
 import a03.view.StatisticsController;
 //import a03.view.StartController;
@@ -219,16 +221,16 @@ public class MainApp extends Application {
 			_gameState = GameState.MENU;
 			//Load statistics 
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/ScoreBoard.fxml"));
+			loader.setLocation(MainApp.class.getResource("view/Scoreboard.fxml"));
 			AnchorPane statistics = (AnchorPane) loader.load();
 			//load statistics scene on the primary stage
 			Scene scene = new Scene(statistics);
 			_primaryStage.setScene(scene);
 			_primaryStage.show();
 			// Give the controller access to the main app.
-			ScoreBoardController controller = loader.getController();
+			ScoreboardController controller = loader.getController();
 			controller.setMainApp(this);
-			controller.setScores();
+			//controller.setScores();
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -333,7 +335,7 @@ public class MainApp extends Application {
 			_primaryStage.setScene(scene);
 			_primaryStage.show();
 			// Give the controller access to the main app.
-			LoadLevelController controller = loader.getController();
+			CustomizeController controller = loader.getController();
 			controller.setMainApp(this);
 		} catch (IOException e) {
 			e.printStackTrace();

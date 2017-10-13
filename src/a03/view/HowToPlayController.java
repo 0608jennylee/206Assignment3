@@ -93,7 +93,7 @@ public class HowToPlayController extends Controller implements Initializable{
 		File file5 = new File(System.getProperty("user.dir")+"/fern.jpg");
 		Image image5 = new Image(file5.toURI().toString());
 		_imageView.setImage(image5);
-		_imageView.setOpacity(0.1);
+		_imageView.setOpacity(0.2);
 		
 	}
 

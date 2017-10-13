@@ -11,18 +11,30 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity"
+	prefHeight="450.0" prefWidth="700.0" xmlns:fx="http://javafx.com/fxml/1"
+	xmlns="http://javafx.com/javafx/8.0.111" fx:controller="a03.view.CustomizeController">
 	<children>
-		<ImageView fx:id="_imageView" fitHeight="500.0" fitWidth="700.0" layoutX="1.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-		<JFXButton fx:id="_mainMenu" layoutX="39.0" layoutY="55.0" onAction="#handleMainMenu" ripplerFill="#ffffff2e" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0" />
-		<VBox alignment="CENTER" layoutX="181.0" layoutY="72.0" prefHeight="400.0" prefWidth="374.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="163.0" AnchorPane.rightAnchor="163.0" AnchorPane.topAnchor="0.0">
+		<ImageView fx:id="_imageView" fitHeight="500.0" fitWidth="700.0"
+			layoutX="1.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true"
+			AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+			AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+		<JFXButton fx:id="_mainMenu" layoutX="39.0" layoutY="55.0"
+			onAction="#handleMainMenu" ripplerFill="#ffffff2e"
+			AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0" />
+		<VBox alignment="CENTER" layoutX="181.0" layoutY="72.0"
+			prefHeight="400.0" prefWidth="374.0" spacing="20.0"
+			AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="163.0"
+			AnchorPane.rightAnchor="163.0" AnchorPane.topAnchor="0.0">
 			<children>
-				<Label alignment="TOP_CENTER" prefWidth="400.0" style="-fx-background-radius: 10;" text="Cuztomize">
+				<Label alignment="TOP_CENTER" prefWidth="400.0"
+					style="-fx-background-radius: 10;" text="Cuztomize">
 					<font>
 						<Font name="Ubuntu Bold" size="66.0" />
 					</font>
 				</Label>
-				<HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="50.0">
+				<HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0"
+					spacing="50.0">
 					<children>
 						<JFXCheckBox fx:id="_numbersCB" text="Numbers">
 							<font>
@@ -39,7 +51,8 @@
 				<VBox alignment="CENTER" prefHeight="90.0" prefWidth="100.0">
 					<children>
 						<Label text="Number Range" />
-						<HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="80.0">
+						<HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0"
+							spacing="80.0">
 							<children>
 								<VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
 									<children>
@@ -63,7 +76,9 @@
 					</font>
 				</Label>
 				<JFXSlider fx:id="_slider" />
-				<JFXButton onAction="#handleOK" ripplerFill="RED" style="-fx-border-radius: 20; -fx-background-color: orange; -fx-border-color: black;" text="OK">
+				<JFXButton onAction="#handleOK" ripplerFill="RED"
+					style="-fx-border-radius: 20; -fx-background-color: orange; -fx-border-color: black;"
+					text="OK">
 					<font>
 						<Font size="20.0" />
 					</font>

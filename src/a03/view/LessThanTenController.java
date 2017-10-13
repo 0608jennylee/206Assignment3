@@ -297,7 +297,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 		_theirAnswer.setText("");
 		_theCorrectAnswer.setText("");
 		_nextQuestion.setVisible(false);
-		_question.setFont(new Font("Ubuntu",50));
+		_question.setFont(new Font("Ubuntu",200));
 		_question.setText(_numbers.get(_currentQuestion));
 		//File file = new File(System.getProperty("user.dir")+"/Video/" + _numbers.get(_currentQuestion) + ".jpg");
 //		Image file = new Image(getClass().getClassLoader().getResource("Video/" + _numbers.get(_currentQuestion) + ".jpg").toString());//

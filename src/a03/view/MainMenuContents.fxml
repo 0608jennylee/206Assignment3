@@ -27,7 +27,7 @@
 			AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="140.0"
 			AnchorPane.topAnchor="190.0">
 			<children>
-				<HBox fx:id="_buttonBar" alignment="TOP_CENTER" layoutX="103.0"
+				<HBox alignment="TOP_CENTER" layoutX="103.0"
 					layoutY="10.0" prefHeight="472.0" prefWidth="420.0"
 					AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
 					AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
