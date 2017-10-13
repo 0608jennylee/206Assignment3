@@ -21,10 +21,6 @@ public class ChooseLevelController implements Initializable{
 	private ImageView _imageView;
 	@FXML
 	private JFXButton _back;
-	@FXML
-	private JFXButton _easy;
-	@FXML
-	private JFXButton _hard;
 	private MainApp _mainApp;
 
 	// Event Listener on JFXButton[#_back].onAction
@@ -34,13 +30,19 @@ public class ChooseLevelController implements Initializable{
 	}
 	// Event Listener on JFXButton[#_easy].onAction
 	@FXML
-	public void handleEasySelection(ActionEvent event) {
+	public void handleNumbersSelection(ActionEvent event) {
 		_mainApp.chooseDifficulty(Level.NUMBERS);
 	}
 	// Event Listener on JFXButton[#_hard].onAction
+	
 	@FXML
-	public void handleHardSelection(ActionEvent event) {
+	public void handleEquationsSelection(ActionEvent event) {
 		_mainApp.chooseDifficulty(Level.EQUATIONS);
+	}
+	// Event Listener on JFXButton[#_hard].onAction
+	@FXML
+	public void handleCuztomizeSelection(ActionEvent event) {
+		_mainApp.customize();
 	}
 	public void setMainApp(MainApp mainApp) {
 		_mainApp=mainApp;

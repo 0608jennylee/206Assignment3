@@ -322,4 +322,23 @@ public class MainApp extends Application {
 		
 	}
 
+	public void customize() {
+		try {
+			//Load statistics 
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/Customize.fxml"));
+			AnchorPane charts = (AnchorPane) loader.load();
+			//load statistics scene on the primary stage
+			Scene scene = new Scene(charts);
+			_primaryStage.setScene(scene);
+			_primaryStage.show();
+			// Give the controller access to the main app.
+			LoadLevelController controller = loader.getController();
+			controller.setMainApp(this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
 }

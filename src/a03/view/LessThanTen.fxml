@@ -8,36 +8,60 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a03.view.LessThanTenController">
-   <children>
-      <ImageView fx:id="_imageView" fitHeight="500.0" fitWidth="700.0" layoutX="1.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <JFXButton fx:id="_back" layoutX="39.0" layoutY="55.0" onAction="#handleBack" ripplerFill="#ffffff2e" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0" />
-      <Label fx:id="_text1" layoutX="64.0" layoutY="321.0" text="Your answer is: " AnchorPane.leftAnchor="64.0" AnchorPane.topAnchor="321.0" />
-      <Label fx:id="_text2" layoutX="64.0" layoutY="352.0" text="The correct answer is: " AnchorPane.leftAnchor="64.0" AnchorPane.topAnchor="352.0" />
-      <Label fx:id="_theirAnswer" AnchorPane.leftAnchor="220.0" AnchorPane.topAnchor="321.0" />
-      <Label fx:id="_theCorrectAnswer" AnchorPane.leftAnchor="220.0" AnchorPane.topAnchor="352.0" />
-      <Button fx:id="_nextLevel" mnemonicParsing="false" onAction="#handleNextLevel" text="Hard Level &gt;" visible="false" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="30.0">
-         <font>
-            <Font name="Purisa Bold" size="13.0" />
-         </font>
-      </Button>
-      <Label fx:id="_title" text="Label" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="30.0">
-         <font>
-            <Font name="Ubuntu Bold" size="37.0" />
-         </font>
-      </Label>
-      <HBox alignment="CENTER" layoutX="250.0" layoutY="357.0" prefHeight="80.0" prefWidth="256.0" spacing="30.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="222.0" AnchorPane.rightAnchor="222.0" AnchorPane.topAnchor="360.0">
-         <children>
-            <JFXButton fx:id="_playback" onAction="#handlePlayback" />
-            <JFXButton fx:id="_record" onAction="#handleRecord" />
-            <JFXButton fx:id="_submit" onAction="#handleSubmit" />
-         </children>
-      </HBox>
-      <JFXButton fx:id="_nextQuestion" layoutX="580.0" layoutY="407.0" onAction="#handleNextQuestion" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="598.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="384.0" />
-      <Label fx:id="_question" alignment="CENTER" layoutX="101.0" layoutY="87.0" text="1" textAlignment="CENTER" AnchorPane.bottomAnchor="130.0" AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="88.0" AnchorPane.topAnchor="85.0">
-         <font>
-            <Font name="Ubuntu Bold" size="200.0" />
-         </font>
-      </Label>
-   </children>
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity"
+	prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.141"
+	xmlns:fx="http://javafx.com/fxml/1" fx:controller="a03.view.LessThanTenController">
+	<children>
+		<ImageView fx:id="_imageView" fitHeight="500.0" fitWidth="700.0"
+			layoutX="1.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true"
+			AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+			AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+		<JFXButton fx:id="_back" layoutX="39.0" layoutY="55.0"
+			onAction="#handleBack" ripplerFill="#ffffff2e" AnchorPane.leftAnchor="15.0"
+			AnchorPane.topAnchor="15.0" />
+		<Label fx:id="_text1" layoutX="64.0" layoutY="321.0" text="Your answer is: "
+			AnchorPane.leftAnchor="64.0" AnchorPane.topAnchor="321.0" />
+		<Label fx:id="_text2" layoutX="64.0" layoutY="352.0"
+			text="The correct answer is: " AnchorPane.leftAnchor="64.0"
+			AnchorPane.topAnchor="352.0" />
+		<Label fx:id="_theirAnswer" AnchorPane.leftAnchor="220.0"
+			AnchorPane.topAnchor="321.0" />
+		<Label fx:id="_theCorrectAnswer" AnchorPane.leftAnchor="220.0"
+			AnchorPane.topAnchor="352.0" />
+		<Button fx:id="_nextLevel" mnemonicParsing="false" onAction="#handleNextLevel"
+			text="Hard Level &gt;" visible="false" AnchorPane.bottomAnchor="30.0"
+			AnchorPane.rightAnchor="30.0">
+			<font>
+				<Font name="Purisa Bold" size="13.0" />
+			</font>
+		</Button>
+		<Label fx:id="_title" text="Label" AnchorPane.leftAnchor="150.0"
+			AnchorPane.topAnchor="30.0">
+			<font>
+				<Font name="Ubuntu Bold" size="37.0" />
+			</font>
+		</Label>
+		<HBox alignment="CENTER" layoutX="250.0" layoutY="357.0"
+			prefHeight="80.0" prefWidth="256.0" spacing="30.0"
+			AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="222.0"
+			AnchorPane.rightAnchor="222.0" AnchorPane.topAnchor="360.0">
+			<children>
+				<JFXButton fx:id="_playback" onAction="#handlePlayback" />
+				<JFXButton fx:id="_record" onAction="#handleRecord" />
+				<JFXButton fx:id="_submit" onAction="#handleSubmit" />
+			</children>
+		</HBox>
+		<JFXButton fx:id="_nextQuestion" layoutX="580.0" layoutY="407.0"
+			onAction="#handleNextQuestion" AnchorPane.bottomAnchor="40.0"
+			AnchorPane.leftAnchor="598.0" AnchorPane.rightAnchor="40.0"
+			AnchorPane.topAnchor="384.0" />
+		<Label fx:id="_question" alignment="CENTER" layoutX="101.0"
+			layoutY="87.0" text="1" textAlignment="CENTER"
+			AnchorPane.bottomAnchor="130.0" AnchorPane.leftAnchor="88.0"
+			AnchorPane.rightAnchor="88.0" AnchorPane.topAnchor="85.0">
+			<font>
+				<Font name="Ubuntu Bold" size="200.0" />
+			</font>
+		</Label>
+	</children>
 </AnchorPane>
