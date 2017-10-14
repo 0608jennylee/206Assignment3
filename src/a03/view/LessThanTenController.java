@@ -61,6 +61,26 @@ public class LessThanTenController extends Controller implements Initializable, 
 	@FXML private transient Label _text2;
 	@FXML private transient Label _title;
 	@FXML private transient ImageView _imageView;
+	@FXML private transient ImageView _Q1;
+	@FXML private transient ImageView _A1;
+	@FXML private transient ImageView _Q2;
+	@FXML private transient ImageView _A2;
+	@FXML private transient ImageView _Q3;
+	@FXML private transient ImageView _A3;
+	@FXML private transient ImageView _Q4;
+	@FXML private transient ImageView _A4;
+	@FXML private transient ImageView _Q5;
+	@FXML private transient ImageView _A5;
+	@FXML private transient ImageView _Q6;
+	@FXML private transient ImageView _A6;
+	@FXML private transient ImageView _Q7;
+	@FXML private transient ImageView _A7;
+	@FXML private transient ImageView _Q8;
+	@FXML private transient ImageView _A8;
+	@FXML private transient ImageView _Q9;
+	@FXML private transient ImageView _A9;
+	@FXML private transient ImageView _Q10;
+	@FXML private transient ImageView _A10;
 //	@FXML private Label _sorry;
 //	@FXML private Label _weMuckedUp;
 //	@FXML private Label _tryAgain;
@@ -361,9 +381,9 @@ public class LessThanTenController extends Controller implements Initializable, 
 		File file4 = new File(System.getProperty("user.dir")+"/Icons/png/quit.png");
 		Image image4 = new Image(file4.toURI().toString());
 		_back.setGraphic(new ImageView(image4));
-		File file = new File(System.getProperty("user.dir")+"/Icons/png/data-transfer-upload-6x.png");
-		Image image = new Image(file.toURI().toString());
-		_submit.setGraphic(new ImageView(image));
+//		File file = new File(System.getProperty("user.dir")+"/Icons/png/data-transfer-upload-6x.png");
+//		Image image = new Image(file.toURI().toString());
+//		_submit.setGraphic(new ImageView(image));
 		File file1 = new File(System.getProperty("user.dir")+"/Icons/png/bullhorn-6x.png");
 		Image image1 = new Image(file1.toURI().toString());
 		_playback.setGraphic(new ImageView(image1));
@@ -375,6 +395,39 @@ public class LessThanTenController extends Controller implements Initializable, 
 		Image image5 = new Image(file5.toURI().toString());
 		_imageView.setImage(image5);
 		_imageView.setOpacity(0.1);
+		Image file = new Image(getClass().getClassLoader().getResource("Progress/1.png").toString());//
+		_Q1.setImage(file);
+		Image file2 = new Image(getClass().getClassLoader().getResource("Progress/2.png").toString());//
+		_Q2.setImage(file2);
+		Image file6 = new Image(getClass().getClassLoader().getResource("Progress/3.png").toString());//
+		_Q3.setImage(file6);
+		Image file7 = new Image(getClass().getClassLoader().getResource("Progress/4.png").toString());//
+		_Q4.setImage(file7);
+		Image file8 = new Image(getClass().getClassLoader().getResource("Progress/5.png").toString());//
+		_Q5.setImage(file8);
+		Image file9 = new Image(getClass().getClassLoader().getResource("Progress/6.png").toString());//
+		_Q6.setImage(file9);
+		_A1.setImage(file9);
+//		Image file10 = new Image(getClass().getClassLoader().getResource("Progress/7.png").toString());//
+//		_Q7.setImage(file10);
+//		Image file11 = new Image(getClass().getClassLoader().getResource("Progress/8.png").toString());//
+//		_Q8.setImage(file11);
+//		Image file12 = new Image(getClass().getClassLoader().getResource("Progress/9.png").toString());//
+//		_Q9.setImage(file12);
+		Image file13 = new Image(getClass().getClassLoader().getResource("Progress/10.png").toString());//
+		_Q10.setImage(file13);
+		Image q = new Image(getClass().getClassLoader().getResource("Progress/10.png").toString());//
+		_A1.setImage(q);
+		_A2.setImage(q);
+		_A3.setImage(q);
+		_A4.setImage(q);
+		_A5.setImage(q);
+		_A6.setImage(q);
+		_A7.setImage(q);
+		_A8.setImage(q);
+		_A9.setImage(q);
+		_A10.setImage(q);
+
 		
 	}
 	public void tryAgain() {
