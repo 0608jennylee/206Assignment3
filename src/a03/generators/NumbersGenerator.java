@@ -9,14 +9,18 @@ import a03.enumerations.Level;
 public class NumbersGenerator extends Generator{
 
 	public NumbersGenerator(Difficulty level) {
-		super(level);
+		super(level, 10);
+	}
+	
+	public NumbersGenerator(Difficulty level, int questions) {
+		super(level, questions);
 	}
 
 	@Override
 	public List<String> getNumbers() {
 		List<String> _numbers = new ArrayList<String>();
-		for(int i = 0; i < 10; i++) {
-			Integer randNum = new Integer((int)(Math.random() * _level.getRange() + 1));
+		for(int i = 0; i < _questions; i++) {
+			Integer randNum = new Integer((int)(Math.random() * _level.getMax() + _level.getMin()));
 			_numbers.add(randNum.toString());
 		}
 		return _numbers;

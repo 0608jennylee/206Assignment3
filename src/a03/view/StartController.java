@@ -33,7 +33,7 @@ public class StartController extends Controller implements Initializable{
 	// Event Listener on Button.onAction
 	@FXML
 	public void handleStart(ActionEvent event) {
-			_mainApp.Game(_difficulty, _level);
+			_mainApp.Game(_difficulty, _level, false);
 	}
 
 	/**

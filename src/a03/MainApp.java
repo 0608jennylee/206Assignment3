@@ -93,7 +93,11 @@ public class MainApp extends Application {
 	 * shows the level scene on the stage, this is the scene where the game happens
 	 * @param level the level chosen by the user
 	 */
-	public void Game(Difficulty difficulty, Level level) {
+	public void Game(Difficulty difficulty, Level level, boolean load) {
+		Game(difficulty, level, load, 10);
+	}
+	
+	public void Game(Difficulty difficulty, Level level, boolean load, int questions) {
 		try {
 			_gameState = GameState.INGAME;
 			//Load level 
@@ -106,7 +110,12 @@ public class MainApp extends Application {
 			_primaryStage.show();
 			// Give the controller access to the main app.
 			LTTController = loader.getController();
-			LTTController.setDifficulty(difficulty, level);
+			
+			if(load) {
+				LTTController.load(level, difficulty);
+			}else {
+				LTTController.setDifficulty(difficulty, level, questions);
+			}
 			LTTController.setMainApp(this);
 			LTTController.setQuestion();
 //			
@@ -114,6 +123,28 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 	}
+
+//	public void loadGame(Level level, Difficulty difficulty) {
+//		try {
+//			_gameState = GameState.INGAME;
+//			//Load level 
+//			FXMLLoader loader = new FXMLLoader();
+//			loader.setLocation(MainApp.class.getResource("view/LessThanTen.fxml"));
+//			AnchorPane lessThanTen = (AnchorPane) loader.load();
+//			//load level scene on primary stage
+//			Scene scene = new Scene(lessThanTen);
+//			_primaryStage.setScene(scene);
+//			_primaryStage.show();
+//			// Give the controller access to the main app.
+//			LTTController = loader.getController();
+//			LTTController.load(level, difficulty);
+//			LTTController.setMainApp(this);
+//			LTTController.setQuestion();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		
+//	}
 
 	/**
 	 * shows the how to play scene on the stage, displays a set of images that 
@@ -340,28 +371,6 @@ public class MainApp extends Application {
 			controller.setLevel(level);
 			controller.setDifficulty(difficulty);
 			//controller.setScores();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-	}
-	
-	public void loadGame(Level level, Difficulty difficulty) {
-		try {
-			_gameState = GameState.INGAME;
-			//Load level 
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/LessThanTen.fxml"));
-			AnchorPane lessThanTen = (AnchorPane) loader.load();
-			//load level scene on primary stage
-			Scene scene = new Scene(lessThanTen);
-			_primaryStage.setScene(scene);
-			_primaryStage.show();
-			// Give the controller access to the main app.
-			LTTController = loader.getController();
-			LTTController.load(level, difficulty);
-			LTTController.setMainApp(this);
-			LTTController.setQuestion();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

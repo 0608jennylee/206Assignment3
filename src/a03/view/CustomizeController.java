@@ -6,6 +6,8 @@ import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 import a03.MainApp;
+import a03.enumerations.Difficulty;
+import a03.enumerations.Level;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -24,64 +26,109 @@ public class CustomizeController extends Controller implements Initializable{
 	@FXML private TextField _minTB;
 	@FXML private TextField _maxTB;
 	@FXML private Slider _slider;
-
-
-	private MainApp _mainApp;
-
+	
 	@FXML private void handleMainMenu() {
 		_mainApp.mainMenuContents();
 	}
 	@FXML private void handleOK() {
-		int minimum=1;
-		if (_numbersCB.isArmed()) {
-			System.out.println("numbers ticked");
+		Level level;
+		int minimum = 1;
+		int maximum;
+		int questions;
+		if (_numbersCB.isArmed() && _equationsCB.isArmed()) {
+			level = Level.CUSTOM;
+		}else if(_numbersCB.isSelected()) {
+			level = Level.NUMBERS;
+		}else if(_equationsCB.isArmed()){
+			level = Level.EQUATIONS;
+		}else {
+			//TODO make it show that they must select a level type;
+			//prompt();
+			System.out.println("Level returned");
+			return;
 		}
-		if (_equationsCB.isArmed()) {
-			System.out.println("equations ticked");
-		}
+		
 		if (_minTB.getText()==null||_minTB.getText().length()==0) {
+			//TODO show the user they must input something;
+			//prompt();
 			System.out.println("error no input");
+			return;
+			
 		}
-		if (Pattern.matches("[a-zA-Z]+", _minTB.getText()) == true) {
+		else if (Pattern.matches("[a-zA-Z]+", _minTB.getText()) == true) {
+			//TODO prompt user they must input a number;
+			//prompt();
 			System.out.println("error not numbers");
-		}
-		try {
-			minimum=Integer.parseInt(_minTB.getText());
-			if (minimum<=0) {
-				System.out.println("minimum too low");
-			}else if (minimum>99) {
-				System.out.println("minimum too high");
-			}
-		}catch(NumberFormatException e) {
-			System.out.println("invalid choice of numbers");
+			return;
+			
+		}else {
+				minimum=Integer.parseInt(_minTB.getText());
+				if (minimum<=0) {
+					System.out.println("minimum too low");
+					//TODO prompt user less than 0;
+					//prompt();
+					return;
+					
+				}else if (minimum>99) {
+					System.out.println("minimum too high");
+					//TODO prompt user too high;
+					//prompt();
+					return;
+					
+				}
 		}
 		if (_maxTB.getText()==null||_maxTB.getText().length()==0) {
 			System.out.println("error no input");
+			//TODO show the user they must input something;
+			//prompt();
+			return;
+			
 		}
-		if (Pattern.matches("[a-zA-Z]+", _maxTB.getText()) == true) {
+		else if (Pattern.matches("[a-zA-Z]+", _maxTB.getText()) == true) {
 			System.out.println("error not numbers");
+			//TODO prompt user they must input a number;
+			//prompt();
+			return;
+			
 		}
-		try {
-			int maximum=Integer.parseInt(_maxTB.getText());
+		else {
+			maximum=Integer.parseInt(_maxTB.getText());
 			if (maximum<=0) {
 				System.out.println("minimum too low");
+				//TODO prompt user less than 0;
+				//prompt();
+				return;
+				
 			}else if (maximum>99) {
 				System.out.println("minimum too high");
+				//TODO prompt user too high;
+				//prompt();
+				return;
+				
 			}
 			if (maximum<minimum) {
 				System.out.println("Invalid range");
+				//TODO prompt user invalid range;
+				//prompt();
+				return;
+				
 			}
-		}catch(NumberFormatException e) {
-			System.out.println("invalid choice of numbers");
 		}
-
+		if(_slider.getValue() == 0) {
+			
+			//TODO prompt user cannot have 0 questions;
+			//prompt();
+			return;
+		}else {
+			questions = (int)_slider.getValue();
+		}
+		Difficulty difficulty = Difficulty.CUSTOM;
+		difficulty.setMax(maximum);
+		difficulty.setMin(minimum);
+		_mainApp.Game(difficulty,level,false, questions);
 		
-			System.out.println(_slider.getValue()+" questions");
-
 	}
-	public void setMainApp(MainApp mainApp) {
-		_mainApp=mainApp;
-	}
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		File file4 = new File(System.getProperty("user.dir")+"/Icons/png/quit.png");

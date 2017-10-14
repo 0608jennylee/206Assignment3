@@ -3,14 +3,19 @@ package a03.view;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
+import com.google.gson.Gson;
 import com.jfoenix.controls.JFXButton;
 
+import a03.LogData;
 import a03.MainApp;
+import a03.enumerations.Charts;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 
@@ -32,6 +37,7 @@ public class ChartsController extends Controller implements Initializable{
 	private JFXButton _next;
 	private MainApp _mainApp;
 	private int _currentChart;
+	private Charts _chartType = Charts.EASYNUMBERS;
 	@FXML private ImageView _imageView;
 	@FXML private NumberAxis _yAxis;
 	// Event Listener on JFXButton[#_back].onAction
@@ -66,10 +72,24 @@ public class ChartsController extends Controller implements Initializable{
 		//			     
 		//Creating the Bar chart
 		// _barChart = new BarChart<>(xAxis, yAxis); 
-		_barChart.setTitle("Recent High scores");
-
+		Gson g = new Gson;
 		XYChart.Series<String, Number> series2 = new XYChart.Series<>();
 		series2.setName("scores");
+		switch(_chartType) {
+			case EASYEQUATIONS:
+				_barChart.setTitle(Charts.EASYEQUATIONS.toString() + "Recent High Scores");
+				if(new File("Logs/" + _chartType.getFileSuffix()).exists()) {
+					BufferedReader br = new BufferedReader(new FileReader("Logs/" + _chartType.getFileSuffix()));
+					String line = null;
+					while((line = br.readLine()) != null) {
+						series2.getData().add(new XYCHart.Data<>(g.fromJson(line, LogData.class).toString(), ))
+					}
+				}
+			break;
+		}
+		_barChart.setTitle("Recent High scores");
+
+		
 		series2.getData().add(new XYChart.Data<>("a", 50.0));
 		series2.getData().add(new XYChart.Data<>("b", 80.0));
 		series2.getData().add(new XYChart.Data<>("c", 100.0));
@@ -80,6 +100,7 @@ public class ChartsController extends Controller implements Initializable{
 		_barChart.lookupAll(".default-color0.chart-bar")
 		.forEach(n -> n.setStyle("-fx-bar-fill: orange;"));
 	}
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		//		_anchor.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));

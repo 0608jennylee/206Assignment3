@@ -38,7 +38,7 @@ public class LoadLevelController implements Initializable{
 	// Event Listener on JFXButton[#_easy].onAction
 	@FXML
 	public void handleLoad(ActionEvent event) {
-		_mainApp.loadGame(_level, _difficulty);
+		_mainApp.Game(_difficulty, _level, true);
 	}
 	// Event Listener on JFXButton[#_hard].onAction
 	@FXML
