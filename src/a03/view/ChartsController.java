@@ -70,11 +70,16 @@ public class ChartsController extends Controller implements Initializable{
 
 		XYChart.Series<String, Number> series2 = new XYChart.Series<>();
 		series2.setName("scores");
-		series2.getData().add(new XYChart.Data<>("a", 50.0));
+		series2.getData().add(new XYChart.Data<>("a", 10.0));
 		series2.getData().add(new XYChart.Data<>("b", 80.0));
 		series2.getData().add(new XYChart.Data<>("c", 100.0));
-		series2.getData().add(new XYChart.Data<>("d", 20.0));
-
+		series2.getData().add(new XYChart.Data<>("d", 60.0));
+		series2.getData().add(new XYChart.Data<>("e", 20.0));
+		series2.getData().add(new XYChart.Data<>("f", 70.0));
+		series2.getData().add(new XYChart.Data<>("g", 80.0));
+		series2.getData().add(new XYChart.Data<>("h", 90.0));
+		series2.getData().add(new XYChart.Data<>("i", 100.0));
+		series2.getData().add(new XYChart.Data<>("j", 100.0));
 		//Setting the data to bar chart       
 		_barChart.getData().addAll(series2);
 		_barChart.lookupAll(".default-color0.chart-bar")

@@ -30,6 +30,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -43,6 +44,7 @@ import javafx.scene.text.Font;
  */
 public class LessThanTenController extends Controller implements Initializable, Saveable{
 	private enum Correctness{CORRECT,INCORRECT}
+	@FXML ProgressBar _progressBar;
 	//	@FXML private ImageView _imageView;
 	@FXML private transient ImageView _score;
 	@FXML private transient Button _record;
