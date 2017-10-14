@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -220,6 +222,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 	 * if they are on easy and have passed i
 	 */
 	private void displayFinalScore() {
+		boolean flag = new File("Logs/" + _level.toString() + _difficulty.toString() + "History.dat").exists();
 		//temp workout for them to not be able to save at the final score menu.
 		_mainApp.setGameState(GameState.MENU);
 		_title.setVisible(false);
@@ -233,16 +236,32 @@ public class LessThanTenController extends Controller implements Initializable, 
 		GameStats.getGameStats().update(_difficulty,_level, _correctAnswers);
 		// work in progress to generate the data to populate the charts
 		//TODO
-//		Gson g = new Gson();
-//		String j = g.toJson(new LogData("" + _correctAnswers, _level, _difficulty));
-//		if(!new File("Logs").exists()) {
-//			new File("Logs").mkdir();
-//		}
-//		try (FileWriter filewriter = new FileWriter("Logs/" + _level.toString() + _difficulty.toString() + "History.dat")){
-//			filewriter.append(j.toString());
-//		} catch (IOException e1) {
-//			e1.printStackTrace();
-//		}
+		Gson g = new Gson();
+		//		List<LogData> array;
+		//		if(new File("Logs/" + _level.toString() + _difficulty.toString() + "History.dat").exists()) {
+		//			try {
+		//			JsonReader reader = new JsonReader(new FileReader("Logs/" + _level.toString() + _difficulty.toString() + "History.dat"));
+		//			LogData[] temp = g.fromJson(reader, LogData[].class);
+		//			array = Arrays.asList(temp);
+		//			}catch(IOException e) {
+		//				
+		//			} 
+		//		}else {
+		//			array = new LinkedList<LogData>();
+		//		}
+		String j = g.toJson(new LogData("" + _correctAnswers, _level, _difficulty));
+		if(!new File("Logs").exists()) {
+			new File("Logs").mkdir();
+		}
+
+		try (FileWriter filewriter = new FileWriter("Logs/" + _level.toString() + _difficulty.toString() + "History.dat", true)){
+			if(flag) {
+				filewriter.append(System.lineSeparator());
+			}
+			filewriter.append(j.toString());
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 		_theirAnswer.setText("");
 		_theCorrectAnswer.setText("");
 		_text1.setText("");
@@ -405,10 +424,10 @@ public class LessThanTenController extends Controller implements Initializable, 
 	}
 	
 	public void load(Level level, Difficulty difficulty) {
-		Gson g = new Gson();
-		JsonReader reader;
+		
 		try {
-			reader = new JsonReader(new FileReader(SAVEFOLDER + "/" + level.toString() + difficulty.toString() + ".dat"));
+			Gson g = new Gson();
+			JsonReader reader = new JsonReader(new FileReader(SAVEFOLDER + "/" + level.toString() + difficulty.toString() + ".dat"));
 			LessThanTenController controller = g.fromJson(reader, LessThanTenController.class);
 			_correct = controller.getCorrect();
 			_failed = controller.getFailed();
