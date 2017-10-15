@@ -34,7 +34,7 @@ public class ScoreSceneController extends Controller implements Initializable{
 	}
 	public void setScore(int score, int totalQuestions) {
 		_score=score;
-		_scoreLabel.setFont(new Font("Ubuntu", 75));
+		_scoreLabel.setFont(new Font("Ubuntu", 150));
 		_scoreLabel.setText(_score + "/" + totalQuestions);
 		if (_difficulty==Difficulty.HARD||_score<8) {
 			_nextLevel.setVisible(false);

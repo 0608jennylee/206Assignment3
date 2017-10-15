@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -15,9 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
 import a03.Saveable;
-import a03.Settings;
 import a03.enumerations.Difficulty;
-import a03.enumerations.GameState;
 import a03.enumerations.Level;
 import a03.errors.HTKError;
 import a03.GameStats;
@@ -238,10 +236,10 @@ public class LessThanTenController extends Controller implements Initializable, 
 		boolean flag = new File("Logs/" + _level.toString() + _difficulty.toString() + "History.dat").exists();
 		GameStats.getGameStats().update(_difficulty,_level, _correctAnswers);
 		Gson g = new Gson();
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM");
-		LocalDate localdate = LocalDate.now();
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM HH:mm");
+		LocalDateTime localdatetime = LocalDateTime.now();
 		System.out.println(_totalQuestions);
-		String j = g.toJson(new LogData(_correctAnswers, _totalQuestions, _level, _difficulty, dtf.format(localdate)));
+		String j = g.toJson(new LogData(_correctAnswers, _totalQuestions, _level, _difficulty, dtf.format(localdatetime)));
 		if(!new File("Logs").exists()) {
 			new File("Logs").mkdir();
 		}

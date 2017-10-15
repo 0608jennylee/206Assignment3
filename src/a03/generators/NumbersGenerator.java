@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import a03.enumerations.Difficulty;
-import a03.enumerations.Level;
 
 public class NumbersGenerator extends Generator{
 

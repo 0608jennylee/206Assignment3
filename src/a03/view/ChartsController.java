@@ -5,13 +5,9 @@ import javafx.fxml.Initializable;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import com.google.gson.Gson;
@@ -21,11 +17,9 @@ import com.jfoenix.controls.JFXButton;
 import a03.LogData;
 import a03.MainApp;
 import a03.enumerations.ChartTypes;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.image.Image;
@@ -113,7 +107,7 @@ public class ChartsController extends Controller implements Initializable{
 				LogData logData = g.fromJson(line, LogData.class);
 				series2.getData().add(new XYChart.Data<>(logData.toString(),logData.toRatio()));
 			}
-			_barChart.getData().add(series2);
+			_barChart.getData().addAll(series2);
 		}else {
 			_barChart.getData().clear();
 		}

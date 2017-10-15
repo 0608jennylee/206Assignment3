@@ -5,7 +5,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
-import a03.MainApp;
 import a03.enumerations.Difficulty;
 import a03.enumerations.Level;
 import javafx.fxml.FXML;
