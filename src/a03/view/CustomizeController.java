@@ -125,7 +125,11 @@ public class CustomizeController extends Controller implements Initializable{
 		Difficulty difficulty = Difficulty.CUSTOM;
 		difficulty.setMax(maximum);
 		difficulty.setMin(minimum);
-		_mainApp.Game(difficulty,level,false, questions);
+		if(new File("Saves/" + level.toString() + difficulty.toString() + ".dat").exists()) {
+			_mainApp.LoadLevel(level, difficulty);
+		}else {
+			_mainApp.Start(level,difficulty, questions);
+		}
 		
 	}
 	

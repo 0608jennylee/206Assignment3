@@ -174,7 +174,7 @@ public class MainApp extends Application {
 	 * shows the start scene on the stage
 	 * @param _level 
 	 */
-	public void Start(Level level, Difficulty difficulty) {
+	public void Start(Level level, Difficulty difficulty, int questions) {
 		try {
 			_gameState = GameState.MENU;
 			//Load start
@@ -190,6 +190,7 @@ public class MainApp extends Application {
 			controller.setMainApp(this);
 			controller.setLevel(level);
 			controller.setDifficulty(difficulty);
+			controller.setQuestions(questions);
 
 		} catch (IOException e) {
 			e.printStackTrace();

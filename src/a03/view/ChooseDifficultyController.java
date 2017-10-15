@@ -42,7 +42,7 @@ public class ChooseDifficultyController extends Controller implements Initializa
 		if((new File("Saves/" + _level.toString() + Difficulty.EASY + ".dat").exists())) {
 			_mainApp.LoadLevel(_level,Difficulty.EASY);
 		}else {
-			_mainApp.Start(_level,Difficulty.EASY);
+			_mainApp.Start(_level,Difficulty.EASY, 10);
 		}
 	}
 
@@ -58,7 +58,7 @@ public class ChooseDifficultyController extends Controller implements Initializa
 		if(new File("Saves/" + _level.toString() + Difficulty.EASY + ".dat").exists()) {
 			_mainApp.LoadLevel(_level,Difficulty.HARD);
 		}else {
-			_mainApp.Start(_level,Difficulty.HARD);
+			_mainApp.Start(_level,Difficulty.HARD, 10);
 		}
 	}
 

@@ -25,6 +25,7 @@ public class StartController extends Controller implements Initializable{
 	@FXML private Button _back;
 	@FXML private ImageView _imageView;
 	private Difficulty _difficulty;
+	private int _questions;
 	/**
 	 * when the start button is clicked notifies the stage 
 	 * to switch scenes to the level that will be played
@@ -33,7 +34,7 @@ public class StartController extends Controller implements Initializable{
 	// Event Listener on Button.onAction
 	@FXML
 	public void handleStart(ActionEvent event) {
-			_mainApp.Game(_difficulty, _level, false);
+			_mainApp.Game(_difficulty, _level, false, _questions);
 	}
 
 	/**
@@ -71,5 +72,9 @@ public class StartController extends Controller implements Initializable{
 	public void setDifficulty(Difficulty difficulty) {
 		_difficulty=difficulty;
 		
+	}
+	
+	public void setQuestions(int questions) {
+		_questions = questions;
 	}
 }

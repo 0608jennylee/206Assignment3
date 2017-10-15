@@ -84,7 +84,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 	private transient Generator _generator;
 	@FXML private transient Button _back;
 	private Difficulty _difficulty;
-	private final String SAVEFOLDER = "Saves";
+	private final transient String SAVEFOLDER = "Saves";
 	private String RECORDINGSFOLDER = "";
 	private int _totalQuestions = 10;
 
@@ -307,9 +307,9 @@ public class LessThanTenController extends Controller implements Initializable, 
 	@FXML
 	public void handleNextLevel(){
 		if (_difficulty==Difficulty.HARD||(_difficulty==Difficulty.EASY&&_correctAnswers>=8)) {
-			_mainApp.Start(_level, Difficulty.HARD);
+			_mainApp.Start(_level, Difficulty.HARD, 10);
 		}else {
-			_mainApp.Start(_level, _difficulty);
+			_mainApp.Start(_level, _difficulty, 10);
 		}
 	}
 	
@@ -323,7 +323,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 		if (difficulty==Difficulty.HARD){
 			_display = "Hard ";
 		}else if(difficulty == Difficulty.EASY){
-			_display = "Eeasy ";
+			_display = "Easy ";
 		}else {
 			_display = "Custom ";
 		}
@@ -449,6 +449,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 			_level = controller.getLevel();
 			_difficulty = controller.getDifficulty();
 			_display = controller.getDisplay();
+			_totalQuestions = controller.getTotalQuestions();
 			new File(SAVEFOLDER + "/" + level.toString() + difficulty.toString() + ".dat").delete();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -540,4 +541,8 @@ public class LessThanTenController extends Controller implements Initializable, 
 //	public void setDifficulty(Difficulty difficulty) {
 //		_difficulty = difficulty;
 //	}
+	
+	private int getTotalQuestions() {
+		return _totalQuestions;
+	}
 }
