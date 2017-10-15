@@ -321,9 +321,11 @@ public class LessThanTenController extends Controller implements Initializable, 
 		_level=level;
 		_totalQuestions = questions;
 		if (difficulty==Difficulty.HARD){
-			_display = "HARD ";
-		}else{
-			_display = "EASY ";
+			_display = "Hard ";
+		}else if(difficulty == Difficulty.EASY){
+			_display = "Eeasy ";
+		}else {
+			_display = "Custom ";
 		}
 		
 		_difficulty = difficulty;

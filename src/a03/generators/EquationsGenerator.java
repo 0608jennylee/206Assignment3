@@ -19,7 +19,7 @@ public class EquationsGenerator extends Generator{
 	@Override
 	public List<String> getNumbers() {
 		List<String> _numbers = new ArrayList<String>();
-		for(int i = 0; i < 10; i++) {
+		for(int i = 0; i < _questions; i++) {
 			if(Math.random() > 0.5) {
 				Integer a = new Integer((int)(Math.random() * (_level.getMax() - 1)) + _level.getMin());
 				Integer b = new Integer((int)(Math.random() * (_level.getMax() - a)) + _level.getMin());

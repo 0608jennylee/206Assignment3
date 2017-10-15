@@ -35,11 +35,11 @@ public class CustomizeController extends Controller implements Initializable{
 		int minimum = 1;
 		int maximum;
 		int questions;
-		if (_numbersCB.isArmed() && _equationsCB.isArmed()) {
+		if (_numbersCB.isSelected() && _equationsCB.isSelected()) {
 			level = Level.CUSTOM;
 		}else if(_numbersCB.isSelected()) {
 			level = Level.NUMBERS;
-		}else if(_equationsCB.isArmed()){
+		}else if(_equationsCB.isSelected()){
 			level = Level.EQUATIONS;
 		}else {
 			//TODO make it show that they must select a level type;
@@ -114,13 +114,13 @@ public class CustomizeController extends Controller implements Initializable{
 				
 			}
 		}
-		if(_slider.getValue() == 0) {
+		if(Math.round((float)_slider.getValue()) == 0) {
 			
 			//TODO prompt user cannot have 0 questions;
 			//prompt();
 			return;
 		}else {
-			questions = (int)_slider.getValue();
+			questions = Math.round((float)_slider.getValue());
 		}
 		Difficulty difficulty = Difficulty.CUSTOM;
 		difficulty.setMax(maximum);
