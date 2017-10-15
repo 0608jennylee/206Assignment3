@@ -123,7 +123,6 @@ public class ChartsController extends Controller implements Initializable{
 //		series2.getData().add(new XYChart.Data<>("b", 80.0));
 //		series2.getData().add(new XYChart.Data<>("c", 100.0));
 //		series2.getData().add(new XYChart.Data<>("d", 20.0));
-
 		//Setting the data to bar chart       
 		_barChart.getXAxis().setAnimated(false);
 		_barChart.getYAxis().setAnimated(true);

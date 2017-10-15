@@ -1,3 +1,0 @@
-for i in {2..99}; do
-	mv 2_Page_$i.jpg $i.jpg
-done

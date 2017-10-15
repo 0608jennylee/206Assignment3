@@ -31,6 +31,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -43,43 +44,51 @@ import javafx.scene.text.Font;
  *
  */
 public class LessThanTenController extends Controller implements Initializable, Saveable{
+	private enum Correctness{CORRECT,INCORRECT}
+	@FXML private transient ProgressBar _progressBar;
 
-//	@FXML private ImageView _imageView;
-	@FXML private transient ImageView _score;
 	@FXML private transient Button _record;
 	@FXML private transient Button _submit;
 	@FXML private transient Button _playback;
-
 	@FXML private transient Button _nextQuestion;
-//	@FXML private Button _mainMenuTop;
-//	@FXML private Button _mainMenuBottom;
-	@FXML private transient Button _nextLevel;
+	@FXML private transient Button _back;
 	@FXML private transient Label _theCorrectAnswer;
 	@FXML private transient Label _theirAnswer;
 	@FXML private transient Label _question;
-	//@FXML private Label _text;
 	@FXML private transient Label _text1;
 	@FXML private transient Label _text2;
 	@FXML private transient Label _title;
+	@FXML private transient ImageView _score;
 	@FXML private transient ImageView _imageView;
-//	@FXML private Label _sorry;
-//	@FXML private Label _weMuckedUp;
-//	@FXML private Label _tryAgain;
+	@FXML private transient ImageView _Q1, _A1;
+	@FXML private transient ImageView _Q2, _A2;
+	@FXML private transient ImageView _Q3, _A3;
+	@FXML private transient ImageView _Q4, _A4;
+	@FXML private transient ImageView _Q5, _A5;
+	@FXML private transient ImageView _Q6, _A6;
+	@FXML private transient ImageView _Q7;
+	@FXML private transient ImageView _A7;
+	@FXML private transient ImageView _Q8;
+	@FXML private transient ImageView _A8;
+	@FXML private transient ImageView _Q9;
+	@FXML private transient ImageView _A9;
+	@FXML private transient ImageView _Q10;
+	@FXML private transient ImageView _A10;
 	@FXML private transient BorderPane _root;
-	
+
 	private boolean _correct=true;
 	private boolean _failed=false;
 	private boolean _secondTry = false;
 	private boolean _tryAgainPressed=true;
 	private int _currentQuestion = 0;
-	private int _correctAnswers = 0;
-	
+	private int _correctAnswers = 1;
+
 	private List<String> _numbers;
 	private Level _level;
 	private String _display;
 	private transient MediaPlayer mp;
 	private transient Generator _generator;
-	@FXML private transient Button _back;
+
 	private Difficulty _difficulty;
 	private final transient String SAVEFOLDER = "Saves";
 	private String RECORDINGSFOLDER = "";
@@ -114,6 +123,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 			Task<Void> record = new Task<Void>() { 
 				@Override
 				protected Void call() throws Exception {
+					_progressBar.setVisible(true);
 					_record.setDisable(true);
 					String cmd = "arecord -d 2 -r 22050 -c 1 -i -t wav -f s16_LE " + RECORDINGSFOLDER + Processor.toInt(_numbers.get(_currentQuestion)) + ".wav;echo record passed; HVite -H HMMs/hmm15/macros -H HMMs/hmm15/hmmdefs -C user/configLR  -w user/wordNetworkNum -o SWT -l '*' -i recout.mlf -p 0.0 -s 5.0  user/dictionaryD user/tiedList " + RECORDINGSFOLDER + Processor.toInt(_numbers.get(_currentQuestion)) + ".wav; echo processing passed;";
 					ProcessBuilder pb = new ProcessBuilder("bash", "-c", cmd);
@@ -123,6 +133,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 						_playback.setDisable(false);
 						_submit.setDisable(false);
 						_record.setDisable(false);
+						_progressBar.setVisible(false);
 					} catch (IOException IOe) {
 						IOe.printStackTrace();
 					}
@@ -148,34 +159,35 @@ public class LessThanTenController extends Controller implements Initializable, 
 		mp.setOnEndOfMedia(this::enable);
 		mp.play();
 	}
-	
+
 	private void enable() {
 		_record.setDisable(false);
 		_playback.setDisable(false);
 		_submit.setDisable(false);
 	}
-	
+
 	/**
 	 * checks whether the HTK failed to recognize anything, the user got the 
 	 * correct or incorrect answer, then displays the corresponding result to 
 	 * the user
 	 */
-	
+
 	public void check(){
 		_submit.setDisable(true);
 		_record.setDisable(true);
 		_playback.setDisable(true);
 		if (_failed){//HTK failed
 			System.out.println("failed");
-//			_sorry.setVisible(true);
-//			_weMuckedUp.setVisible(true);
-//			_tryAgain.setVisible(true);
+			//			_sorry.setVisible(true);
+			//			_weMuckedUp.setVisible(true);
+			//			_tryAgain.setVisible(true);
 			tryAgain();
 			_record.setDisable(false);
 			//_text.setVisible(true);
 		}else if(_correct){//user gets correct answer
 			//File file = new File(System.getProperty("user.dir")+"/Correct/" + _numbers.get(_currentQuestion) + ".jpg");
-//			File file = new File(System.getProperty("user.dir")+"/Correct/" + _numbers.get(_currentQuestion) + ".jpg");
+			//			File file = new File(System.getProperty("user.dir")+"/Correct/" + _numbers.get(_currentQuestion) + ".jpg");
+			setProgress(Correctness.CORRECT);
 			delete();
 			_theCorrectAnswer.setText((Processor.toMaori(Processor.toInt(_numbers.get(_currentQuestion)))));
 			_theirAnswer.setText((Processor.getUserAnswer()));
@@ -188,10 +200,11 @@ public class LessThanTenController extends Controller implements Initializable, 
 			_correctAnswers++;
 
 		}else{//user gets incorrect answer
-//			File file = new File(System.getProperty("user.dir")+"/Incorrect/" + _numbers.get(_currentQuestion) + ".jpg");
-//			Image file = new Image(getClass().getClassLoader().getResource("Incorrect/" + _numbers.get(_currentQuestion) + ".jpg").toString());
-//			setImage(file);
+			//			File file = new File(System.getProperty("user.dir")+"/Incorrect/" + _numbers.get(_currentQuestion) + ".jpg");
+			//			Image file = new Image(getClass().getClassLoader().getResource("Incorrect/" + _numbers.get(_currentQuestion) + ".jpg").toString());
+			//			setImage(file);
 			if (_secondTry){//user gets the answer incorrect the second time
+				setProgress(Correctness.INCORRECT);
 				delete();
 				_theCorrectAnswer.setText((Processor.toMaori(Processor.toInt(_numbers.get(_currentQuestion)))));
 				_theirAnswer.setText(Processor.getUserAnswer());
@@ -223,32 +236,8 @@ public class LessThanTenController extends Controller implements Initializable, 
 	 */
 	private void displayFinalScore() {
 		boolean flag = new File("Logs/" + _level.toString() + _difficulty.toString() + "History.dat").exists();
-		//temp workout for them to not be able to save at the final score menu.
-		_mainApp.setGameState(GameState.MENU);
-		_title.setVisible(false);
-		if(_correctAnswers >= 8&&_difficulty==Difficulty.EASY) {
-			Settings.getSettings().enableHard();
-			_nextLevel.setVisible(true);
-		}else {
-			_nextLevel.setText("Play Again");
-			_nextLevel.setVisible(true);
-		}
 		GameStats.getGameStats().update(_difficulty,_level, _correctAnswers);
-		// work in progress to generate the data to populate the charts
-		//TODO
 		Gson g = new Gson();
-		//		List<LogData> array;
-		//		if(new File("Logs/" + _level.toString() + _difficulty.toString() + "History.dat").exists()) {
-		//			try {
-		//			JsonReader reader = new JsonReader(new FileReader("Logs/" + _level.toString() + _difficulty.toString() + "History.dat"));
-		//			LogData[] temp = g.fromJson(reader, LogData[].class);
-		//			array = Arrays.asList(temp);
-		//			}catch(IOException e) {
-		//				
-		//			} 
-		//		}else {
-		//			array = new LinkedList<LogData>();
-		//		}
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM");
 		LocalDate localdate = LocalDate.now();
 		System.out.println(_totalQuestions);
@@ -265,15 +254,8 @@ public class LessThanTenController extends Controller implements Initializable, 
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		_theirAnswer.setText("");
-		_theCorrectAnswer.setText("");
-		_text1.setText("");
-		_text2.setText("");
-		_record.setVisible(false);
-		_submit.setVisible(false);
-		_playback.setVisible(false);
-		_nextQuestion.setVisible(false);
-		_question.setText(_correctAnswers + "/" + _totalQuestions);
+		GameStats.getGameStats().update(_difficulty,_level, _correctAnswers);
+		_mainApp.Score(_correctAnswers,_totalQuestions, _difficulty, _level);
 	}
 
 	/**
@@ -310,7 +292,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 			_mainApp.Start(_level, _difficulty, 10);
 		}
 	}
-	
+
 	/**
 	 * sets the level of the current scene
 	 * @param level
@@ -325,13 +307,13 @@ public class LessThanTenController extends Controller implements Initializable, 
 		}else {
 			_display = "Custom ";
 		}
-		
+
 		_difficulty = difficulty;
 		GeneratorFactory gf = new GeneratorFactory();
 		_generator = gf.getGenerator(_difficulty, _level, questions);
 		_numbers = _generator.getNumbers();
 	}
-	
+
 	/**
 	 * sets the question of the current scene
 	 */
@@ -340,43 +322,43 @@ public class LessThanTenController extends Controller implements Initializable, 
 			_playback.setDisable(true);
 			_submit.setDisable(true);
 		}else {
-		_record.setDisable(false);
-		_submit.setDisable(false);
-		_playback.setDisable(false);
+			_record.setDisable(false);
+			_submit.setDisable(false);
+			_playback.setDisable(false);
 		}
-//		_sorry.setVisible(false);
-//		_weMuckedUp.setVisible(false);
-//		_tryAgain.setVisible(false);
+		//		_sorry.setVisible(false);
+		//		_weMuckedUp.setVisible(false);
+		//		_tryAgain.setVisible(false);
 		_theirAnswer.setText("");
 		_theCorrectAnswer.setText("");
 		_nextQuestion.setVisible(false);
 		_question.setFont(new Font("Ubuntu",100));
 		_question.setText(_numbers.get(_currentQuestion));
 		//File file = new File(System.getProperty("user.dir")+"/Video/" + _numbers.get(_currentQuestion) + ".jpg");
-//		Image file = new Image(getClass().getClassLoader().getResource("Video/" + _numbers.get(_currentQuestion) + ".jpg").toString());//
+		//		Image file = new Image(getClass().getClassLoader().getResource("Video/" + _numbers.get(_currentQuestion) + ".jpg").toString());//
 		int display = _currentQuestion+1;
 		_title.setText(_display +"Question: "+display);
 		//		setImage(file);
 		_record.setDisable(false);
 	}
-	
-	 @FXML
-	 public void handleSubmit() {
-		 try {
-		 Processor processor = new Processor();
+
+	@FXML
+	public void handleSubmit() {
+		try {
+			Processor processor = new Processor();
 			System.out.print(Processor.toInt(_numbers.get(_currentQuestion)));
 			if(processor.processAnswer(Processor.toInt(_numbers.get(_currentQuestion)))) {
 				_correct=true;
 			}else {
 				_correct=false;
 			}
-		 }catch(HTKError e) {
-			 _failed = true;
-		 }finally {
-			 check();
-		 }
-	 }
-	 
+		}catch(HTKError e) {
+			_failed = true;
+		}finally {
+			check();
+		}
+	}
+
 	private void delete() {
 		System.out.println("deleted");
 		File recordings = new File(RECORDINGSFOLDER + Processor.toInt(_numbers.get(_currentQuestion)) + ".wav");
@@ -388,9 +370,6 @@ public class LessThanTenController extends Controller implements Initializable, 
 		File file4 = new File(System.getProperty("user.dir")+"/Icons/png/quit.png");
 		Image image4 = new Image(file4.toURI().toString());
 		_back.setGraphic(new ImageView(image4));
-		File file = new File(System.getProperty("user.dir")+"/Icons/png/data-transfer-upload-6x.png");
-		Image image = new Image(file.toURI().toString());
-		_submit.setGraphic(new ImageView(image));
 		File file1 = new File(System.getProperty("user.dir")+"/Icons/png/bullhorn-6x.png");
 		Image image1 = new Image(file1.toURI().toString());
 		_playback.setGraphic(new ImageView(image1));
@@ -402,19 +381,116 @@ public class LessThanTenController extends Controller implements Initializable, 
 		Image image5 = new Image(file5.toURI().toString());
 		_imageView.setImage(image5);
 		_imageView.setOpacity(0.1);
-		
+		Image file = new Image(getClass().getClassLoader().getResource("Progress/1.png").toString());//
+		_Q1.setImage(file);
+		Image file2 = new Image(getClass().getClassLoader().getResource("Progress/2.png").toString());//
+		_Q2.setImage(file2);
+		Image file6 = new Image(getClass().getClassLoader().getResource("Progress/3.png").toString());//
+		_Q3.setImage(file6);
+		Image file7 = new Image(getClass().getClassLoader().getResource("Progress/4.png").toString());//
+		_Q4.setImage(file7);
+		Image file8 = new Image(getClass().getClassLoader().getResource("Progress/5.png").toString());//
+		_Q5.setImage(file8);
+		Image file9 = new Image(getClass().getClassLoader().getResource("Progress/6.png").toString());//
+		_Q6.setImage(file9);
+		Image file10 = new Image(getClass().getClassLoader().getResource("Progress/7.png").toString());//
+		_Q7.setImage(file10);
+		Image file11 = new Image(getClass().getClassLoader().getResource("Progress/8.png").toString());//
+		_Q8.setImage(file11);
+		Image file12 = new Image(getClass().getClassLoader().getResource("Progress/9.png").toString());//
+		_Q9.setImage(file12);
+		Image file13 = new Image(getClass().getClassLoader().getResource("Progress/10.png").toString());//
+		_Q10.setImage(file13);
+		Image q = new Image(getClass().getClassLoader().getResource("Progress/q.png").toString());//
+		_A1.setImage(q);
+		_A2.setImage(q);
+		_A3.setImage(q);
+		_A4.setImage(q);
+		_A5.setImage(q);
+		_A6.setImage(q);
+		_A7.setImage(q);
+		_A8.setImage(q);
+		_A9.setImage(q);
+		_A10.setImage(q);
+		_progressBar.setVisible(false);
+	}
+	private void setProgress(Correctness correctness) {
+		Image correct = new Image(getClass().getClassLoader().getResource("Progress/correct.png").toString());//
+		Image incorrect = new Image(getClass().getClassLoader().getResource("Progress/incorrect.png").toString());//
+
+		if (_currentQuestion==0) {
+			if (correctness==Correctness.CORRECT) {
+				_A1.setImage(correct);
+			}else {
+				_A1.setImage(incorrect);
+			}
+		}else if (_currentQuestion==1) {
+			if (correctness==Correctness.CORRECT) {
+				_A2.setImage(correct);
+			}else {
+				_A2.setImage(incorrect);
+			}
+		}else if (_currentQuestion==2) {
+			if (correctness==Correctness.CORRECT) {
+				_A3.setImage(correct);
+			}else {
+				_A3.setImage(incorrect);
+			}
+		}else if (_currentQuestion==3) {
+			if (correctness==Correctness.CORRECT) {
+				_A4.setImage(correct);
+			}else {
+				_A4.setImage(incorrect);
+			}
+		}else if (_currentQuestion==4) {
+			if (correctness==Correctness.CORRECT) {
+				_A5.setImage(correct);
+			}else {
+				_A5.setImage(incorrect);
+			}
+		}else if (_currentQuestion==5) {
+			if (correctness==Correctness.CORRECT) {
+				_A6.setImage(correct);
+			}else {
+				_A6.setImage(incorrect);
+			}
+		}else if (_currentQuestion==6) {
+			if (correctness==Correctness.CORRECT) {
+				_A7.setImage(correct);
+			}else {
+				_A7.setImage(incorrect);
+			}
+		}else if (_currentQuestion==7) {
+			if (correctness==Correctness.CORRECT) {
+				_A8.setImage(correct);
+			}else {
+				_A8.setImage(incorrect);
+			}
+		}else if (_currentQuestion==8) {
+			if (correctness==Correctness.CORRECT) {
+				_A9.setImage(correct);
+			}else {
+				_A9.setImage(incorrect);
+			}
+		}else if (_currentQuestion==9) {
+			if (correctness==Correctness.CORRECT) {
+				_A10.setImage(correct);
+			}else {
+				_A10.setImage(incorrect);
+			}
+		}
 	}
 	public void tryAgain() {
 		File file3 = new File(System.getProperty("user.dir")+"/Icons/png/reload-6x.png");
 		Image image3 = new Image(file3.toURI().toString());
 		_record.setGraphic(new ImageView(image3));
-		
+
 	}
 	public void recordButton() {
 		File file3 = new File(System.getProperty("user.dir")+"/Icons/png/microphone-6x.png");
 		Image image3 = new Image(file3.toURI().toString());
 		_record.setGraphic(new ImageView(image3));
-		
+
 	}
 
 	@Override
@@ -430,7 +506,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 			e1.printStackTrace();
 		}
 	}
-	
+
 	public void load(Level level, Difficulty difficulty) {
 		
 		try {
@@ -453,83 +529,83 @@ public class LessThanTenController extends Controller implements Initializable, 
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
+
+
+
 	}
-	
+
 	public boolean getCorrect() {
 		return _correct;
 	}
-	
-//	public void setCorrect(boolean bool) {
-//		_correct = bool;
-//	}
-	
+
+	//	public void setCorrect(boolean bool) {
+	//		_correct = bool;
+	//	}
+
 	public boolean getFailed() {
 		return _failed;
 	}
-	
-//	public void setFailed(boolean bool) {
-//		_failed = bool;
-//	}
-	
+
+	//	public void setFailed(boolean bool) {
+	//		_failed = bool;
+	//	}
+
 	public boolean getSecondTry() {
 		return _secondTry;
 	}
-	
-//	public void setSecondTry(boolean bool) {
-//		_secondTry = bool;
-//	}
-	
+
+	//	public void setSecondTry(boolean bool) {
+	//		_secondTry = bool;
+	//	}
+
 	public boolean getTryAgainPressed() {
 		return _tryAgainPressed;
 	}
-	
-//	public void setTryAgainPressed(boolean bool) {
-//		_tryAgainPressed = bool;
-//	}
-	
+
+	//	public void setTryAgainPressed(boolean bool) {
+	//		_tryAgainPressed = bool;
+	//	}
+
 	public int getCurrentQuestion() {
 		return _currentQuestion;
 	}
-	
-//	public void setCurrentQuestion(int question) {
-//		_currentQuestion = question;
-//	}
-	
+
+	//	public void setCurrentQuestion(int question) {
+	//		_currentQuestion = question;
+	//	}
+
 	public int getCorrectAnswers() {
 		return _correctAnswers;
 	}
-	
-//	public void setCorrectAnswers(int answers) {
-//		_correctAnswers = answers;
-//	}
-	
+
+	//	public void setCorrectAnswers(int answers) {
+	//		_correctAnswers = answers;
+	//	}
+
 	public List<String> getNumbers(){
 		return _numbers;
 	}
-	
-//	public void setNumbers(List<String> numbers) {
-//		_numbers = numbers;
-//	}
-	
+
+	//	public void setNumbers(List<String> numbers) {
+	//		_numbers = numbers;
+	//	}
+
 	public String getDisplay() {
 		return _display;
 	}
-	
-//	public void setDisplay(String string) {
-//		_display = string;
-//	}
-	
+
+	//	public void setDisplay(String string) {
+	//		_display = string;
+	//	}
+
 	public Level getLevel() {
 		return _level;
 	}
-	
-//	public void setLevel(Level level) {
-//		_level = level;
-//	}
-	
+
+	//	public void setLevel(Level level) {
+	//		_level = level;
+	//	}
+
 	public Difficulty getDifficulty() {
 		return _difficulty;
 	}

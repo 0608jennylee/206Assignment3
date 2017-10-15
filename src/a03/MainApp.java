@@ -11,22 +11,20 @@ import a03.view.CustomizeController;
 import a03.view.ChartsController;
 import a03.view.ChooseDifficultyController;
 import a03.view.ChooseLevelController;
+import a03.view.ConfirmationDialogBoxController;
 import a03.view.HowToPlayController;
 import a03.view.LessThanTenController;
 import a03.view.LoadLevelController;
 import a03.view.MainMenuContentsController;
+import a03.view.ScoreSceneController;
 import a03.view.ScoreboardController;
 import a03.view.StartController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -55,8 +53,8 @@ public class MainApp extends Application {
 		_primaryStage.setTitle("Tatai");
 		_primaryStage.setMinHeight(450);
 		_primaryStage.setMinWidth(700);
-//		_primaryStage.setResizable(false);
-//		_primaryStage.initStyle(StageStyle.UNDECORATED);
+		//		_primaryStage.setResizable(false);
+		//		_primaryStage.initStyle(StageStyle.UNDECORATED);
 		GameStats.getGameStats().updateDiscrete(Stats.APPSTARTTIME.toString(), new Integer((int) (System.currentTimeMillis() / (1000 * 60))));
 		mainMenuContents();
 	}
@@ -113,7 +111,28 @@ public class MainApp extends Application {
 			}
 			LTTController.setMainApp(this);
 			LTTController.setQuestion();
-//			
+			//			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void Score(int score, int questions, Difficulty difficulty, Level level) {
+		try {
+			_gameState = GameState.INGAME;
+			//Load level 
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/ScoreScene.fxml"));
+			AnchorPane lessThanTen = (AnchorPane) loader.load();
+			//load level scene on primary stage
+			Scene scene = new Scene(lessThanTen);
+			_primaryStage.setScene(scene);
+			_primaryStage.show();
+			// Give the controller access to the main app.
+			ScoreSceneController controller = loader.getController();
+			controller.setDifficulty(difficulty, level);
+			controller.setMainApp(this);
+			controller.setScore(score, questions);
+			//			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -282,42 +301,58 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+
 
 	/**
 	 * closes the app and saves the settings
 	 */
 	public void exit(WindowEvent e) {
-		ButtonType stay = new ButtonType("Stay",ButtonBar.ButtonData.CANCEL_CLOSE);
-		ButtonType quit = new ButtonType("Quit");
-		ButtonType saveQuit = new ButtonType("Save and Quit");
-		Alert alert = new Alert(AlertType.CONFIRMATION, "Are you sure you would like to exit the game?", stay, quit);
-		if(_gameState == GameState.INGAME){
-			alert.getButtonTypes().add(saveQuit);
-			alert.showAndWait();
-		}else {
-			alert.getDialogPane().setMinWidth(Region.USE_COMPUTED_SIZE);
-			alert.showAndWait();
-		}
-		if(alert.getResult().equals(quit)) {
-			Settings.getSettings().save();
-			deleteRecordings();
-			Platform.exit();
-			
-		}else if(alert.getResult().equals(stay)) {
-			if(e != null) {
-				e.consume();
+		try{// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/ConfirmationDialogBox.fxml"));
+			AnchorPane page= (AnchorPane) loader.load();
+
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(_primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Set the person into the controller.
+
+			ConfirmationDialogBoxController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			//controller.setMainApp(this);
+			if(_gameState == GameState.INGAME){
+				controller.setVisibleSaveButton();
+			}else {
+				controller.setInvisibleSaveButton();
 			}
-		}else {
-			if(LTTController != null) {
-				LTTController.save();
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+			if(controller.LeaveClicked()) {
+				Settings.getSettings().save();
+				deleteRecordings();
+				Platform.exit();
+			}else if(controller.SaveClicked()){
+				if(LTTController != null) {
+					LTTController.save();
+				}
+				deleteRecordings();
+				Settings.getSettings().save();
+				Platform.exit();
+			}else {
+				if(e != null) {
+					e.consume();
+				}
 			}
-			deleteRecordings();
-			Settings.getSettings().save();
-			Platform.exit();
+		}catch (IOException e1) {
+			e1.printStackTrace();
 		}
 	}
-	
+
 	private void deleteRecordings() {
 		boolean found = false;
 		File[] files = new File("Saves").listFiles();
@@ -370,7 +405,7 @@ public class MainApp extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 	
 	public void setGameState(GameState gamestate) {
@@ -393,7 +428,7 @@ public class MainApp extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 }
