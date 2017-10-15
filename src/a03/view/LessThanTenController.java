@@ -8,13 +8,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 
 import a03.Saveable;
@@ -254,7 +251,8 @@ public class LessThanTenController extends Controller implements Initializable, 
 		//		}
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM");
 		LocalDate localdate = LocalDate.now();
-		String j = g.toJson(new LogData("" + _correctAnswers, "" + _totalQuestions, _level, _difficulty, dtf.format(localdate)));
+		System.out.println(_totalQuestions);
+		String j = g.toJson(new LogData(_correctAnswers, _totalQuestions, _level, _difficulty, dtf.format(localdate)));
 		if(!new File("Logs").exists()) {
 			new File("Logs").mkdir();
 		}
@@ -453,8 +451,6 @@ public class LessThanTenController extends Controller implements Initializable, 
 			new File(SAVEFOLDER + "/" + level.toString() + difficulty.toString() + ".dat").delete();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}catch(IOException e) {
 			e.printStackTrace();
 		}
 		

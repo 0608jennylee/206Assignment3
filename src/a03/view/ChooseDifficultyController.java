@@ -2,6 +2,7 @@ package a03.view;
 
 import javafx.fxml.FXML;
 
+
 import javafx.fxml.Initializable;
 
 import java.io.File;
@@ -11,7 +12,6 @@ import java.util.ResourceBundle;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import a03.MainApp;
 import a03.enumerations.Difficulty;
 import a03.enumerations.Level;
 import javafx.event.ActionEvent;

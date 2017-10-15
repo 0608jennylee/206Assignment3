@@ -1,12 +1,12 @@
 package a03;
 import java.io.File;
+
 import java.io.IOException;
 import a03.Settings;
 import a03.enumerations.Difficulty;
 import a03.enumerations.GameState;
 import a03.enumerations.Level;
 import a03.enumerations.Stats;
-import a03.view.Controller;
 import a03.view.CustomizeController;
 import a03.view.ChartsController;
 import a03.view.ChooseDifficultyController;
@@ -15,11 +15,8 @@ import a03.view.HowToPlayController;
 import a03.view.LessThanTenController;
 import a03.view.LoadLevelController;
 import a03.view.MainMenuContentsController;
-import a03.view.ScoreBoardController;
 import a03.view.ScoreboardController;
 import a03.view.StartController;
-import a03.view.StatisticsController;
-//import a03.view.StartController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -29,11 +26,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import javafx.stage.StageStyle;
 
 public class MainApp extends Application {
 	//	public enum Level {hard(""),easy};

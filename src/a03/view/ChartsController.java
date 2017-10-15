@@ -5,17 +5,22 @@ import javafx.fxml.Initializable;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.jfoenix.controls.JFXButton;
 
 import a03.LogData;
 import a03.MainApp;
-import a03.enumerations.Charts;
+import a03.enumerations.ChartTypes;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 
@@ -36,8 +41,7 @@ public class ChartsController extends Controller implements Initializable{
 	@FXML
 	private JFXButton _next;
 	private MainApp _mainApp;
-	private int _currentChart;
-	private Charts _chartType = Charts.EASYNUMBERS;
+	private ChartTypes _chartType = ChartTypes.EASYNUMBERS;
 	@FXML private ImageView _imageView;
 	@FXML private NumberAxis _yAxis;
 	// Event Listener on JFXButton[#_back].onAction
@@ -48,20 +52,43 @@ public class ChartsController extends Controller implements Initializable{
 	// Event Listener on JFXButton[#_left].onAction
 	@FXML
 	public void handleLeft(ActionEvent event) {
-		_currentChart++;
+		ChartTypes[] e = ChartTypes.values();
+		for(int i = 0; i < e.length; i++) {
+			if(e[i] == _chartType) {
+				if(i == 0) {
+					_chartType = e[e.length - 1];
+					break;
+				}else {
+					_chartType = e[i - 1];
+					break;
+				}
+			}
+		}
 		changeChart();
 	}
 	// Event Listener on JFXButton[#_right].onAction
 	@FXML
 	public void handleRight(ActionEvent event) {
-		_currentChart--;
+		ChartTypes[] e = ChartTypes.values();
+		for(int i = 0; i < e.length; i++) {
+			if(e[i] == _chartType) {
+				if(i == e.length - 1) {
+					_chartType = e[0];
+					break;
+				}else {
+					_chartType = e[i + 1];
+					break;
+				}
+			}
+		}
 		changeChart();
 	}
 	public void setMainApp(MainApp mainApp) {
 		_mainApp=mainApp;
 		changeChart();
 	}
-	public void changeChart() {             
+	public void changeChart() {    
+		try {
 		//			      CategoryAxis xAxis = new CategoryAxis();  
 		//			      xAxis.setCategories(FXCollections.<String>
 		//			      observableArrayList(Arrays.asList("Speed", "User rating", "Milage", "Safety")));
@@ -71,34 +98,45 @@ public class ChartsController extends Controller implements Initializable{
 		//			      yAxis.setLabel("score");
 		//			     
 		//Creating the Bar chart
-		// _barChart = new BarChart<>(xAxis, yAxis); 
-		Gson g = new Gson;
+		Gson g = new Gson();
+		_barChart.setTitle(_chartType.toString() + "Recent High Scores");
+		System.out.println("Changed");
 		XYChart.Series<String, Number> series2 = new XYChart.Series<>();
-		series2.setName("scores");
-		switch(_chartType) {
-			case EASYEQUATIONS:
-				_barChart.setTitle(Charts.EASYEQUATIONS.toString() + "Recent High Scores");
-				if(new File("Logs/" + _chartType.getFileSuffix()).exists()) {
-					BufferedReader br = new BufferedReader(new FileReader("Logs/" + _chartType.getFileSuffix()));
-					String line = null;
-					while((line = br.readLine()) != null) {
-						series2.getData().add(new XYCHart.Data<>(g.fromJson(line, LogData.class).toString(), ))
-					}
-				}
-			break;
+		series2.setName("Score(%)");
+		System.out.println("Logs/" + _chartType.getFileSuffix());
+		if(new File("Logs/" + _chartType.getFileSuffix()).exists()) {
+			System.out.println("passed if");
+			BufferedReader br = new BufferedReader(new FileReader("Logs/" + _chartType.getFileSuffix()));
+			String line = null;
+			while((line = br.readLine()) != null) {
+				System.out.println("Loaded");
+				LogData logData = g.fromJson(line, LogData.class);
+				series2.getData().add(new XYChart.Data<>(logData.toString(),logData.toRatio()));
+			}
+			_barChart.getData().add(series2);
+		}else {
+			_barChart.getData().clear();
 		}
-		_barChart.setTitle("Recent High scores");
 
 		
-		series2.getData().add(new XYChart.Data<>("a", 50.0));
-		series2.getData().add(new XYChart.Data<>("b", 80.0));
-		series2.getData().add(new XYChart.Data<>("c", 100.0));
-		series2.getData().add(new XYChart.Data<>("d", 20.0));
+//		series2.getData().add(new XYChart.Data<>("a", 50.0));
+//		series2.getData().add(new XYChart.Data<>("b", 80.0));
+//		series2.getData().add(new XYChart.Data<>("c", 100.0));
+//		series2.getData().add(new XYChart.Data<>("d", 20.0));
 
 		//Setting the data to bar chart       
-		_barChart.getData().addAll(series2);
+		_barChart.getXAxis().setAnimated(false);
+		_barChart.getYAxis().setAnimated(true);
+		_barChart.setAnimated(true);
 		_barChart.lookupAll(".default-color0.chart-bar")
 		.forEach(n -> n.setStyle("-fx-bar-fill: orange;"));
+		}catch (JsonSyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
