@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a03.view.ScoreSceneController">
+	<children>
+		<ImageView fx:id="_imageView" fitHeight="500.0" fitWidth="700.0" layoutX="1.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <BorderPane prefHeight="450.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <center>
+      		<ImageView fx:id="_scoreImageView" fitHeight="300.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
+		<JFXButton fx:id="_mainMenu" layoutX="39.0" layoutY="55.0" onAction="#handleMainMenu" ripplerFill="#ffffff2e" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0" />
+      <ButtonBar layoutX="398.0" layoutY="390.0" prefHeight="40.0" prefWidth="300.0" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="30.0">
+        <buttons>
+      		<JFXButton fx:id="_nextLevel" onAction="#handleNextLevel" prefWidth="100.0" style="-fx-background-color: orange; -fx-border-color: black; -fx-background-radius: 30; -fx-border-radius: 30;" text="Next Level" />
+      		<JFXButton fx:id="_playAgain" onAction="#handlePlayAgain" style="-fx-background-color: orange; -fx-border-color: black; -fx-background-radius: 30; -fx-border-radius: 30;" text="Play Again" />
+        </buttons>
+      </ButtonBar>
+	</children>
+</AnchorPane>

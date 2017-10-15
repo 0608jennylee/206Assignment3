@@ -44,37 +44,27 @@ import javafx.scene.text.Font;
  */
 public class LessThanTenController extends Controller implements Initializable, Saveable{
 	private enum Correctness{CORRECT,INCORRECT}
-	@FXML ProgressBar _progressBar;
-	//	@FXML private ImageView _imageView;
-	@FXML private transient ImageView _score;
+	@FXML private transient ProgressBar _progressBar;
+
 	@FXML private transient Button _record;
 	@FXML private transient Button _submit;
 	@FXML private transient Button _playback;
-
 	@FXML private transient Button _nextQuestion;
-	//	@FXML private Button _mainMenuTop;
-	//	@FXML private Button _mainMenuBottom;
-	@FXML private transient Button _nextLevel;
+	@FXML private transient Button _back;
 	@FXML private transient Label _theCorrectAnswer;
 	@FXML private transient Label _theirAnswer;
 	@FXML private transient Label _question;
-	//@FXML private Label _text;
 	@FXML private transient Label _text1;
 	@FXML private transient Label _text2;
 	@FXML private transient Label _title;
+	@FXML private transient ImageView _score;
 	@FXML private transient ImageView _imageView;
-	@FXML private transient ImageView _Q1;
-	@FXML private transient ImageView _A1;
-	@FXML private transient ImageView _Q2;
-	@FXML private transient ImageView _A2;
-	@FXML private transient ImageView _Q3;
-	@FXML private transient ImageView _A3;
-	@FXML private transient ImageView _Q4;
-	@FXML private transient ImageView _A4;
-	@FXML private transient ImageView _Q5;
-	@FXML private transient ImageView _A5;
-	@FXML private transient ImageView _Q6;
-	@FXML private transient ImageView _A6;
+	@FXML private transient ImageView _Q1, _A1;
+	@FXML private transient ImageView _Q2, _A2;
+	@FXML private transient ImageView _Q3, _A3;
+	@FXML private transient ImageView _Q4, _A4;
+	@FXML private transient ImageView _Q5, _A5;
+	@FXML private transient ImageView _Q6, _A6;
 	@FXML private transient ImageView _Q7;
 	@FXML private transient ImageView _A7;
 	@FXML private transient ImageView _Q8;
@@ -83,9 +73,6 @@ public class LessThanTenController extends Controller implements Initializable, 
 	@FXML private transient ImageView _A9;
 	@FXML private transient ImageView _Q10;
 	@FXML private transient ImageView _A10;
-	//	@FXML private Label _sorry;
-	//	@FXML private Label _weMuckedUp;
-	//	@FXML private Label _tryAgain;
 	@FXML private transient BorderPane _root;
 
 	private boolean _correct=true;
@@ -93,14 +80,14 @@ public class LessThanTenController extends Controller implements Initializable, 
 	private boolean _secondTry = false;
 	private boolean _tryAgainPressed=true;
 	private int _currentQuestion = 0;
-	private int _correctAnswers = 0;
+	private int _correctAnswers = 1;
 
 	private List<String> _numbers;
 	private Level _level;
 	private String _display;
 	private transient MediaPlayer mp;
 	private transient Generator _generator;
-	@FXML private transient Button _back;
+
 	private Difficulty _difficulty;
 	private final String SAVEFOLDER = "Saves";
 	private String RECORDINGSFOLDER = "";
@@ -134,6 +121,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 			Task<Void> record = new Task<Void>() { 
 				@Override
 				protected Void call() throws Exception {
+					_progressBar.setVisible(true);
 					_record.setDisable(true);
 					String cmd = "arecord -d 2 -r 22050 -c 1 -i -t wav -f s16_LE " + RECORDINGSFOLDER + Processor.toInt(_numbers.get(_currentQuestion)) + ".wav;echo record passed; HVite -H HMMs/hmm15/macros -H HMMs/hmm15/hmmdefs -C user/configLR  -w user/wordNetworkNum -o SWT -l '*' -i recout.mlf -p 0.0 -s 5.0  user/dictionaryD user/tiedList " + RECORDINGSFOLDER + Processor.toInt(_numbers.get(_currentQuestion)) + ".wav; echo processing passed;";
 					ProcessBuilder pb = new ProcessBuilder("bash", "-c", cmd);
@@ -143,6 +131,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 						_playback.setDisable(false);
 						_submit.setDisable(false);
 						_record.setDisable(false);
+						_progressBar.setVisible(false);
 					} catch (IOException IOe) {
 						IOe.printStackTrace();
 					}
@@ -213,6 +202,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 			//			Image file = new Image(getClass().getClassLoader().getResource("Incorrect/" + _numbers.get(_currentQuestion) + ".jpg").toString());
 			//			setImage(file);
 			if (_secondTry){//user gets the answer incorrect the second time
+				setProgress(Correctness.INCORRECT);
 				delete();
 				_theCorrectAnswer.setText((Processor.toMaori(Processor.toInt(_numbers.get(_currentQuestion)))));
 				_theirAnswer.setText(Processor.getUserAnswer());
@@ -224,7 +214,6 @@ public class LessThanTenController extends Controller implements Initializable, 
 					_nextQuestion.setVisible(true);
 				}
 				_tryAgainPressed=false;
-				setProgress(Correctness.INCORRECT);
 			}else{//user gets the answer incorrect the first time
 				_secondTry = true;
 				_theirAnswer.setText(Processor.getUserAnswer());
@@ -244,16 +233,16 @@ public class LessThanTenController extends Controller implements Initializable, 
 	 * if they are on easy and have passed i
 	 */
 	private void displayFinalScore() {
-		//temp workout for them to not be able to save at the final score menu.
-		_mainApp.setGameState(GameState.MENU);
-		_title.setVisible(false);
-		if(_correctAnswers >= 8&&_difficulty==Difficulty.EASY) {
-			Settings.getSettings().enableHard();
-			_nextLevel.setVisible(true);
-		}else {
-			_nextLevel.setText("Play Again");
-			_nextLevel.setVisible(true);
-		}
+		//		//temp workout for them to not be able to save at the final score menu.
+		//		_mainApp.setGameState(GameState.MENU);
+		//		_title.setVisible(false);
+		//		if(_correctAnswers >= 8&&_difficulty==Difficulty.EASY) {
+		//			Settings.getSettings().enableHard();
+		//			_nextLevel.setVisible(true);
+		//		}else {
+		//			_nextLevel.setText("Play Again");
+		//			_nextLevel.setVisible(true);
+		//		}
 		GameStats.getGameStats().update(_difficulty,_level, _correctAnswers);
 		// work in progress to generate the data to populate the charts
 		//TODO
@@ -267,13 +256,14 @@ public class LessThanTenController extends Controller implements Initializable, 
 		//		} catch (IOException e1) {
 		//			e1.printStackTrace();
 		//		}
-		_theirAnswer.setText("");
-		_theCorrectAnswer.setText("");
-		_text1.setText("");
-		_text2.setText("");
-		_record.setVisible(false);
-		_nextQuestion.setVisible(false);
-		_question.setText(_correctAnswers + "/10");
+		//		_theirAnswer.setText("");
+		//		_theCorrectAnswer.setText("");
+		//		_text1.setText("");
+		//		_text2.setText("");
+		//		_record.setVisible(false);
+		//		_nextQuestion.setVisible(false);
+		//		_question.setText(_correctAnswers + "/10");
+		_mainApp.Score(_correctAnswers, _difficulty, _level);
 	}
 
 	/**
@@ -385,9 +375,6 @@ public class LessThanTenController extends Controller implements Initializable, 
 		File file4 = new File(System.getProperty("user.dir")+"/Icons/png/quit.png");
 		Image image4 = new Image(file4.toURI().toString());
 		_back.setGraphic(new ImageView(image4));
-		//		File file = new File(System.getProperty("user.dir")+"/Icons/png/data-transfer-upload-6x.png");
-		//		Image image = new Image(file.toURI().toString());
-		//		_submit.setGraphic(new ImageView(image));
 		File file1 = new File(System.getProperty("user.dir")+"/Icons/png/bullhorn-6x.png");
 		Image image1 = new Image(file1.toURI().toString());
 		_playback.setGraphic(new ImageView(image1));
@@ -430,66 +417,67 @@ public class LessThanTenController extends Controller implements Initializable, 
 		_A8.setImage(q);
 		_A9.setImage(q);
 		_A10.setImage(q);
+		_progressBar.setVisible(false);
 	}
 	private void setProgress(Correctness correctness) {
 		Image correct = new Image(getClass().getClassLoader().getResource("Progress/correct.png").toString());//
 		Image incorrect = new Image(getClass().getClassLoader().getResource("Progress/incorrect.png").toString());//
 
-		if (_currentQuestion==1) {
+		if (_currentQuestion==0) {
 			if (correctness==Correctness.CORRECT) {
 				_A1.setImage(correct);
 			}else {
 				_A1.setImage(incorrect);
 			}
-		}else if (_currentQuestion==2) {
+		}else if (_currentQuestion==1) {
 			if (correctness==Correctness.CORRECT) {
 				_A2.setImage(correct);
 			}else {
 				_A2.setImage(incorrect);
 			}
-		}else if (_currentQuestion==3) {
+		}else if (_currentQuestion==2) {
 			if (correctness==Correctness.CORRECT) {
 				_A3.setImage(correct);
 			}else {
 				_A3.setImage(incorrect);
 			}
-		}else if (_currentQuestion==4) {
+		}else if (_currentQuestion==3) {
 			if (correctness==Correctness.CORRECT) {
 				_A4.setImage(correct);
 			}else {
 				_A4.setImage(incorrect);
 			}
-		}else if (_currentQuestion==5) {
+		}else if (_currentQuestion==4) {
 			if (correctness==Correctness.CORRECT) {
 				_A5.setImage(correct);
 			}else {
 				_A5.setImage(incorrect);
 			}
-		}else if (_currentQuestion==6) {
+		}else if (_currentQuestion==5) {
 			if (correctness==Correctness.CORRECT) {
 				_A6.setImage(correct);
 			}else {
 				_A6.setImage(incorrect);
 			}
-		}else if (_currentQuestion==7) {
+		}else if (_currentQuestion==6) {
 			if (correctness==Correctness.CORRECT) {
 				_A7.setImage(correct);
 			}else {
 				_A7.setImage(incorrect);
 			}
-		}else if (_currentQuestion==8) {
+		}else if (_currentQuestion==7) {
 			if (correctness==Correctness.CORRECT) {
 				_A8.setImage(correct);
 			}else {
 				_A8.setImage(incorrect);
 			}
-		}else if (_currentQuestion==9) {
+		}else if (_currentQuestion==8) {
 			if (correctness==Correctness.CORRECT) {
 				_A9.setImage(correct);
 			}else {
 				_A9.setImage(incorrect);
 			}
-		}else if (_currentQuestion==10) {
+		}else if (_currentQuestion==9) {
 			if (correctness==Correctness.CORRECT) {
 				_A10.setImage(correct);
 			}else {

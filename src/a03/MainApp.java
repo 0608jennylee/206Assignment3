@@ -17,6 +17,7 @@ import a03.view.LessThanTenController;
 import a03.view.LoadLevelController;
 import a03.view.MainMenuContentsController;
 import a03.view.ScoreBoardController;
+import a03.view.ScoreSceneController;
 import a03.view.ScoreboardController;
 import a03.view.StartController;
 import a03.view.StatisticsController;
@@ -111,6 +112,27 @@ public class MainApp extends Application {
 			LTTController.setDifficulty(difficulty, level);
 			LTTController.setMainApp(this);
 			LTTController.setQuestion();
+			//			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void Score(int score,Difficulty difficulty, Level level) {
+		try {
+			_gameState = GameState.INGAME;
+			//Load level 
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/ScoreScene.fxml"));
+			AnchorPane lessThanTen = (AnchorPane) loader.load();
+			//load level scene on primary stage
+			Scene scene = new Scene(lessThanTen);
+			_primaryStage.setScene(scene);
+			_primaryStage.show();
+			// Give the controller access to the main app.
+			ScoreSceneController controller = loader.getController();
+			controller.setDifficulty(difficulty, level);
+			controller.setMainApp(this);
+			controller.setScore(score);
 			//			
 		} catch (IOException e) {
 			e.printStackTrace();
