@@ -79,7 +79,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 	private boolean _secondTry = false;
 	private boolean _tryAgainPressed=true;
 	private int _currentQuestion = 0;
-	private int _correctAnswers = 1;
+	private int _correctAnswers = 0;
 
 	private List<String> _numbers;
 	private Level _level;
