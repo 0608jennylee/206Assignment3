@@ -74,6 +74,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 	@FXML private transient ImageView _A10;
 	@FXML private transient BorderPane _root;
 
+	
 	private boolean _correct=true;
 	private boolean _failed=false;
 	private boolean _secondTry = false;
