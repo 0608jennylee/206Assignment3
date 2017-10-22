@@ -385,7 +385,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 		File file5 = new File(System.getProperty("user.dir")+"/fern.jpg");
 		Image image5 = new Image(file5.toURI().toString());
 		_imageView.setImage(image5);
-		_imageView.setOpacity(0.1);
+		_imageView.setOpacity(0.3);
 		Image file = new Image(getClass().getClassLoader().getResource("Progress/1.png").toString());//
 		_Q1.setImage(file);
 		Image file2 = new Image(getClass().getClassLoader().getResource("Progress/2.png").toString());//
