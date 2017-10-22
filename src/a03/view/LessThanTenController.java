@@ -23,6 +23,9 @@ import a03.LogData;
 import a03.generators.Generator;
 import a03.generators.GeneratorFactory;
 import a03.generators.Processor;
+import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,6 +39,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 /**
  * this controller, controls the scene for displaying the level
  * @author edwar jenny
@@ -202,6 +206,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 			//			File file = new File(System.getProperty("user.dir")+"/Incorrect/" + _numbers.get(_currentQuestion) + ".jpg");
 			//			Image file = new Image(getClass().getClassLoader().getResource("Incorrect/" + _numbers.get(_currentQuestion) + ".jpg").toString());
 			//			setImage(file);
+			animate();
 			if (_secondTry){//user gets the answer incorrect the second time
 				setProgress(Correctness.INCORRECT);
 				delete();
@@ -226,6 +231,10 @@ public class LessThanTenController extends Controller implements Initializable, 
 		if (_currentQuestion==_totalQuestions){//the user has answered the all questions for this level
 			displayFinalScore();
 		}
+	}
+		
+		void animate() {
+			_question.setStyle("-fx-border-color: red; -fx-border-width: 5; -fx-border-radius: 5");
 	}
 
 	/**
