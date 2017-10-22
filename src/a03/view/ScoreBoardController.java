@@ -1,6 +1,7 @@
 package a03.view;
 
 import javafx.fxml.FXML;
+
 import javafx.fxml.Initializable;
 
 import java.io.File;
@@ -8,11 +9,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import a03.GameStats;
-import a03.MainApp;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Labeled;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 

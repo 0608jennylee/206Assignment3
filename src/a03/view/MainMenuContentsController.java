@@ -5,8 +5,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import java.io.File;
 import java.net.URL;
@@ -60,11 +58,6 @@ public class MainMenuContentsController extends Controller implements Initializa
 	// Event Listener on Button.onAction
 	@FXML
 	public void handleExit(ActionEvent event) {
-		File file = new File(System.getProperty("user.dir")+"/Icons/playlarge.png");
-		Image image = new Image(file.toURI().toString());
-		_playButton.setGraphic(new ImageView(image));
-		//Image Play = new Image(getClass().getResourceAsStream(System.getProperty("user.dir")+"/Icons/playmini.png"));
-		System.out.print(System.getProperty("user.dir")+"/Icons/playmini.png");
 		_mainApp.exit(null);
 	}
 

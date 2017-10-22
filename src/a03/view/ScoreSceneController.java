@@ -9,31 +9,33 @@ import a03.enumerations.Level;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Font;
 
 public class ScoreSceneController extends Controller implements Initializable{
 	@FXML private ImageView _imageView;
-	@FXML private ImageView _scoreImageView;
 	@FXML private Button _nextLevel;
 	@FXML private Button _mainMenu;
 	@FXML private Button _playAgain;
+	@FXML private Label _scoreLabel;
 	private int _score;
 	private Difficulty _difficulty;
 	private Level _level;
 	@FXML public void handleNextLevel() {
-		_mainApp.Game(Difficulty.HARD, _level);
+		_mainApp.Game(Difficulty.HARD, _level, false);
 	}
 	@FXML public void handleMainMenu() {
 		_mainApp.mainMenuContents();
 	}
 	@FXML public void handlePlayAgain() {
-		_mainApp.Game(_difficulty, _level);
+		_mainApp.Game(_difficulty, _level, false);
 	}
-	public void setScore(int score) {
+	public void setScore(int score, int totalQuestions) {
 		_score=score;
-		Image q = new Image(getClass().getClassLoader().getResource("Result/"+_score+".jpg").toString());//
-		_scoreImageView.setImage(q);
+		_scoreLabel.setFont(new Font("Ubuntu", 150));
+		_scoreLabel.setText(_score + "/" + totalQuestions);
 		if (_difficulty==Difficulty.HARD||_score<8) {
 			_nextLevel.setVisible(false);
 		}

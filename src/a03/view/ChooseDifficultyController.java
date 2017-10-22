@@ -2,6 +2,7 @@ package a03.view;
 
 import javafx.fxml.FXML;
 
+
 import javafx.fxml.Initializable;
 
 import java.io.File;
@@ -11,7 +12,6 @@ import java.util.ResourceBundle;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import a03.MainApp;
 import a03.enumerations.Difficulty;
 import a03.enumerations.Level;
 import javafx.event.ActionEvent;
@@ -42,7 +42,7 @@ public class ChooseDifficultyController extends Controller implements Initializa
 		if((new File("Saves/" + _level.toString() + Difficulty.EASY + ".dat").exists())) {
 			_mainApp.LoadLevel(_level,Difficulty.EASY);
 		}else {
-			_mainApp.Start(_level,Difficulty.EASY);
+			_mainApp.Start(_level,Difficulty.EASY, 10);
 		}
 	}
 
@@ -58,7 +58,7 @@ public class ChooseDifficultyController extends Controller implements Initializa
 		if(new File("Saves/" + _level.toString() + Difficulty.EASY + ".dat").exists()) {
 			_mainApp.LoadLevel(_level,Difficulty.HARD);
 		}else {
-			_mainApp.Start(_level,Difficulty.HARD);
+			_mainApp.Start(_level,Difficulty.HARD, 10);
 		}
 	}
 

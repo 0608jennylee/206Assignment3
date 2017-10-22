@@ -6,17 +6,16 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 
 import a03.Saveable;
-import a03.Settings;
 import a03.enumerations.Difficulty;
-import a03.enumerations.GameState;
 import a03.enumerations.Level;
 import a03.errors.HTKError;
 import a03.GameStats;
@@ -80,7 +79,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 	private boolean _secondTry = false;
 	private boolean _tryAgainPressed=true;
 	private int _currentQuestion = 0;
-	private int _correctAnswers = 1;
+	private int _correctAnswers = 0;
 
 	private List<String> _numbers;
 	private Level _level;
@@ -89,8 +88,9 @@ public class LessThanTenController extends Controller implements Initializable, 
 	private transient Generator _generator;
 
 	private Difficulty _difficulty;
-	private final String SAVEFOLDER = "Saves";
+	private final transient String SAVEFOLDER = "Saves";
 	private String RECORDINGSFOLDER = "";
+	private int _totalQuestions = 10;
 
 	@Override
 	public void setMainAppHook() {
@@ -190,7 +190,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 			_theCorrectAnswer.setText((Processor.toMaori(Processor.toInt(_numbers.get(_currentQuestion)))));
 			_theirAnswer.setText((Processor.getUserAnswer()));
 			_currentQuestion++;
-			if(_currentQuestion != 10) {
+			if(_currentQuestion != _totalQuestions) {
 				_nextQuestion.setVisible(true);
 			}
 			_secondTry = false;
@@ -210,7 +210,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 				_currentQuestion++;
 				_record.setDisable(true);
 				recordButton();
-				if(_currentQuestion != 10) {
+				if(_currentQuestion != _totalQuestions) {
 					_nextQuestion.setVisible(true);
 				}
 				_tryAgainPressed=false;
@@ -222,7 +222,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 				_tryAgainPressed=true;
 			}
 		}
-		if (_currentQuestion==10){//the user has answered the all questions for this level
+		if (_currentQuestion==_totalQuestions){//the user has answered the all questions for this level
 			displayFinalScore();
 		}
 	}
@@ -233,37 +233,27 @@ public class LessThanTenController extends Controller implements Initializable, 
 	 * if they are on easy and have passed i
 	 */
 	private void displayFinalScore() {
-		//		//temp workout for them to not be able to save at the final score menu.
-		//		_mainApp.setGameState(GameState.MENU);
-		//		_title.setVisible(false);
-		//		if(_correctAnswers >= 8&&_difficulty==Difficulty.EASY) {
-		//			Settings.getSettings().enableHard();
-		//			_nextLevel.setVisible(true);
-		//		}else {
-		//			_nextLevel.setText("Play Again");
-		//			_nextLevel.setVisible(true);
-		//		}
+		boolean flag = new File("Logs/" + _level.toString() + _difficulty.toString() + "History.dat").exists();
 		GameStats.getGameStats().update(_difficulty,_level, _correctAnswers);
-		// work in progress to generate the data to populate the charts
-		//TODO
-		//		Gson g = new Gson();
-		//		String j = g.toJson(new LogData("" + _correctAnswers, _level, _difficulty));
-		//		if(!new File("Logs").exists()) {
-		//			new File("Logs").mkdir();
-		//		}
-		//		try (FileWriter filewriter = new FileWriter("Logs/" + _level.toString() + _difficulty.toString() + "History.dat")){
-		//			filewriter.append(j.toString());
-		//		} catch (IOException e1) {
-		//			e1.printStackTrace();
-		//		}
-		//		_theirAnswer.setText("");
-		//		_theCorrectAnswer.setText("");
-		//		_text1.setText("");
-		//		_text2.setText("");
-		//		_record.setVisible(false);
-		//		_nextQuestion.setVisible(false);
-		//		_question.setText(_correctAnswers + "/10");
-		_mainApp.Score(_correctAnswers, _difficulty, _level);
+		Gson g = new Gson();
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM HH:mm");
+		LocalDateTime localdatetime = LocalDateTime.now();
+		System.out.println(_totalQuestions);
+		String j = g.toJson(new LogData(_correctAnswers, _totalQuestions, _level, _difficulty, dtf.format(localdatetime)));
+		if(!new File("Logs").exists()) {
+			new File("Logs").mkdir();
+		}
+
+		try (FileWriter filewriter = new FileWriter("Logs/" + _level.toString() + _difficulty.toString() + "History.dat", true)){
+			if(flag) {
+				filewriter.append(System.lineSeparator());
+			}
+			filewriter.append(j.toString());
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		GameStats.getGameStats().update(_difficulty,_level, _correctAnswers);
+		_mainApp.Score(_correctAnswers,_totalQuestions, _difficulty, _level);
 	}
 
 	/**
@@ -295,9 +285,9 @@ public class LessThanTenController extends Controller implements Initializable, 
 	@FXML
 	public void handleNextLevel(){
 		if (_difficulty==Difficulty.HARD||(_difficulty==Difficulty.EASY&&_correctAnswers>=8)) {
-			_mainApp.Start(_level, Difficulty.HARD);
+			_mainApp.Start(_level, Difficulty.HARD, 10);
 		}else {
-			_mainApp.Start(_level, _difficulty);
+			_mainApp.Start(_level, _difficulty, 10);
 		}
 	}
 
@@ -305,17 +295,20 @@ public class LessThanTenController extends Controller implements Initializable, 
 	 * sets the level of the current scene
 	 * @param level
 	 */
-	public void setDifficulty(Difficulty difficulty, Level level){
+	public void setDifficulty(Difficulty difficulty, Level level, int questions){
 		_level=level;
+		_totalQuestions = questions;
 		if (difficulty==Difficulty.HARD){
-			_display = "HARD ";
-		}else{
-			_display = "EASY ";
+			_display = "Hard ";
+		}else if(difficulty == Difficulty.EASY){
+			_display = "Easy ";
+		}else {
+			_display = "Custom ";
 		}
 
 		_difficulty = difficulty;
 		GeneratorFactory gf = new GeneratorFactory();
-		_generator = gf.getGenerator(_difficulty, _level);
+		_generator = gf.getGenerator(_difficulty, _level, questions);
 		_numbers = _generator.getNumbers();
 	}
 
@@ -513,10 +506,10 @@ public class LessThanTenController extends Controller implements Initializable, 
 	}
 
 	public void load(Level level, Difficulty difficulty) {
-		Gson g = new Gson();
-		JsonReader reader;
+		
 		try {
-			reader = new JsonReader(new FileReader(SAVEFOLDER + "/" + level.toString() + difficulty.toString() + ".dat"));
+			Gson g = new Gson();
+			JsonReader reader = new JsonReader(new FileReader(SAVEFOLDER + "/" + level.toString() + difficulty.toString() + ".dat"));
 			LessThanTenController controller = g.fromJson(reader, LessThanTenController.class);
 			_correct = controller.getCorrect();
 			_failed = controller.getFailed();
@@ -528,11 +521,10 @@ public class LessThanTenController extends Controller implements Initializable, 
 			_level = controller.getLevel();
 			_difficulty = controller.getDifficulty();
 			_display = controller.getDisplay();
+			_totalQuestions = controller.getTotalQuestions();
 			new File(SAVEFOLDER + "/" + level.toString() + difficulty.toString() + ".dat").delete();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}catch(IOException e) {
 			e.printStackTrace();
 		}
 
@@ -615,8 +607,12 @@ public class LessThanTenController extends Controller implements Initializable, 
 	public Difficulty getDifficulty() {
 		return _difficulty;
 	}
-
-	//	public void setDifficulty(Difficulty difficulty) {
-	//		_difficulty = difficulty;
-	//	}
+	
+//	public void setDifficulty(Difficulty difficulty) {
+//		_difficulty = difficulty;
+//	}
+	
+	private int getTotalQuestions() {
+		return _totalQuestions;
+	}
 }
