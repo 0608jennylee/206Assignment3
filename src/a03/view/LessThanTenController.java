@@ -399,7 +399,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 		_Q9.setImage(file12);
 		Image file13 = new Image(getClass().getClassLoader().getResource("Progress/10.png").toString());//
 		_Q10.setImage(file13);
-		Image q = new Image(getClass().getClassLoader().getResource("Progress/q.png").toString());//
+		Image q = new Image(getClass().getClassLoader().getResource("Progress/favicon.png").toString());//
 		_A1.setImage(q);
 		_A2.setImage(q);
 		_A3.setImage(q);
