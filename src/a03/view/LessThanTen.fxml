@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a03.view.LessThanTenController">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a03.view.LessThanTenController">
 	<children>
 		<ImageView fx:id="_imageView" fitHeight="500.0" fitWidth="700.0" layoutX="1.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 		<Label fx:id="_question" alignment="CENTER" layoutX="88.0" layoutY="80.0" text="1" textAlignment="CENTER" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -19,46 +19,6 @@
 				<Font name="Ubuntu Bold" size="100.0" />
 			</font>
 		</Label>
-		<GridPane alignment="CENTER" prefWidth="70.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="630.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
-			<columnConstraints>
-				<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-				<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-			</columnConstraints>
-			<rowConstraints>
-				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-			</rowConstraints>
-			<children>
-				<ImageView fx:id="_Q1" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
-				<ImageView fx:id="_A1" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
-				<ImageView fx:id="_Q2" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
-				<ImageView fx:id="_A2" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-				<ImageView fx:id="_Q3" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
-				<ImageView fx:id="_A3" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-				<ImageView fx:id="_A4" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-				<ImageView fx:id="_Q4" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3" />
-				<ImageView fx:id="_A5" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-				<ImageView fx:id="_Q5" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="4" />
-				<ImageView fx:id="_A6" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-				<ImageView fx:id="_Q6" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="5" />
-				<ImageView fx:id="_A7" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-				<ImageView fx:id="_Q7" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="6" />
-				<ImageView fx:id="_A8" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-				<ImageView fx:id="_Q8" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="7" />
-				<ImageView fx:id="_A9" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-				<ImageView fx:id="_Q9" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="8" />
-				<ImageView fx:id="_A10" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-				<ImageView fx:id="_Q10" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="9" />
-			</children>
-		</GridPane>
 		<Label fx:id="_text1" layoutX="64.0" layoutY="321.0" prefHeight="40.0" style="-fx-background-color: MediumSeaGreen; -fx-background-radius: 30;" text="   Your answer is: " AnchorPane.bottomAnchor="220.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="200.0">
 			<font>
 				<Font name="Ubuntu Bold" size="16.0" />
@@ -90,5 +50,85 @@
 			</font>
 		</JFXButton>
 		<JFXProgressBar fx:id="_progressBar" layoutX="250.0" layoutY="303.0" AnchorPane.bottomAnchor="144.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="303.0" />
+		<GridPane alignment="CENTER" prefWidth="70.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="630.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+			<columnConstraints>
+				<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+				<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+			</columnConstraints>
+			<rowConstraints>
+				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+			</rowConstraints>
+			<children>
+				<ImageView fx:id="_A1" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+				<ImageView fx:id="_A2" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+				<ImageView fx:id="_A3" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+				<ImageView fx:id="_A4" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+				<ImageView fx:id="_A5" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+				<ImageView fx:id="_A6" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+				<ImageView fx:id="_A7" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+				<ImageView fx:id="_A8" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+				<ImageView fx:id="_A9" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+				<ImageView fx:id="_A10" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <Label fx:id="_label1" alignment="CENTER" contentDisplay="CENTER" prefHeight="11.0" prefWidth="30.0" style="-fx-background-color: black; -fx-background-radius: 20;" text="1" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="_label11" alignment="CENTER" contentDisplay="CENTER" prefHeight="11.0" prefWidth="30.0" style="-fx-background-color: black; -fx-background-radius: 20;" text="2" textAlignment="CENTER" textFill="WHITE" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="_label12" alignment="CENTER" contentDisplay="CENTER" prefHeight="11.0" prefWidth="30.0" style="-fx-background-color: black; -fx-background-radius: 20;" text="3" textAlignment="CENTER" textFill="WHITE" GridPane.rowIndex="2">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="_label13" alignment="CENTER" contentDisplay="CENTER" prefHeight="11.0" prefWidth="30.0" style="-fx-background-color: black; -fx-background-radius: 20;" text="4" textAlignment="CENTER" textFill="WHITE" GridPane.rowIndex="3">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="_label14" alignment="CENTER" contentDisplay="CENTER" prefHeight="11.0" prefWidth="30.0" style="-fx-background-color: black; -fx-background-radius: 20;" text="5" textAlignment="CENTER" textFill="WHITE" GridPane.rowIndex="4">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="_label15" alignment="CENTER" contentDisplay="CENTER" prefHeight="11.0" prefWidth="30.0" style="-fx-background-color: black; -fx-background-radius: 20;" text="6" textAlignment="CENTER" textFill="WHITE" GridPane.rowIndex="5">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="_label16" alignment="CENTER" contentDisplay="CENTER" prefHeight="11.0" prefWidth="30.0" style="-fx-background-color: black; -fx-background-radius: 20;" text="7" textAlignment="CENTER" textFill="WHITE" GridPane.rowIndex="6">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="_label17" alignment="CENTER" contentDisplay="CENTER" prefHeight="11.0" prefWidth="30.0" style="-fx-background-color: black; -fx-background-radius: 20;" text="8" textAlignment="CENTER" textFill="WHITE" GridPane.rowIndex="7">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="_label18" alignment="CENTER" contentDisplay="CENTER" prefHeight="11.0" prefWidth="30.0" style="-fx-background-color: black; -fx-background-radius: 20;" text="9" textAlignment="CENTER" textFill="WHITE" GridPane.rowIndex="8">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="_label19" alignment="CENTER" contentDisplay="CENTER" prefHeight="11.0" prefWidth="30.0" style="-fx-background-color: black; -fx-background-radius: 20;" text="10" textAlignment="CENTER" textFill="WHITE" GridPane.rowIndex="9">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+			</children>
+		</GridPane>
 	</children>
 </AnchorPane>
