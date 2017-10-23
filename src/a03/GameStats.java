@@ -8,9 +8,14 @@ import a03.enumerations.Level;
 import a03.enumerations.Stats;
 
 public class GameStats {
-	static GameStats _gamestats = null;
+	
+	private static GameStats _gamestats = null;
 	private Map<String,Integer> _numVals = new HashMap<String,Integer>();
 	
+	
+	/**
+	 * Game stats class is a singleton, hence private constructor.
+	 */
 	private GameStats() {
 		for(Stats i : Stats.values()) {
 			_numVals.put(i.toString(), new Integer(0));

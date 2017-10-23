@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 public class ConfirmationDialogBoxController extends Controller implements Initializable{
 	@FXML private ImageView _imageView;
 	@FXML private ImageView _logo;
-	@FXML private boolean _leaveClicked=true;
+	@FXML private boolean _leaveClicked=false;
 	@FXML private Button _save;
 	private Stage _dialogStage;
 	private boolean _saveClicked=false;
@@ -63,6 +63,7 @@ public class ConfirmationDialogBoxController extends Controller implements Initi
 	public boolean StayClicked() {
 		return _stayClicked;
 	}
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		File file4 = new File(System.getProperty("user.dir")+"/Icons/png/quit.png");

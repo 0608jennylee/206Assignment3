@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Settings implements Saveable{
-	static Settings s = null;
+	private static Settings s = null;
 	public Map<String,Boolean> settings = new HashMap<String,Boolean>();
 	
 	public void save() {

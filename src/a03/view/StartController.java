@@ -45,7 +45,7 @@ public class StartController extends Controller implements Initializable{
 	// Event Listener on Button.onAction
 	@FXML
 	public void handleBack(ActionEvent event) {
-		_mainApp.chooseDifficulty(_level);
+		_mainApp.mainMenuContents();
 	}
 	
 	/**

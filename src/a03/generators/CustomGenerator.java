@@ -4,20 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import a03.enumerations.Difficulty;
+import a03.enumerations.Level;
 
 public class CustomGenerator extends Generator{
+	private Level _level;
 
-	public CustomGenerator(Difficulty level, int questions) {
-		super(level, questions);
+	public CustomGenerator(Difficulty difficulty, int questions, Level level) {
+		super(difficulty, questions);
+		_level = level;
 	}
 
 	@Override
 	public List<String> getNumbers() {
-		EquationsGenerator eg = new EquationsGenerator(_level, _questions);
-		NumbersGenerator ng = new NumbersGenerator(_level, _questions);
+		if(_level == Level.CUSTOM) {
+		EquationsGenerator eg = new EquationsGenerator(_difficulty, _questions);
+		NumbersGenerator ng = new NumbersGenerator(_difficulty, _questions);
 		List<String> _numbers = new ArrayList<String>();
 		List<String> egNum = eg.getNumbers();
 		List<String> ngNum = ng.getNumbers();
+		System.out.println("getnumbers" + _questions);
 		for(int i = 0; i < _questions; i++) {
 			if(Math.random() < 0.5) {
 				_numbers.add(egNum.get(i));
@@ -26,6 +31,11 @@ public class CustomGenerator extends Generator{
 			}
 		}
 		return _numbers;
+		}else if(_level == Level.NUMBERS) {
+			return new NumbersGenerator(_difficulty, _questions).getNumbers();
+		}else {
+			return new EquationsGenerator(_difficulty, _questions).getNumbers();
+		}
 	}
 
 }

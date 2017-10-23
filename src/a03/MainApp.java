@@ -53,7 +53,7 @@ public class MainApp extends Application {
 		_primaryStage.setTitle("Tatai");
 		_primaryStage.setMinHeight(450);
 		_primaryStage.setMinWidth(700);
-		//		_primaryStage.setResizable(false);
+		_primaryStage.setResizable(false);
 		//		_primaryStage.initStyle(StageStyle.UNDECORATED);
 		GameStats.getGameStats().updateDiscrete(Stats.APPSTARTTIME.toString(), new Integer((int) (System.currentTimeMillis() / (1000 * 60))));
 		mainMenuContents();
@@ -190,6 +190,7 @@ public class MainApp extends Application {
 	 */
 	public void Start(Level level, Difficulty difficulty, int questions) {
 		try {
+			System.out.println("start questions = " + questions);
 			_gameState = GameState.MENU;
 			//Load start
 			FXMLLoader loader = new FXMLLoader();
@@ -198,13 +199,14 @@ public class MainApp extends Application {
 			//load start scene on primary stage
 			Scene scene = new Scene(start);
 			_primaryStage.setScene(scene);
-			_primaryStage.show();
+			
 			// Give the controller access to the main app.
 			StartController controller = loader.getController();
 			controller.setMainApp(this);
 			controller.setLevel(level);
 			controller.setDifficulty(difficulty);
 			controller.setQuestions(questions);
+			_primaryStage.show();
 
 		} catch (IOException e) {
 			e.printStackTrace();

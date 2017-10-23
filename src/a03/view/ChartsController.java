@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import com.google.gson.Gson;
@@ -17,9 +18,11 @@ import com.jfoenix.controls.JFXButton;
 import a03.LogData;
 import a03.MainApp;
 import a03.enumerations.ChartTypes;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.image.Image;
@@ -46,6 +49,8 @@ public class ChartsController extends Controller implements Initializable{
 	// Event Listener on JFXButton[#_left].onAction
 	@FXML
 	public void handleLeft(ActionEvent event) {
+		_barChart.getData().clear();
+
 		ChartTypes[] e = ChartTypes.values();
 		for(int i = 0; i < e.length; i++) {
 			if(e[i] == _chartType) {
@@ -63,6 +68,8 @@ public class ChartsController extends Controller implements Initializable{
 	// Event Listener on JFXButton[#_right].onAction
 	@FXML
 	public void handleRight(ActionEvent event) {
+		_barChart.getData().clear();
+
 		ChartTypes[] e = ChartTypes.values();
 		for(int i = 0; i < e.length; i++) {
 			if(e[i] == _chartType) {
@@ -81,16 +88,16 @@ public class ChartsController extends Controller implements Initializable{
 		_mainApp=mainApp;
 		changeChart();
 	}
-	public void changeChart() {    
+	public void changeChart() {  
 		try {
-		//			      CategoryAxis xAxis = new CategoryAxis();  
-		//			      xAxis.setCategories(FXCollections.<String>
-		//			      observableArrayList(Arrays.asList("Speed", "User rating", "Milage", "Safety")));
-		//			      xAxis.setLabel("category");
-		//			       
-		//			      NumberAxis yAxis = new NumberAxis();
-		//			      yAxis.setLabel("score");
-		//			     
+//					      CategoryAxis xAxis = new CategoryAxis();  
+//					      xAxis.setCategories(FXCollections.<String>
+//					      observableArrayList(Arrays.asList("Speed", "User rating", "Milage", "Safety")));
+//					      xAxis.setLabel("category");
+//					       
+//					      NumberAxis yAxis = new NumberAxis();
+//					      yAxis.setLabel("score");
+//					     
 		//Creating the Bar chart
 		Gson g = new Gson();
 		_barChart.setTitle(_chartType.toString() + "Recent High Scores");
@@ -108,10 +115,7 @@ public class ChartsController extends Controller implements Initializable{
 				series2.getData().add(new XYChart.Data<>(logData.toString(),logData.toRatio()));
 			}
 			_barChart.getData().addAll(series2);
-		}else {
-			_barChart.getData().clear();
 		}
-
 		
 //		series2.getData().add(new XYChart.Data<>("a", 50.0));
 //		series2.getData().add(new XYChart.Data<>("b", 80.0));

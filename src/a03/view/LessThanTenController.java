@@ -23,6 +23,9 @@ import a03.LogData;
 import a03.generators.Generator;
 import a03.generators.GeneratorFactory;
 import a03.generators.Processor;
+import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,6 +39,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 /**
  * this controller, controls the scene for displaying the level
  * @author edwar jenny
@@ -74,6 +78,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 	@FXML private transient ImageView _A10;
 	@FXML private transient BorderPane _root;
 
+	
 	private boolean _correct=true;
 	private boolean _failed=false;
 	private boolean _secondTry = false;
@@ -181,10 +186,13 @@ public class LessThanTenController extends Controller implements Initializable, 
 			//			_tryAgain.setVisible(true);
 			tryAgain();
 			_record.setDisable(false);
+			_playback.setDisable(true);
+			_submit.setDisable(true);
 			//_text.setVisible(true);
 		}else if(_correct){//user gets correct answer
 			//File file = new File(System.getProperty("user.dir")+"/Correct/" + _numbers.get(_currentQuestion) + ".jpg");
 			//			File file = new File(System.getProperty("user.dir")+"/Correct/" + _numbers.get(_currentQuestion) + ".jpg");
+			colorCorrect();
 			setProgress(Correctness.CORRECT);
 			delete();
 			_theCorrectAnswer.setText((Processor.toMaori(Processor.toInt(_numbers.get(_currentQuestion)))));
@@ -201,6 +209,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 			//			File file = new File(System.getProperty("user.dir")+"/Incorrect/" + _numbers.get(_currentQuestion) + ".jpg");
 			//			Image file = new Image(getClass().getClassLoader().getResource("Incorrect/" + _numbers.get(_currentQuestion) + ".jpg").toString());
 			//			setImage(file);
+			colorWrong();
 			if (_secondTry){//user gets the answer incorrect the second time
 				setProgress(Correctness.INCORRECT);
 				delete();
@@ -225,6 +234,23 @@ public class LessThanTenController extends Controller implements Initializable, 
 		if (_currentQuestion==_totalQuestions){//the user has answered the all questions for this level
 			displayFinalScore();
 		}
+	}
+		
+	private	void colorCorrect() {
+		_question.setStyle("-fx-border-color: green; -fx-border-width: 5; -fx-border-radius: 5;");
+	}
+	
+	private void colorFailed() {
+		_question.setStyle("-fx-border-color: yellow;");
+	}
+
+	private void colorWrong() {
+		_question.setStyle("-fx-border-color: red; -fx-border-width: 5; -fx-border-radius: 5;");
+	}
+	
+	private void colorReset() {
+		_question.setStyle("-fx-border-color: transparent");
+		
 	}
 
 	/**
@@ -310,19 +336,21 @@ public class LessThanTenController extends Controller implements Initializable, 
 		GeneratorFactory gf = new GeneratorFactory();
 		_generator = gf.getGenerator(_difficulty, _level, questions);
 		_numbers = _generator.getNumbers();
+		System.out.println("length" + _numbers.size());
 	}
 
 	/**
 	 * sets the question of the current scene
 	 */
 	public void setQuestion(){
+		_question.setStyle("-fx-border-color: transparent;");
 		if(!_secondTry) {
 			_playback.setDisable(true);
 			_submit.setDisable(true);
 		}else {
 			_record.setDisable(false);
-			_submit.setDisable(false);
-			_playback.setDisable(false);
+			_submit.setDisable(true);
+			_playback.setDisable(true);
 		}
 		//		_sorry.setVisible(false);
 		//		_weMuckedUp.setVisible(false);

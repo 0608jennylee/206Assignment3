@@ -137,7 +137,7 @@ public class ScoreboardController extends Controller implements Initializable{
 		_hoursPlayed.setText(GameStats.getGameStats().getTimePlayed().toString());
 		_lowestScore.setText(GameStats.getGameStats().getEasyLowestScore().toString());;
 		_averageScore.setText("" + GameStats.getGameStats().getAverageEasyScore());
-		
+		_previous.setDisable(true);
 	}
 
 }

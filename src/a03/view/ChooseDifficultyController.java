@@ -55,7 +55,7 @@ public class ChooseDifficultyController extends Controller implements Initializa
 	@FXML
 	public void handleHardSelection(ActionEvent event) {
 		//TODO
-		if(new File("Saves/" + _level.toString() + Difficulty.EASY + ".dat").exists()) {
+		if(new File("Saves/" + _level.toString() + Difficulty.HARD + ".dat").exists()) {
 			_mainApp.LoadLevel(_level,Difficulty.HARD);
 		}else {
 			_mainApp.Start(_level,Difficulty.HARD, 10);

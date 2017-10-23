@@ -1,6 +1,7 @@
 package a03.view;
 
 import javafx.fxml.FXML;
+
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -11,7 +12,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
-
 import javafx.event.ActionEvent;
 /**
  * The main menu controller, the first scene of the mainapp 
@@ -119,7 +119,7 @@ public class MainMenuContentsController extends Controller implements Initializa
 		//	                "-fx-max-height: 30px;"
 		//	        );
 //		_anchor.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-
+		
 		File file = new File(System.getProperty("user.dir")+"/Icons/png/media-play-6x.png");
 		Image image = new Image(file.toURI().toString());
 		_playButton.setGraphic(new ImageView(image));
@@ -140,5 +140,6 @@ public class MainMenuContentsController extends Controller implements Initializa
 		Image image5 = new Image(file5.toURI().toString());
 		_imageView.setImage(image5);
 		_imageView.setOpacity(0.4);
+		
 	}
 }
