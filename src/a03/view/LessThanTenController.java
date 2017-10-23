@@ -186,6 +186,8 @@ public class LessThanTenController extends Controller implements Initializable, 
 			//			_tryAgain.setVisible(true);
 			tryAgain();
 			_record.setDisable(false);
+			_playback.setDisable(true);
+			_submit.setDisable(true);
 			//_text.setVisible(true);
 		}else if(_correct){//user gets correct answer
 			//File file = new File(System.getProperty("user.dir")+"/Correct/" + _numbers.get(_currentQuestion) + ".jpg");
