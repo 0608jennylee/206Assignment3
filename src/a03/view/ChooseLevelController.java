@@ -16,12 +16,11 @@ import javafx.event.ActionEvent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class ChooseLevelController implements Initializable{
+public class ChooseLevelController extends Controller implements Initializable{
 	@FXML
 	private ImageView _imageView;
 	@FXML
 	private JFXButton _back;
-	private MainApp _mainApp;
 
 	// Event Listener on JFXButton[#_back].onAction
 	@FXML
@@ -44,9 +43,7 @@ public class ChooseLevelController implements Initializable{
 	public void handleCuztomizeSelection(ActionEvent event) {
 		_mainApp.customize();
 	}
-	public void setMainApp(MainApp mainApp) {
-		_mainApp=mainApp;
-	}
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		//		_anchor.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));

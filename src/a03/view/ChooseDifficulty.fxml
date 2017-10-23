@@ -18,12 +18,12 @@
 						<Font name="Ubuntu Bold" size="66.0" />
 					</font>
 				</Label>
-				<JFXButton fx:id="_easy" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleEasySelection" onMouseDragEntered="#handleHoverEnter" onMouseDragExited="#handleHoverExit" prefWidth="140.0" style="-fx-background-radius: 10;" text="EASY" textAlignment="CENTER">
+				<JFXButton fx:id="_easy" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleEasySelection" onMouseEntered="#handleHoverEnter" onMouseExited="#handleHoverExit" opacity="0.75" prefWidth="140.0" style="-fx-background-radius: 10;" text="EASY" textAlignment="CENTER">
 					<font>
 						<Font name="Ubuntu Bold" size="31.0" />
 					</font>
 				</JFXButton>
-				<JFXButton fx:id="_hard" onAction="#handleHardSelection" prefWidth="140.0" style="-fx-background-radius: 10;" text="HARD">
+				<JFXButton fx:id="_hard" onAction="#handleHardSelection" onMouseEntered="#handleHoverEnter" onMouseExited="#handleHoverExit" opacity="0.75" prefWidth="140.0" style="-fx-background-radius: 10;" text="HARD">
 					<font>
 						<Font name="Ubuntu Bold" size="31.0" />
 					</font>
