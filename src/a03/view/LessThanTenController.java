@@ -347,8 +347,8 @@ public class LessThanTenController extends Controller implements Initializable, 
 			_submit.setDisable(true);
 		}else {
 			_record.setDisable(false);
-			_submit.setDisable(false);
-			_playback.setDisable(false);
+			_submit.setDisable(true);
+			_playback.setDisable(true);
 		}
 		//		_sorry.setVisible(false);
 		//		_weMuckedUp.setVisible(false);
