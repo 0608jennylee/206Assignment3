@@ -406,28 +406,8 @@ public class LessThanTenController extends Controller implements Initializable, 
 		File file5 = new File(System.getProperty("user.dir")+"/fern.jpg");
 		Image image5 = new Image(file5.toURI().toString());
 		_imageView.setImage(image5);
-		_imageView.setOpacity(0.1);
-		Image file = new Image(getClass().getClassLoader().getResource("Progress/1.png").toString());//
-		_Q1.setImage(file);
-		Image file2 = new Image(getClass().getClassLoader().getResource("Progress/2.png").toString());//
-		_Q2.setImage(file2);
-		Image file6 = new Image(getClass().getClassLoader().getResource("Progress/3.png").toString());//
-		_Q3.setImage(file6);
-		Image file7 = new Image(getClass().getClassLoader().getResource("Progress/4.png").toString());//
-		_Q4.setImage(file7);
-		Image file8 = new Image(getClass().getClassLoader().getResource("Progress/5.png").toString());//
-		_Q5.setImage(file8);
-		Image file9 = new Image(getClass().getClassLoader().getResource("Progress/6.png").toString());//
-		_Q6.setImage(file9);
-		Image file10 = new Image(getClass().getClassLoader().getResource("Progress/7.png").toString());//
-		_Q7.setImage(file10);
-		Image file11 = new Image(getClass().getClassLoader().getResource("Progress/8.png").toString());//
-		_Q8.setImage(file11);
-		Image file12 = new Image(getClass().getClassLoader().getResource("Progress/9.png").toString());//
-		_Q9.setImage(file12);
-		Image file13 = new Image(getClass().getClassLoader().getResource("Progress/10.png").toString());//
-		_Q10.setImage(file13);
-		Image q = new Image(getClass().getClassLoader().getResource("Progress/q.png").toString());//
+		_imageView.setOpacity(0.3);
+		Image q = new Image(getClass().getClassLoader().getResource("Progress/q.1.png").toString());//
 		_A1.setImage(q);
 		_A2.setImage(q);
 		_A3.setImage(q);
@@ -441,8 +421,8 @@ public class LessThanTenController extends Controller implements Initializable, 
 		_progressBar.setVisible(false);
 	}
 	private void setProgress(Correctness correctness) {
-		Image correct = new Image(getClass().getClassLoader().getResource("Progress/correct.png").toString());//
-		Image incorrect = new Image(getClass().getClassLoader().getResource("Progress/incorrect.png").toString());//
+		Image correct = new Image(getClass().getClassLoader().getResource("Progress/c.png").toString());//
+		Image incorrect = new Image(getClass().getClassLoader().getResource("Progress/i.png").toString());//
 
 		if (_currentQuestion==0) {
 			if (correctness==Correctness.CORRECT) {
