@@ -6,12 +6,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
+
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 /**
  * The main menu controller, the first scene of the mainapp 
@@ -58,7 +62,7 @@ public class MainMenuContentsController extends Controller implements Initializa
 	// Event Listener on Button.onAction
 	@FXML
 	public void handleExit(ActionEvent event) {
-		_mainApp.exit(null);
+		_mainApp.confirmExit(false);
 	}
 
 	/**
@@ -141,5 +145,24 @@ public class MainMenuContentsController extends Controller implements Initializa
 		_imageView.setImage(image5);
 		_imageView.setOpacity(0.4);
 		
+	}
+	
+	@FXML
+	private void handleHoverEnter(MouseEvent e) {
+		JFXButton b = (JFXButton)e.getSource();
+		System.out.println(b.getId());
+		FadeTransition ft = new FadeTransition(new Duration(500),b);
+		ft.setFromValue(b.getOpacity());
+		ft.setToValue(b.getOpacity() + 0.25);
+		ft.play();
+	}
+	
+	@FXML
+	private void handleHoverExit(MouseEvent e) {
+		JFXButton b = (JFXButton)e.getSource();
+		FadeTransition ft = new FadeTransition(new Duration(500),b);
+		ft.setFromValue(b.getOpacity());
+		ft.setToValue(0.75);
+		ft.play();
 	}
 }

@@ -21,6 +21,7 @@ import a03.view.ScoreboardController;
 import a03.view.StartController;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -309,6 +310,13 @@ public class MainApp extends Application {
 	 * closes the app and saves the settings
 	 */
 	public void exit(WindowEvent e) {
+		if(e != null) {
+			e.consume();
+		}
+		confirmExit(false);
+	}
+	
+	public void confirmExit(boolean mainMenu) {
 		try{// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/ConfirmationDialogBox.fxml"));
@@ -326,50 +334,19 @@ public class MainApp extends Application {
 
 			ConfirmationDialogBoxController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
-			//controller.setMainApp(this);
+			controller.setMainApp(this);
+			controller.setMainMenu(mainMenu);
 			if(_gameState == GameState.INGAME){
 				controller.setVisibleSaveButton();
+				controller.setLessThanTenController(LTTController);
 			}else {
 				controller.setInvisibleSaveButton();
 			}
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();
-			if(controller.LeaveClicked()) {
-				Settings.getSettings().save();
-				deleteRecordings();
-				Platform.exit();
-			}else if(controller.SaveClicked()){
-				if(LTTController != null) {
-					LTTController.save();
-				}
-				deleteRecordings();
-				Settings.getSettings().save();
-				Platform.exit();
-			}else {
-				if(e != null) {
-					e.consume();
-				}
-			}
+			
 		}catch (IOException e1) {
 			e1.printStackTrace();
-		}
-	}
-
-	private void deleteRecordings() {
-		boolean found = false;
-		File[] files = new File("Saves").listFiles();
-		if(files != null) {
-			for(File f : new File("Recordings").listFiles()) {
-				for(File save : files) {
-					if(save.getName().equals(f.getName())) {
-						found = true;
-					}
-				}
-				if(!found) {
-					f.delete();
-				}
-				found = false;
-			}
 		}
 	}
 

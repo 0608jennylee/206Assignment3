@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
+import com.jfoenix.controls.JFXButton;
 
 import a03.Saveable;
 import a03.enumerations.Difficulty;
@@ -299,7 +300,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 	 */
 	@FXML
 	public void handleBack(){
-		_mainApp.mainMenuContents();
+		_mainApp.confirmExit(true);
 	}
 
 	/**

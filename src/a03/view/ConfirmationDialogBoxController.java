@@ -7,6 +7,8 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import a03.Settings;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -21,32 +23,41 @@ public class ConfirmationDialogBoxController extends Controller implements Initi
 	private Stage _dialogStage;
 	private boolean _saveClicked=false;
 	private boolean _stayClicked=false;
+	private LessThanTenController _LTTC;
+	private boolean _mainMenu = false;
 
 	// Event Listener on Button.onAction
 	@FXML
 	public void handleLeave(ActionEvent event) {
-		_leaveClicked=true;
-		_saveClicked=true;		
-		_stayClicked=false;
-		_dialogStage.close();
+		Settings.getSettings().save();
+		deleteRecordings();
+		if(_mainMenu) {
+			_dialogStage.close();
+			_mainApp.mainMenuContents();
+		}else {
+			_dialogStage.close();
+			Platform.exit();
+		}
 	}
 	// Event Listener on Button.onAction
 	@FXML
 	public void handleSave(ActionEvent event) {
-		_saveClicked=true;		
-		_stayClicked=false;
-		_leaveClicked=false;
-		_dialogStage.close();
+		System.out.print(Thread.currentThread());
+		_LTTC.save();
+		deleteRecordings();
+		Settings.getSettings().save();
+		if(_mainMenu) {
+			_dialogStage.close();
+			_mainApp.mainMenuContents();
+		}else {
+			_dialogStage.close();
+			Platform.exit();
+		}
 	}
+	
 	@FXML
 	public void handleStay(ActionEvent event) {
-		_stayClicked=true;
-		_saveClicked=false;
-		_leaveClicked=false;
 		_dialogStage.close();
-	}
-	public boolean LeaveClicked() {
-		return _leaveClicked;
 	}
 	public void setDialogStage(Stage dialogStage) {
 		_dialogStage=dialogStage;
@@ -57,11 +68,28 @@ public class ConfirmationDialogBoxController extends Controller implements Initi
 	public void setInvisibleSaveButton() {
 		_save.setVisible(false);
 	}
-	public boolean SaveClicked() {
-		return _saveClicked;
+	public void setLessThanTenController(LessThanTenController LTTC) {
+		_LTTC = LTTC;
 	}
-	public boolean StayClicked() {
-		return _stayClicked;
+	public void setMainMenu(boolean mainMenu) {
+		_mainMenu = mainMenu;
+	}
+	private void deleteRecordings() {
+		boolean found = false;
+		File[] files = new File("Saves").listFiles();
+		if(files != null) {
+			for(File f : new File("Recordings").listFiles()) {
+				for(File save : files) {
+					if(save.getName().equals(f.getName())) {
+						found = true;
+					}
+				}
+				if(!found) {
+					f.delete();
+				}
+				found = false;
+			}
+		}
 	}
 	
 	@Override
