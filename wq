@@ -1,0 +1,1059 @@
+[33mcommit 7d0efc5f3e7160d9e2c15f6f22525d4658c8b5d5[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Mon Oct 23 19:27:03 2017 +1300
+
+    added hover animation to all buttons
+
+[33mcommit 1b1bf66cfa7c8f8e65f4b70d7c7dcfed08b21be7[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Mon Oct 23 19:17:58 2017 +1300
+
+    removed files
+
+[33mcommit 7a74b41e15464cd62520730f88c7642a92cda6b5[m
+Merge: ee31ca7 482be7f
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Mon Oct 23 19:09:59 2017 +1300
+
+    Merge branch 'master' of github.com:0608jennylee/206Assignment3
+
+[33mcommit ee31ca73f2072337c0761a29cc3d6c1923418500[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Mon Oct 23 19:08:45 2017 +1300
+
+    made a hover animation for buttons and fixed the case that they can dissapear
+
+[33mcommit 482be7f3f57dcf2aafb9cf0ee10b9cd91d81cfce[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Mon Oct 23 18:12:10 2017 +1300
+
+    removed border from incorrect and correct icons
+
+[33mcommit 5c0d36eb963be8705c4530ae6ad20391de85e2a1[m
+Merge: 67435b0 9b44733
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Mon Oct 23 17:25:07 2017 +1300
+
+    Merge branch 'master' of https://github.com/0608jennylee/206Assignment3
+    
+    merging changes
+
+[33mcommit 67435b081f824364d51d5af9b98453a7454602d7[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Mon Oct 23 17:23:41 2017 +1300
+
+    Introduce end-of-line normalization
+
+[33mcommit 5172e64c9115c77d69ed488c20e68afde6041f1a[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Mon Oct 23 17:22:34 2017 +1300
+
+    Introduce end-of-line normalization
+
+[33mcommit 21fb2285c0779b0512d5d09c68d773371f727298[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Mon Oct 23 17:03:54 2017 +1300
+
+    adding progress bar icons
+
+[33mcommit 9b44733fc58c9f3afb0751b8ad6bd24f5cfaab9d[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Mon Oct 23 16:57:39 2017 +1300
+
+    fixed starting new game when there is a save file not deleting the save
+
+[33mcommit 923fb9bc8888ad3f765523b496428978e86576e8[m
+Merge: 4239768 21fb228
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Mon Oct 23 16:47:43 2017 +1300
+
+    Merge branch 'master' of github.com:0608jennylee/206Assignment3
+
+[33mcommit 4239768ff4b8ca5d3091f57e441eaef79dbb0669[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Mon Oct 23 16:47:19 2017 +1300
+
+    committing to pull
+
+[33mcommit 3fb3fd28fd005265db9ad75e0511c07cf810d2bc[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Mon Oct 23 16:23:03 2017 +1300
+
+    fixed on second try all buttons being enabled
+
+[33mcommit 09635a106bee8f8e3c9ef62acae5d9cee253ec18[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Mon Oct 23 16:15:54 2017 +1300
+
+    added coloruing to show weather question was right or wrong
+
+[33mcommit 8b367e4dc54033190846e2a8780bbe81e144700f[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Mon Oct 23 16:06:04 2017 +1300
+
+    Introduce end-of-line normalization
+
+[33mcommit 353ab7ed0caa388e3f77ad8342ee8c981ce5a2d1[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Mon Oct 23 15:49:04 2017 +1300
+
+    fixed equation generating logic and added subtraction equations
+
+[33mcommit 80ca526fc69a0a2810a13b68868260cb81b2c197[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Mon Oct 23 15:07:35 2017 +1300
+
+    fixed customised number/ customised equation not going past 10
+
+[33mcommit b281b2a0d4b145a26b23c902b9c8ede135e23c49[m[33m ([m[1;31morigin/progress-bar[m[33m, [m[1;32mprogress-bar[m[33m)[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Mon Oct 23 13:34:17 2017 +1300
+
+    testing icons for progress bar
+
+[33mcommit b835fbc299b2452f842ace016eebba77cabbf818[m[33m ([m[1;31morigin/score-scene[m[33m, [m[1;32mscore-scene[m[33m)[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Mon Oct 23 12:34:31 2017 +1300
+
+    testing icons for progress bar
+
+[33mcommit 9498921641530286a53f071696bd2da88bc0e6a6[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Mon Oct 23 12:15:46 2017 +1300
+
+    fixed hard scoreboard locking due to previous not being disabled at first
+
+[33mcommit d6e21523a32019b7b7ee84b9e6d959a583adbd56[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Sun Oct 22 23:00:15 2017 +1300
+
+    commiting new question icon image
+
+[33mcommit ea237785c7c37c753e58e8464eb3e69dcd72c52b[m
+Merge: e89f7ce 4158fde
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Sun Oct 22 22:28:34 2017 +1300
+
+    Merge branch 'master' into score-scene
+    
+    merging master to local
+
+[33mcommit e89f7cee205022d12321f683771e601bb60b558f[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Sun Oct 22 22:28:27 2017 +1300
+
+    merging changes
+
+[33mcommit adc2e1b4e51c32ddd6c4a232eddb2ff4cd1b76ca[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Sun Oct 22 22:26:30 2017 +1300
+
+    making changes to background
+
+[33mcommit cc5c4d16fdc3a7ba337c2a510d5432b513e4a714[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Wed Oct 18 18:04:44 2017 +1300
+
+    fixed main menu button to correctly take you to main menu from all screens
+
+[33mcommit 8869afe86cf9524ee2e03c4ade5afc061f0c8c24[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Wed Oct 18 18:03:23 2017 +1300
+
+    fixed series doubling in chart however chart transitions are still not smooth enough
+
+[33mcommit 2c9b1689e0d3203a69dd2048b95d0be51b9ad151[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Wed Oct 18 15:56:20 2017 +1300
+
+    minor changes
+
+[33mcommit 4158fde9e5f6f7d91734319c8d27d25282baaf45[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Mon Oct 16 10:43:54 2017 +1300
+
+    fixed correct answers being initialised to 1
+
+[33mcommit d4328e60387d61eb83aa3a120f19b860b8cd9f39[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Sun Oct 15 16:38:47 2017 +1300
+
+    fixed few bugs tweak here and there
+
+[33mcommit 025dd249ca55752f942efa8db7f1dc3705280472[m
+Merge: 5d06a5b 77a64f2
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Sun Oct 15 16:18:52 2017 +1300
+
+    fixed conflicts and changed the score view from image to label to take into account custom games
+
+[33mcommit 5d06a5b398ded5f8ef80f22e35a7ad3076e68b15[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Sun Oct 15 16:03:23 2017 +1300
+
+    got charts properly animated and correct data showing up
+
+[33mcommit 77a64f2988a18a58edc9699bbeaaa93d4c62e4e8[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Sun Oct 15 14:32:42 2017 +1300
+
+    completed the final score scene, made changes to the game scene and completed the progress bar
+
+[33mcommit 6cfd4d7a337993455380ac4bac40afc73d1f1c0f[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Sun Oct 15 13:48:18 2017 +1300
+
+    changed it so that the flow and layout of loading a custom game matched
+
+[33mcommit 7604ea54a75e41c20a379a6c0574abd70f286d62[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Sun Oct 15 13:19:00 2017 +1300
+
+    fixed bugs such as forgetting to changed checkbox.isarmed to isselected
+
+[33mcommit 3b0fd96be87d99b3fe00c338e37594e2895bdc4e[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Sun Oct 15 12:52:03 2017 +1300
+
+    on display final score fixed it so playback and submit are also mnot visible and added custom level generation
+
+[33mcommit 05d1396a626c5b358a697f20ffce2f4ef7df166d[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Sat Oct 14 22:53:55 2017 +1300
+
+    completed the save screen
+
+[33mcommit 9651df1d5c10f8bb7634cedee7a14d31a313fe01[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Sat Oct 14 21:21:22 2017 +1300
+
+    fixed the exit button causing play to shrink
+
+[33mcommit 8bbd5c5c183c2485f2085c9337c6b71c508f9a0d[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Sat Oct 14 20:41:28 2017 +1300
+
+    finished progress bar
+
+[33mcommit 7079c8500e2f2ff16d757af238f4b8c9ea57732d[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Sat Oct 14 18:10:15 2017 +1300
+
+    added the file for question
+
+[33mcommit 943d6408f647bfbda080e8eb8b7c74d41daa7f71[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Sat Oct 14 18:02:29 2017 +1300
+
+    removed images, added progress, and changed layout of game
+
+[33mcommit 22054c635a9aee9045db026e2c4dd94785293b1f[m
+Merge: 4477a1c 38b3c54
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Fri Oct 13 23:23:13 2017 +1300
+
+    fixing conflicts
+
+[33mcommit 4477a1cb450428e89d5b23680ec960006153f204[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Fri Oct 13 23:12:41 2017 +1300
+
+    changed the scoreboard scene, added and completed the cuztomize selection scene
+
+[33mcommit 38b3c54ef80e743d5b3fb96c6bc42fde55e4d82b[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Fri Oct 13 21:21:08 2017 +1300
+
+    got persistance loading working, deleting recording files, made individual folders for file creation, fixed exiting and saving, currently working on generating data to populate charts with
+
+[33mcommit e4995833f880e7c21e5c98aeccb2405a8f848d1e[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Fri Oct 13 14:03:51 2017 +1300
+
+    added the customize scene
+
+[33mcommit 71c7c0949b11f4fd0711688c48cc6cf41a44ce85[m
+Merge: 0cf4894 2866ed3
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Thu Oct 12 21:27:30 2017 +1300
+
+    Merge branch 'master' of github.com:0608jennylee/206Assignment3
+    
+    merging files
+
+[33mcommit 0cf48947ea9af07067ac64e759428490f876e56e[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Thu Oct 12 21:27:22 2017 +1300
+
+    made changes to choose level scene
+
+[33mcommit 2866ed36a0c7b4cfe1781587f3bd419a0b1925a6[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Thu Oct 12 17:59:57 2017 +1300
+
+    deleted recout.mlf
+
+[33mcommit 600d917cb743e3fa9074abb7be97beacb012ec10[m
+Merge: 7308477 49584f3
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Thu Oct 12 17:59:25 2017 +1300
+
+    fixing conflicts
+
+[33mcommit 73084778430558e8bdcbe773f2eff52869818a4b[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Thu Oct 12 17:57:05 2017 +1300
+
+    added recout.mlf
+
+[33mcommit 550bf8b3eaf25d2c65f5103a34b7af5c8363eb32[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Thu Oct 12 17:55:50 2017 +1300
+
+    added git ignore
+
+[33mcommit 49584f353d649d40c75434f639eae410168df6e0[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Wed Oct 11 22:49:48 2017 +1300
+
+    completed scoreboard and chart buttons and scene layout
+
+[33mcommit 3db519b31c911382ead8b359a13489c1dde1556c[m
+Merge: 2d06f4d ba98d54
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Wed Oct 11 21:13:13 2017 +1300
+
+    Merge branch 'master' of github.com:0608jennylee/206Assignment3
+    
+    merging stuff
+
+[33mcommit ba98d5492abb276a76e5c8220d56177ca2e5e1d0[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Wed Oct 11 21:11:57 2017 +1300
+
+    refactoring src
+
+[33mcommit 2d06f4d92f9d92ab2d40621db6a45107f884c327[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Wed Oct 11 21:08:53 2017 +1300
+
+    removing *.wav files from tracked files
+
+[33mcommit a0a23b1fbab4252059cc225063f4d896b32e42a3[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Wed Oct 11 21:01:41 2017 +1300
+
+    added refactoring of generators
+
+[33mcommit e00561c1b1b929465981f2490cfcd97ed32ddce1[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Wed Oct 11 20:52:50 2017 +1300
+
+    added left out src files from commit
+
+[33mcommit cb9828a2de853f867a3736d1ee206666f6d8e8aa[m
+Merge: dce1243 ccfe368
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Wed Oct 11 20:51:23 2017 +1300
+
+    fixed conflicts
+
+[33mcommit dce1243fc960c3c3a3b6b4da100383c55eea3207[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Wed Oct 11 20:15:15 2017 +1300
+
+    commit saves
+
+[33mcommit ccfe368b83f533c5d208de9eb81be7e6d855ca0a[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Wed Oct 11 20:13:33 2017 +1300
+
+    done the charts scene need real data, changed the score board layout, changed statistics layout, added level scene for choosing numbers or equations, added the loading scene for load or new scene
+
+[33mcommit 8050d4c10d35c4913e6fc9ad192788ea0b16ea52[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Wed Oct 11 16:51:39 2017 +1300
+
+    added the scoreboard and made some button arrangement
+
+[33mcommit f9b257e86d50278fe82d5f1dcde5c87ccc59dd47[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Wed Oct 11 16:07:56 2017 +1300
+
+    working out loading and svaing
+
+[33mcommit 7f0e944dc253cb77a43f42972d3e84772057d93f[m
+Merge: 55e64af 20417e1
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Wed Oct 11 14:14:11 2017 +1300
+
+    Merge branch 'master' into changing-buttons-to-icon-buttons
+    
+    merging local branches
+
+[33mcommit 55e64afff3592d73c33ee4ff44ce5df70cbedbf5[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Wed Oct 11 14:13:42 2017 +1300
+
+    removed recout.mlf
+
+[33mcommit 20417e16d228eb2a9a18e1d0f3de095f6924f9da[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Wed Oct 11 13:51:02 2017 +1300
+
+    made scenes for activity log and score board
+
+[33mcommit e206306fda8d572dadb989704a02a7480c78b658[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Wed Oct 11 13:50:55 2017 +1300
+
+    resolved button timin and enabling/disabling
+
+[33mcommit 55f8764edf45cada68c3a9862c5fa313862e3132[m
+Merge: d753305 8e1209f
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Wed Oct 11 12:30:29 2017 +1300
+
+    fixing conflicts from merge from equation
+
+[33mcommit d75330514264bae4604c249b9f8c7ec5f0a14065[m
+Merge: 9a9ec33 f226480
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Wed Oct 11 12:23:23 2017 +1300
+
+    fixed conflicts
+
+[33mcommit 8e1209f42f13ab98cd0bd7b37278437d4bfe3a58[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Wed Oct 11 12:17:24 2017 +1300
+
+    committing for pull, added equation generation and updated display to include macrons and updated processing and disabled imageviews
+
+[33mcommit f2264809167743863d56e7823c7bb2e2b72e3ca7[m
+Merge: 853fd56 3298814
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Tue Oct 10 23:03:14 2017 +1300
+
+    Merge branch 'master' of github.com:0608jennylee/206Assignment3
+    
+    Merging with other stuff
+
+[33mcommit 853fd56a521fba8f9e54215d6c1ef635a4d18a7d[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Tue Oct 10 22:57:13 2017 +1300
+
+    completed the scenes for choose level, start and less than ten, changed buttons to icons, added background, Close #22 and Close #24
+
+[33mcommit 46876267a42ccbc0949dbaf3546e523943ace838[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Tue Oct 10 18:47:49 2017 +1300
+
+    made changes to choose level
+
+[33mcommit 4c1e70824829b30c12335c8e5cf9d5b64a19bea1[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Tue Oct 10 15:14:07 2017 +1300
+
+    changed the buttons on the main menu scene to icons, added some icons in the icons folder, made main menu scene resizable, Changed the background image, Closes #26, Closes 24
+
+[33mcommit 3298814478aa03a9a308076deb86ca6ef69b4209[m
+Author: Jenny <31328467+0608jennylee@users.noreply.github.com>
+Date:   Tue Oct 10 10:51:43 2017 +1300
+
+    Delete .classpath
+
+[33mcommit 9a9ec3360c4d29e2f5943a9fa6438219dc4f5485[m
+Merge: d62bc2a a43bbf5
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Tue Oct 10 10:39:07 2017 +1300
+
+    hello
+
+[33mcommit d62bc2ad4119ca411ed83de7afc0916faeaf2102[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Tue Oct 10 10:32:03 2017 +1300
+
+    syncing files
+
+[33mcommit a43bbf5d7bd2c9dd67cde51c4152101d86286d66[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Mon Oct 9 17:28:02 2017 +1300
+
+    added some icons, changed the play button on the main screen to an icon, the button works
+
+[33mcommit 42e0463abccc03eceb26c42693e8f246fd4cdc42[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Fri Sep 29 16:20:30 2017 +1300
+
+    removed debug printlns
+
+[33mcommit b0f8cd59208f3b46445e6668d49a214d592571b1[m
+Merge: 3acbe66 951db25
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Fri Sep 29 16:06:59 2017 +1300
+
+    Merge branch 'master' of github.com:0608jennylee/206Assignment3
+
+[33mcommit 3acbe66a170656f6a91eb1f26f94d47929b8ae99[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Fri Sep 29 16:06:53 2017 +1300
+
+    fixing conflicts
+
+[33mcommit 951db25b5bf53125fab1f7d65d843d1aca25f368[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Fri Sep 29 15:30:05 2017 +1300
+
+    made small changes to changing scenes, added start back into the scenes, commented
+
+[33mcommit dde64399072c947987159f55f89bb4299b2ff1bc[m
+Merge: 3dc51d5 503c723
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Thu Sep 28 20:57:29 2017 +1300
+
+    fixing conflicts
+
+[33mcommit 3dc51d5b7f74fdeadd61f321fce18707efcca4b2[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Thu Sep 28 20:55:41 2017 +1300
+
+    fixed hard stuck on 9 and processAnswer not working as intended for larger numbers and multiples of 10
+
+[33mcommit 420c0044911ed68e25bab6e0c202aa124e71eb4a[m
+Merge: e0cb53f bb9730b
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Thu Sep 28 19:54:37 2017 +1300
+
+    fixed classpath
+
+[33mcommit e0cb53f0378f32a83467cd69101abe0ed9e2e027[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Thu Sep 28 19:51:46 2017 +1300
+
+    fixing for pull
+
+[33mcommit d7ac83c3e38fab0d382b74ac34fe0dc04682d811[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Thu Sep 28 19:48:25 2017 +1300
+
+    updated src
+
+[33mcommit d8f6ff8f998d6fc7c57c936fbe9e4461b35fdf07[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Thu Sep 28 19:44:01 2017 +1300
+
+    adding classpath
+
+[33mcommit bb9730b3838bf969eb06ddce4fc5e7e8b9db41bf[m
+Merge: d146753 375e051
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Thu Sep 28 19:08:13 2017 +1300
+
+    done the implementation for fail, added start back into the code, checked that easy level works, hard level has problems, added the 0/10 score
+
+[33mcommit 375e051efc3b7242e068bf2fd3a3659bb0892c14[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Thu Sep 28 19:01:22 2017 +1300
+
+    done the implementation for fail, added start back into the code, checked that easy level works, hard level has problems
+
+[33mcommit 8224f45ec11d33a513998c97d3141e460a67c90a[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Wed Sep 27 22:06:43 2017 +1300
+
+    fail implementation done plz check
+
+[33mcommit ffac8a1d4a985632f8e87ef0653623a153769b8c[m
+Merge: 7c920c6 23e0408
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Wed Sep 27 18:08:14 2017 +1300
+
+    Merge branch 'Jenny' of github.com:0608jennylee/206Assignment3 into Jenny
+
+[33mcommit 7c920c6182961fd735daf9424f8dfbcec1219d68[m
+Merge: fd58168 2b3078f
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Wed Sep 27 18:08:01 2017 +1300
+
+    merging
+
+[33mcommit d146753c7fb461fff06088f5d465b3919bac1d3f[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Wed Sep 27 18:06:32 2017 +1300
+
+    adding useless files
+
+[33mcommit 0a52d532f588fdb20f6397b89e2cd60d42a5a022[m
+Merge: 6bc33d0 2b3078f
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Wed Sep 27 18:03:54 2017 +1300
+
+    merging with Github stuff
+
+[33mcommit 6bc33d058575e6de9b01e8b422732bf5e8aefbe1[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Wed Sep 27 18:02:15 2017 +1300
+
+    adding in useless files
+
+[33mcommit 23e0408378305fdedef505a9819f1af54ac72611[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Wed Sep 27 17:54:43 2017 +1300
+
+    changing the implementation of fail
+
+[33mcommit 2b3078f982345472bd28ec08c9457c1c3a9d55b9[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Wed Sep 27 15:17:53 2017 +1300
+
+    added the level and question at the top, changed the main menu button so that they are all the same size and position
+
+[33mcommit 503c7233209f7e62a69cb1df12b6bc916b94309d[m
+Merge: 65844e2 2b3078f
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Wed Sep 27 15:04:46 2017 +1300
+
+    fixed conflicts
+
+[33mcommit 65844e2832c2a235cde97d84087de49859a8cfa3[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Wed Sep 27 15:01:32 2017 +1300
+
+    commiting to checkout
+
+[33mcommit c33119fccac8207bd7abbee88e60d998af92688a[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Wed Sep 27 14:40:26 2017 +1300
+
+    removing unwanted bin tracked files in git
+
+[33mcommit bdc1a2ffead12acf260bd12d0b627431ee23669d[m
+Merge: f010c4a 058d81e
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Wed Sep 27 14:35:21 2017 +1300
+
+    adding modified git file
+
+[33mcommit fd58168b1be6d9842f09a9601a78c23c3cc598d7[m
+Merge: 058d81e f010c4a
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Wed Sep 27 13:48:38 2017 +1300
+
+    adding modified gitignore file
+
+[33mcommit 058d81e401c5e14be62413543b7229cc176b3253[m
+Merge: 9d73418 bebdcf9
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Wed Sep 27 13:13:49 2017 +1300
+
+    fixing conflict
+
+[33mcommit 9d7341816c4b165eabf8e8eff5ee2393713b32c2[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Wed Sep 27 13:12:16 2017 +1300
+
+    fixing things
+
+[33mcommit a18a2763659b691476f105fdc8e6880284c062dc[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Wed Sep 27 13:11:39 2017 +1300
+
+    fixing commit
+
+[33mcommit 9620adab66f3ed84579731657d993cfa54ad4afd[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Wed Sep 27 13:09:12 2017 +1300
+
+    fixing things
+
+[33mcommit f991323df94104faa27ee38b5c08441748fc0740[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Wed Sep 27 13:04:50 2017 +1300
+
+    fixing things
+
+[33mcommit ceef8b396a6a3e347d3d198aa076d9b7a781bff3[m
+Merge: 82f463f 304e9b1
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Wed Sep 27 12:51:11 2017 +1300
+
+    fixed conflicts
+
+[33mcommit 304e9b1a3bf3d9b7d23f4976ed6e91e5bc48b07a[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Wed Sep 27 12:35:02 2017 +1300
+
+    fixed 'multithreading' bug by moving media player to global variable rather than local variable
+
+[33mcommit cd5bf1971d3cca25ea91628fb78149847112ce5c[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Wed Sep 27 12:24:57 2017 +1300
+
+    fixed processor to correctly generate maori
+
+[33mcommit f010c4a9e5b43a3f1587a10d8620c44edd718be6[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Tue Sep 26 20:26:14 2017 +1300
+
+    Adding the changed how to play images
+
+[33mcommit f2d175f69216b1c80ed067e51c04a4a8906f1e1b[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Tue Sep 26 17:30:50 2017 +1300
+
+    commiting to checkout
+
+[33mcommit dc90ec6a1c67961a2afdb6343f467d9c01c96bfb[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Tue Sep 26 17:30:35 2017 +1300
+
+    committing to checkout
+
+[33mcommit bebdcf95d149d4949d4642496fce7d81af8d2a9c[m
+Merge: c219844 b524a0f
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Tue Sep 26 17:26:30 2017 +1300
+
+    Merge branch 'Jenny' of github.com:0608jennylee/206Assignment3 into Jenny
+
+[33mcommit c21984489927bf8ef02c6146bdc68971b352fbcb[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Tue Sep 26 17:26:05 2017 +1300
+
+    adding git ignore file
+
+[33mcommit b3a634fe920c3ad5c44b64b275573ba9f8f4da6b[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Tue Sep 26 17:22:46 2017 +1300
+
+    commiting statistics fxml
+
+[33mcommit 82f463f631ac06cb74c465649b23b5d1acbdb244[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Tue Sep 26 17:18:44 2017 +1300
+
+    fixed jenny pushing javafx
+
+[33mcommit c71fe6358fab52859acfbd47e5386aed2e322c86[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Tue Sep 26 17:12:01 2017 +1300
+
+    broken but changing branches
+
+[33mcommit 1c86081f986470dd304bdeb878747a10b9a83560[m
+Merge: c2df10a c1ec08d
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Tue Sep 26 16:54:31 2017 +1300
+
+    fixing conflicts
+
+[33mcommit c1ec08df07e1bfc91cea4bd102d888595329d6c7[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Tue Sep 26 14:05:30 2017 +1300
+
+    adding files
+
+[33mcommit b524a0f102c2ec6bc437226abb40ac18cd02abd0[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Tue Sep 26 12:25:26 2017 +1300
+
+    initial commit from creating how to play images
+
+[33mcommit c2df10a9abe3f9b53719646f0e1876ef62ec13f6[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Tue Sep 26 12:12:05 2017 +1300
+
+    implemented GameStats class pulling for statistics.fxml
+
+[33mcommit f00ec081107cbdfd0bfa2d8a23da1f8ca899400a[m
+Merge: 0db8382 362ec37
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Mon Sep 25 22:18:22 2017 +1300
+
+    Merge branch 'Jenny'
+
+[33mcommit 0db838254cc516cd91f283248ecd55ca4658cacc[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Mon Sep 25 22:18:14 2017 +1300
+
+    commiting to commit
+
+[33mcommit 362ec37e345d9eb354b0fd9bb80bf920e6fe857f[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Mon Sep 25 22:16:59 2017 +1300
+
+    changed back to main menu
+
+[33mcommit 09a7355ed8df72d2fdebd313be31715487fd192d[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Mon Sep 25 21:14:19 2017 +1300
+
+    added processing for when HTK does not record anything
+
+[33mcommit b2e00176560f3767990dea3c2b69b82b8ef264cf[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Mon Sep 25 21:12:40 2017 +1300
+
+    statistics FXMl done
+
+[33mcommit 63eea87708eeca720542e96fcd7267fc068bff01[m[33m ([m[1;31morigin/statistics[m[33m)[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Mon Sep 25 20:42:43 2017 +1300
+
+    committing for push
+
+[33mcommit 2ed331b80cf3c8348b520161d71ce795453a738d[m
+Merge: 40880d3 b0cf26a
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Mon Sep 25 19:01:28 2017 +1300
+
+    merging
+
+[33mcommit b0cf26a1a3b4957796d9694f53c3d96a051c4a45[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Mon Sep 25 18:58:46 2017 +1300
+
+    commit
+
+[33mcommit 40880d36d9492b0d90af79dcdd1a30780d267a7f[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Mon Sep 25 18:54:10 2017 +1300
+
+    commit
+
+[33mcommit 3549f8911f6bc5d4edd85cb6024d8e6aed48e501[m
+Merge: f6ba20b e1e5031
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Mon Sep 25 17:44:59 2017 +1300
+
+    commiting
+
+[33mcommit f6ba20b677484c9d8c5c1a89c86b2368ffc430e4[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Mon Sep 25 17:38:37 2017 +1300
+
+    test
+
+[33mcommit 58b6ee0c39e1c078d77195088487e1ee1a5d80a5[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Mon Sep 25 17:36:25 2017 +1300
+
+    commiting
+
+[33mcommit 60fae704795a041c3566e99c718dd57130e4e5f0[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Mon Sep 25 17:14:25 2017 +1300
+
+    commiting to checkout other branch
+
+[33mcommit 026a0d4335abfbdf007d4becc9d4951702f37e9d[m
+Merge: 7e2d9c0 e1e5031
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Mon Sep 25 17:11:55 2017 +1300
+
+    fixed unmerged paths
+
+[33mcommit 7e2d9c0fc73e1426ca3da2f187ecb0d7be8c093d[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Mon Sep 25 17:10:40 2017 +1300
+
+    commiting for merge from master
+
+[33mcommit e1e5031782271ca7d3ddee844af6b6523d004db9[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Mon Sep 25 17:08:35 2017 +1300
+
+    fixed htk code logic and uncommented hard code
+
+[33mcommit 5cc2f58861053db3cc3ec106384b1c7261dcd014[m
+Merge: 5b60b00 a80be0f
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Mon Sep 25 15:48:03 2017 +1300
+
+    commiting pull
+
+[33mcommit 5b60b00cd359c3e0dfb69a11207c99363a181a80[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Mon Sep 25 15:46:32 2017 +1300
+
+    commit to allow for pull
+
+[33mcommit 35f075f01b54a0c1988ccfd6abb4f9a0083aa5a0[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Mon Sep 25 15:45:02 2017 +1300
+
+    commit changes  to checkout master branch
+
+[33mcommit a80be0fe2a3e97ea360006e608aa495cd68855ef[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Sun Sep 24 20:36:36 2017 +1300
+
+    added the text box in fxml file for feedbask, actual functionality still needs to be implemented.
+
+[33mcommit 1649c4e7ea54f8e8072ff617fc5ea23bbb25dd35[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Sun Sep 24 19:56:27 2017 +1300
+
+    hard level functionality is working, generator, generates numbers for hard, the score of the user is displayed at the end of the level.
+
+[33mcommit 755f6ed564496f7814d157b89eaf819bd195c419[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Sun Sep 24 17:32:14 2017 +1300
+
+    question transition completed on easy level
+
+[33mcommit db2d683482a97fd35bb71991a32658178e743d5e[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Sun Sep 24 13:26:18 2017 +1300
+
+    mergring Jenny with master
+
+[33mcommit 2edae1a1d0bb8adbc8c84627f85c1e4f3dcbb88b[m
+Merge: 08fe185 7880747
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Sun Sep 24 13:21:22 2017 +1300
+
+    adding Edwar's pushed files
+
+[33mcommit 08fe18533b4ccaa295958d095ede0579baace6a4[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Sun Sep 24 13:17:23 2017 +1300
+
+    pushing up
+
+[33mcommit 7880747e67ccbfa0e66bc22b26398a54db708d9c[m
+Merge: ce33ab4 12d04cd
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Sat Sep 23 20:52:03 2017 +1200
+
+    fixed more conflicts
+
+[33mcommit ce33ab4b13c1372a88be9bd885a88166da90ca76[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Sat Sep 23 20:49:25 2017 +1200
+
+    included bin folder
+
+[33mcommit 12d04cd8a5380d87d13cf145354b06e65abd7d79[m
+Merge: 327ea0b 3e12af8
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Sat Sep 23 15:08:08 2017 +1200
+
+    merging Jenny with master
+
+[33mcommit 327ea0b034590e6e34e8799981be7657af0ad819[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Sat Sep 23 15:03:17 2017 +1200
+
+    adding modified controller class
+
+[33mcommit 3e12af8292c79bd8ceda6e28b899557257af6632[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Sat Sep 23 14:56:59 2017 +1200
+
+    added the incorrect and correct functionality on the controller
+
+[33mcommit 6a8d7380cff69901b68def3a8702035cdcab2c8a[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Sat Sep 23 12:57:49 2017 +1200
+
+    created initial images for correct and incorrect scenes
+
+[33mcommit 03c9141c9d328f6afbd88f5815563db4b09503d7[m
+Merge: 85db56b be197e4
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Fri Sep 22 21:28:23 2017 +1200
+
+    Merge branch 'Jenny'
+
+[33mcommit be197e432501a909325ea9f72e76b41879b0e904[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Fri Sep 22 21:26:54 2017 +1200
+
+    git is forcing me to remove a gitignore file that i have not chnged :C
+
+[33mcommit 85db56b7a9341872c0b330fbbf7f57d31113f0a5[m
+Merge: 7b0a12d 60388cc
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Fri Sep 22 21:22:19 2017 +1200
+
+    merged files, removed conflicts
+
+[33mcommit 7b0a12d8dcbd829733b50b178fbb4f51a233efdc[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Fri Sep 22 21:06:30 2017 +1200
+
+    completed the scenes for how to play, still need to implement the correct and incorrect scenes in how to play
+
+[33mcommit c991b0378c406f0c675d000480b5c4bf37fe5390[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Fri Sep 22 19:07:08 2017 +1200
+
+    commited the changed files left out previously
+
+[33mcommit 343f727d7fdaae76fedc9bb691198da45b7711fd[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Fri Sep 22 19:06:04 2017 +1200
+
+    hard disabling working
+
+[33mcommit 60388ccf466e64801cf3095c813545317ef5b037[m
+Merge: 5d0b6df f398560
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Fri Sep 22 17:07:08 2017 +1200
+
+    Merge branch 'master' of github.com:0608jennylee/206Assignment3
+
+[33mcommit 5d0b6dfe0fbdf19db308a250e9e02d770d08cc1a[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Fri Sep 22 16:57:37 2017 +1200
+
+    fixed exit button not terminating program process and added voice recognition processing
+
+[33mcommit ac9920c8209fcdb9206e83920115446184fffea7[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Sun Sep 17 20:41:51 2017 +1200
+
+    initial start on how to play, created images for display, added buttons and initialized the code for the buttons and images
+
+[33mcommit 4cad60e233bce7f82de7a2c0d503b44e9b3ae31a[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Sun Sep 17 20:40:26 2017 +1200
+
+    initial start on how to play, created images for display, added buttons and initialized the code for the buttons and images
+
+[33mcommit 0cfbc4e03cc0341716cac80a3b7c1a461fff47ac[m
+Author: eddiwar <edwar.zhang1@gmail.com>
+Date:   Tue Sep 12 09:43:36 2017 +1200
+
+    Record button working HTK processing to come
+
+[33mcommit c3bdd6c7683b59d92180de56372af3b049e5f5e7[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Mon Sep 11 13:30:45 2017 +1200
+
+    fhdjkghkd
+
+[33mcommit 9e8b64d524b7b8ddca69fa8412c0f475817f627f[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Mon Sep 11 13:27:21 2017 +1200
+
+    check
+
+[33mcommit f3985601ddc85cc23e14012889f8c008228bbd4c[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Mon Sep 11 13:20:12 2017 +1200
+
+    hello
+
+[33mcommit af508eaf16adb4ff7b34a9dd7ae981b993d91dbb[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Mon Sep 11 13:16:42 2017 +1200
+
+    bin
+
+[33mcommit 5fdbe32c8c771e6be92b1d6a02c38738ba15e517[m
+Author: Jenny Lee <jlee923@aucklanduni.ac.nz>
+Date:   Sun Sep 10 15:26:41 2017 +1200
+
+    initial commit
