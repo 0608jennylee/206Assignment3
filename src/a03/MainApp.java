@@ -190,6 +190,7 @@ public class MainApp extends Application {
 	 */
 	public void Start(Level level, Difficulty difficulty, int questions) {
 		try {
+			System.out.println("start questions = " + questions);
 			_gameState = GameState.MENU;
 			//Load start
 			FXMLLoader loader = new FXMLLoader();
@@ -198,13 +199,14 @@ public class MainApp extends Application {
 			//load start scene on primary stage
 			Scene scene = new Scene(start);
 			_primaryStage.setScene(scene);
-			_primaryStage.show();
+			
 			// Give the controller access to the main app.
 			StartController controller = loader.getController();
 			controller.setMainApp(this);
 			controller.setLevel(level);
 			controller.setDifficulty(difficulty);
 			controller.setQuestions(questions);
+			_primaryStage.show();
 
 		} catch (IOException e) {
 			e.printStackTrace();

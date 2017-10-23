@@ -128,6 +128,7 @@ public class CustomizeController extends Controller implements Initializable{
 			_mainApp.LoadLevel(level, difficulty);
 		}else {
 			_mainApp.Start(level,difficulty, questions);
+			System.out.println("questions " + questions);
 		}
 		
 	}

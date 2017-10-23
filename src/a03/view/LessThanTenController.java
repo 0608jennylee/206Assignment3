@@ -320,6 +320,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 		GeneratorFactory gf = new GeneratorFactory();
 		_generator = gf.getGenerator(_difficulty, _level, questions);
 		_numbers = _generator.getNumbers();
+		System.out.println("length" + _numbers.size());
 	}
 
 	/**

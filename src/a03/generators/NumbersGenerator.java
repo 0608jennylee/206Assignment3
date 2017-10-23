@@ -19,7 +19,7 @@ public class NumbersGenerator extends Generator{
 	public List<String> getNumbers() {
 		List<String> _numbers = new ArrayList<String>();
 		for(int i = 0; i < _questions; i++) {
-			Integer randNum = new Integer((int)(Math.random() * _level.getMax() + _level.getMin()));
+			Integer randNum = new Integer((int)(Math.random() * (_difficulty.getMax() - _difficulty.getMin()) + _difficulty.getMin()));
 			_numbers.add(randNum.toString());
 		}
 		return _numbers;

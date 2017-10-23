@@ -20,12 +20,12 @@ public class EquationsGenerator extends Generator{
 		List<String> _numbers = new ArrayList<String>();
 		for(int i = 0; i < _questions; i++) {
 			if(Math.random() > 0.5) {
-				Integer a = new Integer((int)(Math.random() * (_level.getMax() - 1)) + _level.getMin());
-				Integer b = new Integer((int)(Math.random() * (_level.getMax() - a)) + _level.getMin());
+				Integer a = new Integer((int)(Math.random() * (_difficulty.getMax() - 1)) + _difficulty.getMin());
+				Integer b = new Integer((int)(Math.random() * (_difficulty.getMax() - a)) + _difficulty.getMin());
 				_numbers.add(a.toString() + " + " + b.toString());
 			}else {
-				Integer a = new Integer((int)(Math.random() * (_level.getMax() - 1)) + _level.getMin());
-				Integer b = new Integer((int)(Math.random() * (_level.getMax() - a)) + _level.getMin());
+				Integer a = new Integer((int)(Math.random() * (_difficulty.getMax() - 1)) + _difficulty.getMin());
+				Integer b = new Integer((int)(Math.random() * (_difficulty.getMax() - a)) + _difficulty.getMin());
 				_numbers.add(a.toString() + " + " + b.toString());
 			}
 		}
