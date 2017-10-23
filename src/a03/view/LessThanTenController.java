@@ -190,6 +190,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 		}else if(_correct){//user gets correct answer
 			//File file = new File(System.getProperty("user.dir")+"/Correct/" + _numbers.get(_currentQuestion) + ".jpg");
 			//			File file = new File(System.getProperty("user.dir")+"/Correct/" + _numbers.get(_currentQuestion) + ".jpg");
+			colorCorrect();
 			setProgress(Correctness.CORRECT);
 			delete();
 			_theCorrectAnswer.setText((Processor.toMaori(Processor.toInt(_numbers.get(_currentQuestion)))));
@@ -206,7 +207,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 			//			File file = new File(System.getProperty("user.dir")+"/Incorrect/" + _numbers.get(_currentQuestion) + ".jpg");
 			//			Image file = new Image(getClass().getClassLoader().getResource("Incorrect/" + _numbers.get(_currentQuestion) + ".jpg").toString());
 			//			setImage(file);
-			animate();
+			colorWrong();
 			if (_secondTry){//user gets the answer incorrect the second time
 				setProgress(Correctness.INCORRECT);
 				delete();
@@ -233,8 +234,21 @@ public class LessThanTenController extends Controller implements Initializable, 
 		}
 	}
 		
-		void animate() {
-			_question.setStyle("-fx-border-color: red; -fx-border-width: 5; -fx-border-radius: 5");
+	private	void colorCorrect() {
+		_question.setStyle("-fx-border-color: green; -fx-border-width: 5; -fx-border-radius: 5;");
+	}
+	
+	private void colorFailed() {
+		_question.setStyle("-fx-border-color: yellow;");
+	}
+
+	private void colorWrong() {
+		_question.setStyle("-fx-border-color: red; -fx-border-width: 5; -fx-border-radius: 5;");
+	}
+	
+	private void colorReset() {
+		_question.setStyle("-fx-border-color: transparent");
+		
 	}
 
 	/**
@@ -327,6 +341,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 	 * sets the question of the current scene
 	 */
 	public void setQuestion(){
+		_question.setStyle("-fx-border-color: transparent;");
 		if(!_secondTry) {
 			_playback.setDisable(true);
 			_submit.setDisable(true);

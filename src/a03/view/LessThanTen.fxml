@@ -14,7 +14,7 @@
 <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a03.view.LessThanTenController">
 	<children>
 		<ImageView fx:id="_imageView" fitHeight="500.0" fitWidth="700.0" layoutX="1.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-		<Label fx:id="_question" alignment="CENTER" layoutX="153.0" layoutY="80.0" prefHeight="102.0" prefWidth="344.0" text="1" textAlignment="CENTER" AnchorPane.bottomAnchor="268.0" AnchorPane.leftAnchor="153.0" AnchorPane.rightAnchor="203.0" AnchorPane.topAnchor="80.0">
+		<Label fx:id="_question" alignment="CENTER" contentDisplay="CENTER" layoutX="153.0" layoutY="74.0" prefHeight="118.0" prefWidth="344.0" text="1" textAlignment="CENTER" AnchorPane.bottomAnchor="258.0" AnchorPane.leftAnchor="153.0" AnchorPane.rightAnchor="203.0" AnchorPane.topAnchor="74.0">
 			<font>
 				<Font name="Ubuntu Bold" size="100.0" />
 			</font>
