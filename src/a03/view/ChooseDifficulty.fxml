@@ -7,38 +7,23 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity"
-	prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.111"
-	xmlns:fx="http://javafx.com/fxml/1" fx:controller="a03.view.ChooseDifficultyController">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a03.view.ChooseDifficultyController">
 	<children>
-		<ImageView fx:id="_imageView" fitHeight="500.0" fitWidth="700.0"
-			layoutX="1.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true"
-			AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-			AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-		<JFXButton fx:id="_back" layoutX="39.0" layoutY="55.0"
-			onAction="#handleBack" ripplerFill="#ffffff2e" AnchorPane.leftAnchor="15.0"
-			AnchorPane.topAnchor="15.0" />
-		<VBox alignment="TOP_CENTER" layoutX="181.0" layoutY="72.0"
-			prefHeight="234.0" prefWidth="374.0" spacing="20.0"
-			AnchorPane.bottomAnchor="108.0" AnchorPane.leftAnchor="163.0"
-			AnchorPane.rightAnchor="163.0" AnchorPane.topAnchor="108.0">
+		<ImageView fx:id="_imageView" fitHeight="500.0" fitWidth="700.0" layoutX="1.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+		<JFXButton fx:id="_back" layoutX="39.0" layoutY="55.0" onAction="#handleBack" ripplerFill="#ffffff2e" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0" />
+		<VBox alignment="TOP_CENTER" layoutX="181.0" layoutY="72.0" prefHeight="234.0" prefWidth="374.0" spacing="20.0" AnchorPane.bottomAnchor="108.0" AnchorPane.leftAnchor="163.0" AnchorPane.rightAnchor="163.0" AnchorPane.topAnchor="108.0">
 			<children>
-				<Label alignment="TOP_CENTER" prefWidth="400.0"
-					style="-fx-background-radius: 10;" text="Difficulty">
+				<Label alignment="TOP_CENTER" prefWidth="400.0" style="-fx-background-radius: 10;" text="Difficulty">
 					<font>
 						<Font name="Ubuntu Bold" size="66.0" />
 					</font>
 				</Label>
-				<JFXButton fx:id="_easy" maxHeight="-Infinity" maxWidth="-Infinity"
-					minHeight="-Infinity" minWidth="-Infinity" onAction="#handleEasySelection"
-					prefWidth="140.0" style="-fx-background-radius: 10;" text="EASY"
-					textAlignment="CENTER">
+				<JFXButton fx:id="_easy" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleEasySelection" onMouseDragEntered="#handleHoverEnter" onMouseDragExited="#handleHoverExit" prefWidth="140.0" style="-fx-background-radius: 10;" text="EASY" textAlignment="CENTER">
 					<font>
 						<Font name="Ubuntu Bold" size="31.0" />
 					</font>
 				</JFXButton>
-				<JFXButton fx:id="_hard" onAction="#handleHardSelection"
-					prefWidth="140.0" style="-fx-background-radius: 10;" text="HARD">
+				<JFXButton fx:id="_hard" onAction="#handleHardSelection" prefWidth="140.0" style="-fx-background-radius: 10;" text="HARD">
 					<font>
 						<Font name="Ubuntu Bold" size="31.0" />
 					</font>

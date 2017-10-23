@@ -146,23 +146,4 @@ public class MainMenuContentsController extends Controller implements Initializa
 		_imageView.setOpacity(0.4);
 		
 	}
-	
-	@FXML
-	private void handleHoverEnter(MouseEvent e) {
-		JFXButton b = (JFXButton)e.getSource();
-		System.out.println(b.getId());
-		FadeTransition ft = new FadeTransition(new Duration(500),b);
-		ft.setFromValue(b.getOpacity());
-		ft.setToValue(b.getOpacity() + 0.25);
-		ft.play();
-	}
-	
-	@FXML
-	private void handleHoverExit(MouseEvent e) {
-		JFXButton b = (JFXButton)e.getSource();
-		FadeTransition ft = new FadeTransition(new Duration(500),b);
-		ft.setFromValue(b.getOpacity());
-		ft.setToValue(0.75);
-		ft.play();
-	}
 }

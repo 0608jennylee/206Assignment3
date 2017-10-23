@@ -1,6 +1,13 @@
 package a03.view;
 
+import com.jfoenix.controls.JFXButton;
+
 import a03.MainApp;
+import javafx.animation.FadeTransition;
+import javafx.fxml.FXML;
+import javafx.scene.input.MouseEvent;
+import javafx.util.Duration;
+import javafx.scene.Node;
 
 public abstract class Controller {
 	protected transient MainApp _mainApp;
@@ -17,4 +24,22 @@ public abstract class Controller {
 	}
 	
 	public void setMainAppHook() {};
+	
+	@FXML
+	private void handleHoverEnter(MouseEvent e) {
+		Node b = (Node)e.getSource();
+		FadeTransition ft = new FadeTransition(new Duration(500),b);
+		ft.setFromValue(b.getOpacity());
+		ft.setToValue(b.getOpacity() + 0.25);
+		ft.play();
+	}
+	
+	@FXML
+	private void handleHoverExit(MouseEvent e) {
+		JFXButton b = (JFXButton)e.getSource();
+		FadeTransition ft = new FadeTransition(new Duration(500),b);
+		ft.setFromValue(b.getOpacity());
+		ft.setToValue(0.75);
+		ft.play();
+	}
 }
