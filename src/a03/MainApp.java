@@ -10,7 +10,6 @@ import a03.view.ChartsController;
 import a03.view.ChooseDifficultyController;
 import a03.view.ChooseLevelController;
 import a03.view.ConfirmationDialogBoxController;
-import a03.view.HowToPlayController;
 import a03.view.LessThanTenController;
 import a03.view.LoadLevelController;
 import a03.view.MainMenuContentsController;
@@ -156,30 +155,6 @@ public class MainApp extends Application {
 //		}
 //		
 //	}
-
-	/**
-	 * shows the how to play scene on the stage, displays a set of images that 
-	 * demonstrate how the game is played
-	 */
-	public void howToPlay() {
-		try {
-			_gameState = GameState.MENU;
-			//Load how to play 
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/HowToPlay.fxml"));
-			AnchorPane howToPlay = (AnchorPane) loader.load();
-			//mload how to play on primary stage
-			Scene scene = new Scene(howToPlay);
-			_primaryStage.setScene(scene);
-			_primaryStage.show();
-			// Give the controller access to the main app.
-			HowToPlayController controller = loader.getController();
-			controller.setMainApp(this);
-			controller.setFirstImage();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 
 	/**
 	 * shows the start scene on the stage

@@ -5,14 +5,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a03.view.StartController">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a03.view.StartController">
 	<children>
-		<ImageView fx:id="_imageView" fitHeight="500.0" fitWidth="700.0" layoutX="1.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-		<JFXButton fx:id="_back" layoutX="39.0" layoutY="55.0" onAction="#handleBack" ripplerFill="#ffffff2e" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0" />
+		<ImageView fx:id="_imageView" fitHeight="500.0" fitWidth="800.0" layoutX="1.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+		<JFXButton fx:id="_mainMenu" layoutX="39.0" layoutY="55.0" onAction="#handleMainMenu" ripplerFill="#ffffff2e" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0" />
 		<JFXButton layoutX="262.0" layoutY="274.0" onAction="#handleStart" onMouseEntered="#handleHoverEnter" onMouseExited="#handleHoverExit" opacity="0.75" text="START" AnchorPane.leftAnchor="160.0" AnchorPane.rightAnchor="160.0" AnchorPane.topAnchor="150.0">
 			<font>
 				<Font name="Ubuntu Bold" size="80.0" />
 			</font>
 		</JFXButton>
+      <JFXButton layoutX="300.0" layoutY="306.0" onAction="#handleBack" prefWidth="100.0" ripplerFill="RED" style="-fx-border-radius: 20; -fx-background-color: orange; -fx-border-color: black;" text="BACK">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
 	</children>
 </AnchorPane>

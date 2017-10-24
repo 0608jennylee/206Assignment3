@@ -27,7 +27,7 @@ public class ChooseDifficultyController extends Controller implements Initializa
 	@FXML private Button _hard;
 	@FXML private ImageView _imageView;
 	@FXML private Button _easy;
-	@FXML private Button _back;
+	@FXML private Button _mainMenu;
 	private Level _level;
 
 
@@ -70,9 +70,18 @@ public class ChooseDifficultyController extends Controller implements Initializa
 	// Event Listener on Button.onAction
 	@FXML
 	public void handleBack(ActionEvent event) {
+		_mainApp.chooseLevel();
+	}
+	/**
+	 * when the mainmenu button is clicked notifies the stage 
+	 * to switch scenes back to the main menu
+	 * @param event
+	 */
+	// Event Listener on Button.onAction
+	@FXML
+	public void handleMainMenu(ActionEvent event) {
 		_mainApp.mainMenuContents();
 	}
-
 	/**
 	 * disables the hard button
 	 */
@@ -82,16 +91,11 @@ public class ChooseDifficultyController extends Controller implements Initializa
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		//		_anchor.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-
-		File file4 = new File(System.getProperty("user.dir")+"/Icons/png/quit.png");
-		Image image4 = new Image(file4.toURI().toString());
-		_back.setGraphic(new ImageView(image4));
-		File file5 = new File(System.getProperty("user.dir")+"/fern.jpg");
-		Image image5 = new Image(file5.toURI().toString());
-		_imageView.setImage(image5);
+		Image quit = new Image(getClass().getClassLoader().getResource("Icons/quit.png").toString());//
+		_mainMenu.setGraphic(new ImageView(quit));
+		Image background = new Image(getClass().getClassLoader().getResource("fern.jpg").toString());//
+		_imageView.setImage(background);
 		_imageView.setOpacity(0.36);
-
 	}
 
 	public void setLevel(Level level) {

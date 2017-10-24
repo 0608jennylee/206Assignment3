@@ -143,18 +143,14 @@ public class ChartsController extends Controller implements Initializable{
 		_yAxis.setLowerBound(0);
 		_yAxis.setUpperBound(100);
 		_yAxis.setTickUnit(10);
-		File file4 = new File(System.getProperty("user.dir")+"/Icons/png/quit.png");
-		Image image4 = new Image(file4.toURI().toString());
-		_back.setGraphic(new ImageView(image4));
-		File file1 = new File(System.getProperty("user.dir")+"/Icons/png/arrow-circle-left-8x.png");
-		Image image1 = new Image(file1.toURI().toString());
-		_previous.setGraphic(new ImageView(image1));
-		File file3 = new File(System.getProperty("user.dir")+"/Icons/png/arrow-circle-right-8x.png");
-		Image image3 = new Image(file3.toURI().toString());
-		_next.setGraphic(new ImageView(image3));
-		File file5 = new File(System.getProperty("user.dir")+"/fern.jpg");
-		Image image5 = new Image(file5.toURI().toString());
-		_imageView.setImage(image5);
+		Image right = new Image(getClass().getClassLoader().getResource("Icons/right.png").toString());//
+		_next.setGraphic(new ImageView(right));
+		Image left = new Image(getClass().getClassLoader().getResource("Icons/left.png").toString());//
+		_previous.setGraphic(new ImageView(left));
+		Image quit = new Image(getClass().getClassLoader().getResource("Icons/quit.png").toString());//
+		_back.setGraphic(new ImageView(quit));
+		Image background = new Image(getClass().getClassLoader().getResource("fern.jpg").toString());//
+		_imageView.setImage(background);
 		_imageView.setOpacity(0.1);
 
 	}

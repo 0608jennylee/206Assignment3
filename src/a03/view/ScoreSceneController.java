@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import a03.enumerations.Difficulty;
 import a03.enumerations.Level;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -48,13 +49,10 @@ public class ScoreSceneController extends Controller implements Initializable{
 	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		File file5 = new File(System.getProperty("user.dir")+"/fern.jpg");
-		Image image5 = new Image(file5.toURI().toString());
-		_imageView.setImage(image5);
+		Image quit = new Image(getClass().getClassLoader().getResource("Icons/quit.png").toString());//
+		_mainMenu.setGraphic(new ImageView(quit));
+		Image background = new Image(getClass().getClassLoader().getResource("fern.jpg").toString());//
+		_imageView.setImage(background);
 		_imageView.setOpacity(0.2);
-		File file4 = new File(System.getProperty("user.dir")+"/Icons/png/quit.png");
-		Image image4 = new Image(file4.toURI().toString());
-		_mainMenu.setGraphic(new ImageView(image4));
 	}
-			
 }

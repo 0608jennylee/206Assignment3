@@ -54,7 +54,7 @@ public class ConfirmationDialogBoxController extends Controller implements Initi
 			Platform.exit();
 		}
 	}
-	
+
 	@FXML
 	public void handleStay(ActionEvent event) {
 		_dialogStage.close();
@@ -91,17 +91,15 @@ public class ConfirmationDialogBoxController extends Controller implements Initi
 			}
 		}
 	}
-	
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		File file4 = new File(System.getProperty("user.dir")+"/Icons/png/quit.png");
-		Image image4 = new Image(file4.toURI().toString());
-		_logo.setImage(image4);
-		File file5 = new File(System.getProperty("user.dir")+"/fern.jpg");
-		Image image5 = new Image(file5.toURI().toString());
+		Image quit = new Image(getClass().getClassLoader().getResource("Icons/quit.png").toString());//
+		Image background = new Image(getClass().getClassLoader().getResource("fern.jpg").toString());//
 		_imageView.setFitWidth(500);
-		_imageView.setImage(image5);
+		_imageView.setImage(background);
+		_logo.setImage(quit);
 		_imageView.setOpacity(0.1);
-		
+
 	}
 }
