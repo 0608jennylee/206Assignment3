@@ -357,7 +357,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 		_question.setFont(new Font("Ubuntu",100));
 		_question.setText(_numbers.get(_currentQuestion));
 		int display = _currentQuestion+1;
-		_title.setText(_display +"Question: "+display);
+		_title.setText(_display +"Question: "+display + " of " + _totalQuestions);
 		//		setImage(file);
 		_record.setDisable(false);
 	}

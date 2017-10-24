@@ -123,8 +123,8 @@ public class ChartsController extends Controller implements Initializable{
 //		series2.getData().add(new XYChart.Data<>("d", 20.0));
 		//Setting the data to bar chart       
 		_barChart.getXAxis().setAnimated(false);
-		_barChart.getYAxis().setAnimated(true);
-		_barChart.setAnimated(true);
+		_barChart.getYAxis().setAnimated(false);
+		_barChart.setAnimated(false);
 		_barChart.lookupAll(".default-color0.chart-bar")
 		.forEach(n -> n.setStyle("-fx-bar-fill: orange;"));
 		}catch (JsonSyntaxException e) {

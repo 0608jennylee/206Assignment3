@@ -163,7 +163,7 @@ public class GameStats implements Serializable{
 				_numberOfEasyEquationPlays++;
 				_easyEquationCumulativeScore += correctAnswers;
 				if(correctAnswers > _easyEquationHighestScore) {
-					_easyNumberHighestScore = correctAnswers;
+					_easyEquationHighestScore = correctAnswers;
 				}
 				if(correctAnswers < _easyEquationLowestScore || _isFirstEasyEquation) {
 					if(_isFirstEasyEquation) {
