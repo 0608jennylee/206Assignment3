@@ -19,6 +19,7 @@ import javafx.scene.image.ImageView;
 public class CustomizeController extends Controller implements Initializable{
 	@FXML private ImageView _imageView;
 	@FXML private Button _mainMenu;
+	@FXML private Button _back;
 
 	@FXML private CheckBox _numbersCB;
 	@FXML private CheckBox _equationsCB;
@@ -28,6 +29,9 @@ public class CustomizeController extends Controller implements Initializable{
 	
 	@FXML private void handleMainMenu() {
 		_mainApp.mainMenuContents();
+	}
+	@FXML private void handleBack() {
+		_mainApp.chooseLevel();
 	}
 	@FXML private void handleOK() {
 		Level level;
@@ -135,12 +139,10 @@ public class CustomizeController extends Controller implements Initializable{
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		File file4 = new File(System.getProperty("user.dir")+"/Icons/png/quit.png");
-		Image image4 = new Image(file4.toURI().toString());
-		_mainMenu.setGraphic(new ImageView(image4));
-		File file5 = new File(System.getProperty("user.dir")+"/fern.jpg");
-		Image image5 = new Image(file5.toURI().toString());
-		_imageView.setImage(image5);
+		Image quit = new Image(getClass().getClassLoader().getResource("Icons/quit.png").toString());//
+		_mainMenu.setGraphic(new ImageView(quit));
+		Image background = new Image(getClass().getClassLoader().getResource("fern.jpg").toString());//
+		_imageView.setImage(background);
 		_imageView.setOpacity(0.34);
 	}
 

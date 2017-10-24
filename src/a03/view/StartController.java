@@ -23,6 +23,8 @@ public class StartController extends Controller implements Initializable{
 	//fields that are used to switch scenes on the stage
 	private Level _level;
 	@FXML private Button _back;
+	@FXML private Button _mainMenu;
+
 	@FXML private ImageView _imageView;
 	private Difficulty _difficulty;
 	private int _questions;
@@ -45,8 +47,13 @@ public class StartController extends Controller implements Initializable{
 	// Event Listener on Button.onAction
 	@FXML
 	public void handleBack(ActionEvent event) {
-		_mainApp.mainMenuContents();
+		_mainApp.chooseDifficulty(_level);
 	}
+	// Event Listener on Button.onAction
+		@FXML
+		public void handleMainMenu(ActionEvent event) {
+			_mainApp.mainMenuContents();
+		}
 	
 	/**
 	 * sets the level that the user has chosen so that it can 
@@ -59,14 +66,11 @@ public class StartController extends Controller implements Initializable{
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		File file4 = new File(System.getProperty("user.dir")+"/Icons/png/quit.png");
-		Image image4 = new Image(file4.toURI().toString());
-		_back.setGraphic(new ImageView(image4));
-		File file5 = new File(System.getProperty("user.dir")+"/fern.jpg");
-		Image image5 = new Image(file5.toURI().toString());
-		_imageView.setImage(image5);
+		Image quit = new Image(getClass().getClassLoader().getResource("/Icons/quit.png").toString());//
+		_mainMenu.setGraphic(new ImageView(quit));
+		Image background = new Image(getClass().getClassLoader().getResource("fern.jpg").toString());//
+		_imageView.setImage(background);
 		_imageView.setOpacity(0.32);
-		
 	}
 
 	public void setDifficulty(Difficulty difficulty) {

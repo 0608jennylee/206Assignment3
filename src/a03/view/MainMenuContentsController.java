@@ -27,7 +27,6 @@ public class MainMenuContentsController extends Controller implements Initializa
 
 	@FXML private JFXButton _playButton;
 	@FXML private JFXButton _statisticsButton;
-	@FXML private JFXButton _infoButton;
 	@FXML private JFXButton _exitButton;
 	@FXML private JFXButton _trophyButton;
 	@FXML private Button button;
@@ -41,17 +40,6 @@ public class MainMenuContentsController extends Controller implements Initializa
 	@FXML
 	public void handlePlay(ActionEvent event) {
 		_mainApp.chooseLevel();
-	}
-
-	/**
-	 * when the how to play button is clicked notifies the stage 
-	 * to switch scenes to the how to play
-	 * @param event
-	 */
-	// Event Listener on Button.onAction
-	@FXML
-	public void handleHowToPlay(ActionEvent event) {
-		_mainApp.howToPlay();
 	}
 
 	/**
@@ -86,64 +74,16 @@ public class MainMenuContentsController extends Controller implements Initializa
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-
-		//	        _playButton.setStyle(
-		//	                "-fx-background-radius: 10em; " +
-		//	                "-fx-min-width: 30px; " +
-		//	                "-fx-min-height: 30px; " +
-		//	                "-fx-max-width: 30px; " +
-		//	                "-fx-max-height: 30px;"
-		//	        );
-		//	        _statisticsButton.setStyle(
-		//	                "-fx-background-radius: 10em; " +
-		//	                "-fx-min-width: 30px; " +
-		//	                "-fx-min-height: 30px; " +
-		//	                "-fx-max-width: 30px; " +
-		//	                "-fx-max-height: 30px;"
-		//	        );
-		//	        _infoButton.setStyle(
-		//	                "-fx-background-radius: 10em; " +
-		//	                "-fx-min-width: 30px; " +
-		//	                "-fx-min-height: 30px; " +
-		//	                "-fx-max-width: 30px; " +
-		//	                "-fx-max-height: 30px;"
-		//	        );
-		//	        _exitButton.setStyle(
-		//	                "-fx-background-radius: 10em; " +
-		//	                "-fx-min-width: 30px; " +
-		//	                "-fx-min-height: 30px; " +
-		//	                "-fx-max-width: 30px; " +
-		//	                "-fx-max-height: 30px;"
-		//	        );
-		//	        _trophyButton.setStyle(
-		//	                "-fx-background-radius: 10em; " +
-		//	                "-fx-min-width: 30px; " +
-		//	                "-fx-min-height: 30px; " +
-		//	                "-fx-max-width: 30px; " +
-		//	                "-fx-max-height: 30px;"
-		//	        );
-//		_anchor.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-		
-		File file = new File(System.getProperty("user.dir")+"/Icons/png/media-play-6x.png");
-		Image image = new Image(file.toURI().toString());
-		_playButton.setGraphic(new ImageView(image));
-		File file1 = new File(System.getProperty("user.dir")+"/Icons/png/graph-6x.png");
-		//button.setGraphic(new ImageView(image));
-		Image image1 = new Image(file1.toURI().toString());
-		_statisticsButton.setGraphic(new ImageView(image1));
-		File file2 = new File(System.getProperty("user.dir")+"/Icons/png/info-6x.png");
-		Image image2 = new Image(file2.toURI().toString());
-		_infoButton.setGraphic(new ImageView(image2));
-		File file3 = new File(System.getProperty("user.dir")+"/Icons/png/power-standby-6x.png");
-		Image image3 = new Image(file3.toURI().toString());
-		_exitButton.setGraphic(new ImageView(image3));
-		File file4 = new File(System.getProperty("user.dir")+"/Icons/icons8-Trophy-48.png");
-		Image image4 = new Image(file4.toURI().toString());
-		_trophyButton.setGraphic(new ImageView(image4));
-		File file5 = new File(System.getProperty("user.dir")+"/fern.jpg");
-		Image image5 = new Image(file5.toURI().toString());
-		_imageView.setImage(image5);
+		Image play = new Image(getClass().getClassLoader().getResource("Icons/media-play-6x.png").toString());//
+		_playButton.setGraphic(new ImageView(play));
+		Image chart = new Image(getClass().getClassLoader().getResource("Icons/bar-chart-6x.png").toString());//
+		_statisticsButton.setGraphic(new ImageView(chart));
+		Image power = new Image(getClass().getClassLoader().getResource("Icons/power-standby-6x.png").toString());//
+		_exitButton.setGraphic(new ImageView(power));
+		Image trophy = new Image(getClass().getClassLoader().getResource("Icons/Trophy.png").toString());//
+		_trophyButton.setGraphic(new ImageView(trophy));
+		Image background = new Image(getClass().getClassLoader().getResource("fern.jpg").toString());//
+		_imageView.setImage(background);
 		_imageView.setOpacity(0.4);
-		
 	}
 }
