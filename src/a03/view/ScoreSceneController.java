@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Region;
 import javafx.scene.text.Font;
 
 public class ScoreSceneController extends Controller implements Initializable{
@@ -36,6 +37,7 @@ public class ScoreSceneController extends Controller implements Initializable{
 		_score=score;
 		_scoreLabel.setFont(new Font("Ubuntu", 150));
 		_scoreLabel.setText(_score + "/" + totalQuestions);
+		_scoreLabel.setPrefWidth(Region.USE_COMPUTED_SIZE);
 		if (_difficulty==Difficulty.HARD||_score<8) {
 			_nextLevel.setVisible(false);
 		}

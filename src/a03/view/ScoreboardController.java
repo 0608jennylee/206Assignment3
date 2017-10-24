@@ -85,34 +85,34 @@ public class ScoreboardController extends Controller implements Initializable{
 	public void setScoreBoard() {
 		if (_count==1) {
 			_title.setText("Numbers: Easy Scoreboard");
-			_topScore.setText(GameStats.getGameStats().getEasyHighestScore().toString());
-			_hoursPlayed.setText(GameStats.getGameStats().getTimePlayed().toString());
-			_lowestScore.setText(GameStats.getGameStats().getEasyLowestScore().toString());;
-			_averageScore.setText("" + GameStats.getGameStats().getAverageEasyScore());
+			_topScore.setText("" + GameStats.getGameStats().getEasyNumberHighestScore());
+			_hoursPlayed.setText("" + GameStats.getGameStats().getTimePlayed());
+			_lowestScore.setText("" + GameStats.getGameStats().getEasyNumberLowestScore());;
+			_averageScore.setText("" + GameStats.getGameStats().getAverageEasyNumberScore());
 			
 		}else if (_count==2) {
 			_title.setText("Numbers: Hard Scoreboard");
 
-			_topScore.setText(GameStats.getGameStats().getHardHighestScore().toString());
-			_hoursPlayed.setText(GameStats.getGameStats().getTimePlayed().toString());
-			_lowestScore.setText(GameStats.getGameStats().getHardLowestScore().toString());;
-			_averageScore.setText("" + GameStats.getGameStats().getAverageHardScore());
+			_topScore.setText("" + GameStats.getGameStats().getHardNumberHighestScore());
+			_hoursPlayed.setText("" + GameStats.getGameStats().getTimePlayed());
+			_lowestScore.setText("" + GameStats.getGameStats().getHardNumberLowestScore());;
+			_averageScore.setText("" + GameStats.getGameStats().getAverageHardNumberScore());
 			
 		}else if (_count==3) {
 			_title.setText("Equations: Easy Scoreboard");
 
-			_topScore.setText(GameStats.getGameStats().getEasyHighestScore().toString());
-			_hoursPlayed.setText(GameStats.getGameStats().getTimePlayed().toString());
-			_lowestScore.setText(GameStats.getGameStats().getEasyLowestScore().toString());;
-			_averageScore.setText("" + GameStats.getGameStats().getAverageEasyScore());
+			_topScore.setText("" + GameStats.getGameStats().getEasyEquationHighestScore());
+			_hoursPlayed.setText("" + GameStats.getGameStats().getTimePlayed());
+			_lowestScore.setText("" + GameStats.getGameStats().getEasyEquationLowestScore());;
+			_averageScore.setText("" + GameStats.getGameStats().getAverageEasyEquationScore());
 			
 		}else {
 			_title.setText("Equations: Hard Scoreboard");
 
-			_topScore.setText(GameStats.getGameStats().getEasyHighestScore().toString());
-			_hoursPlayed.setText(GameStats.getGameStats().getTimePlayed().toString());
-			_lowestScore.setText(GameStats.getGameStats().getEasyLowestScore().toString());;
-			_averageScore.setText("" + GameStats.getGameStats().getAverageEasyScore());
+			_topScore.setText("" + GameStats.getGameStats().getHardEquationHighestScore());
+			_hoursPlayed.setText("" + GameStats.getGameStats().getTimePlayed());
+			_lowestScore.setText("" + GameStats.getGameStats().getHardEquationLowestScore());;
+			_averageScore.setText("" + GameStats.getGameStats().getAverageHardEquationScore());
 			
 		}
 	}
@@ -133,10 +133,10 @@ public class ScoreboardController extends Controller implements Initializable{
 		_imageView.setImage(image5);
 		_imageView.setOpacity(0.2);
 		_title.setText("Numbers: Easy Scoreboard");
-		_topScore.setText(GameStats.getGameStats().getEasyHighestScore().toString());
-		_hoursPlayed.setText(GameStats.getGameStats().getTimePlayed().toString());
-		_lowestScore.setText(GameStats.getGameStats().getEasyLowestScore().toString());;
-		_averageScore.setText("" + GameStats.getGameStats().getAverageEasyScore());
+		_topScore.setText("" + GameStats.getGameStats().getEasyNumberHighestScore());
+		_hoursPlayed.setText("" + GameStats.getGameStats().getTimePlayed());
+		_lowestScore.setText("" + GameStats.getGameStats().getEasyNumberLowestScore());;
+		_averageScore.setText("" + GameStats.getGameStats().getAverageEasyNumberScore());
 		_previous.setDisable(true);
 	}
 

@@ -1,12 +1,10 @@
 package a03;
-import java.io.File;
 
 import java.io.IOException;
 import a03.Settings;
 import a03.enumerations.Difficulty;
 import a03.enumerations.GameState;
 import a03.enumerations.Level;
-import a03.enumerations.Stats;
 import a03.view.CustomizeController;
 import a03.view.ChartsController;
 import a03.view.ChooseDifficultyController;
@@ -20,8 +18,6 @@ import a03.view.ScoreSceneController;
 import a03.view.ScoreboardController;
 import a03.view.StartController;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -56,7 +52,7 @@ public class MainApp extends Application {
 		_primaryStage.setMinWidth(700);
 		_primaryStage.setResizable(false);
 		//		_primaryStage.initStyle(StageStyle.UNDECORATED);
-		GameStats.getGameStats().updateDiscrete(Stats.APPSTARTTIME.toString(), new Integer((int) (System.currentTimeMillis() / (1000 * 60))));
+		GameStats.getGameStats();
 		mainMenuContents();
 	}
 

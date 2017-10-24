@@ -1,109 +1,250 @@
 package a03;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
+
 import a03.enumerations.Difficulty;
 import a03.enumerations.Level;
-import a03.enumerations.Stats;
+import a03.view.LessThanTenController;
 
-public class GameStats {
+public class GameStats implements Serializable{
 	
-	private static GameStats _gamestats = null;
-	private Map<String,Integer> _numVals = new HashMap<String,Integer>();
-	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7414992782325115224L;
+	private int _hardNumberHighestScore, _easyNumberHighestScore, _hardEquationHighestScore, _easyEquationHighestScore, _hardEquationLowestScore, _easyEquationLowestScore, _hardNumberLowestScore, _easyNumberLowestScore, _numberOfEasyNumberPlays,
+	_numberOfHardNumberPlays, _numberOfHardEquationPlays, _numberOfEasyEquationPlays, _easyNumberCumulativeScore, _hardNumberCumulativeScore, _easyEquationCumulativeScore, _hardEquationCumulativeScore;
+	private final transient int APP_START_TIME = (int) (System.currentTimeMillis() / (1000 * 60));
+	private static transient GameStats _gamestats = null;
+	private final static transient String SAVE = "GameStat.json";
+	private boolean _isFirstEasyNumber = true;
+	private boolean _isFirstHardNumber = true;
+	private boolean _isFirstEasyEquation = true;
+	private boolean _isFirstHardEquation = true;
+	private transient Gson g = new Gson();
 	
 	/**
 	 * Game stats class is a singleton, hence private constructor.
 	 */
 	private GameStats() {
-		for(Stats i : Stats.values()) {
-			_numVals.put(i.toString(), new Integer(0));
-		}
 	}
 	
-	public Integer getTimePlayed() {
-		return (int)(System.currentTimeMillis()/(1000*60)) - _numVals.get(Stats.APPSTARTTIME.toString());
+	public int getTimePlayed() {
+		return (int) (System.currentTimeMillis() / (1000 * 60)- APP_START_TIME);
 	}
 	
-	public Integer getHardHighestScore() {
-		return _numVals.get(Stats.HARDHIGHESTSCORE.toString());
+	public int getHardNumberHighestScore() {
+		return _hardNumberHighestScore;
 	}
 	
-	public Integer getHardLowestScore() {
-		return _numVals.get(Stats.HARDLOWESTSCORE.toString());
+	
+	public int getHardNumberLowestScore() {
+		return _hardNumberLowestScore;
 	}
 	
-	public Integer getEasyHighestScore() {
-		return _numVals.get(Stats.EASYHIGHESTSCORE.toString());
+	public int getHardEquationHighestScore() {
+		return _hardEquationHighestScore;
 	}
 	
-	public Integer getEasyLowestScore() {
-		return _numVals.get(Stats.EASYLOWESTSCORE.toString());
+	public int getHardEquationLowestScore() {
+		return _hardEquationLowestScore;
 	}
 	
-	public Integer getNumberOfEasyPlays() {
-		return _numVals.get(Stats.NUMBEROFEASYPLAYS.toString());
+	public int getEasyNumberHighestScore() {
+		return _easyNumberHighestScore;
 	}
 	
-	public Integer getNumberOfHardPlays() {
-		return _numVals.get(Stats.NUMBEROFHARDPLAYS.toString());
+	public int getEasyNumberLowestScore() {
+		return _easyNumberLowestScore;
 	}
 	
-	public void updateCumulative(String key, Integer score) {
-		_numVals.put(key, _numVals.get(key) + score);
+	public int getEasyEquationHighestScore() {
+		return _easyEquationHighestScore;
 	}
 	
-	public int getAverageEasyScore() {
-		if(_numVals.get(Stats.NUMBEROFEASYPLAYS.toString()) == 0) {
+	public int getEasyEquationLowestScore() {
+		return _easyEquationLowestScore;
+	}
+	
+	public int getNumberOfEasyNumberPlays() {
+		return _numberOfEasyNumberPlays;
+	}
+	
+	public int getNumberOfHardNumberPlays() {
+		return _numberOfHardNumberPlays;
+	}
+	
+	public int getNumberOfEasyEquationPlays() {
+		return _numberOfEasyEquationPlays;
+	}
+	
+	public int getNumberOfHardEquationPlays() {
+		return _numberOfHardEquationPlays;
+	}
+	
+//	public void updateCumulative(String key, Integer score) {
+//		_numVals.put(key, _numVals.get(key) + score);
+//	}
+	
+	public int getAverageEasyNumberScore() {
+		if(_numberOfEasyNumberPlays == 0) {
 			return 0;
 		}else {
-			return _numVals.get(Stats.EASYCUMULATIVESCORE.toString()) / _numVals.get(Stats.NUMBEROFEASYPLAYS.toString());
+			return _easyNumberCumulativeScore / _numberOfEasyNumberPlays;
 		}
 
 	}
 	
-	public int getAverageHardScore() {
-		if(_numVals.get(Stats.NUMBEROFHARDPLAYS.toString()) == 0) {
+	public int getAverageHardNumberScore() {
+		if(_numberOfHardNumberPlays == 0) {
 			return 0;
 		}else {
-			return _numVals.get(Stats.HARDCUMULATIVESCORE.toString()) / _numVals.get(Stats.NUMBEROFHARDPLAYS.toString());
-		}
-	}
-
-	public void update(Difficulty level, Level _level, int correctAnswers) {
-		if(level == Difficulty.EASY) {
-			_numVals.put("hello", new Integer(1));
-			_numVals.put(Stats.NUMBEROFEASYPLAYS.toString(), _numVals.get(Stats.NUMBEROFEASYPLAYS.toString()) + new Integer(1));
-			_numVals.put(Stats.EASYCUMULATIVESCORE.toString(), _numVals.get(Stats.EASYCUMULATIVESCORE.toString()) + new Integer(correctAnswers));
-			if(correctAnswers > _numVals.get(Stats.EASYHIGHESTSCORE.toString())) {
-				_numVals.put(Stats.EASYHIGHESTSCORE.toString(), new Integer(correctAnswers));
-			}
-			if(correctAnswers < _numVals.get(Stats.EASYLOWESTSCORE.toString())) {
-				_numVals.put(Stats.EASYLOWESTSCORE.toString(), new Integer(correctAnswers));
-			}
-		}else {
-			_numVals.put(Stats.NUMBEROFHARDPLAYS.toString(), _numVals.get(Stats.NUMBEROFHARDPLAYS.toString()) + new Integer(1));
-			_numVals.put(Stats.HARDCUMULATIVESCORE.toString(), _numVals.get(Stats.HARDCUMULATIVESCORE.toString()) + new Integer(correctAnswers));
-			if(correctAnswers > _numVals.get(Stats.HARDHIGHESTSCORE.toString())) {
-				_numVals.put(Stats.HARDHIGHESTSCORE.toString(), new Integer(correctAnswers));
-			}
-			if(correctAnswers < _numVals.get(Stats.HARDLOWESTSCORE.toString())) {
-				_numVals.put(Stats.HARDLOWESTSCORE.toString(), new Integer(correctAnswers));
-			}
+			return _hardNumberCumulativeScore / _numberOfHardNumberPlays;
 		}
 	}
 	
-	public void updateDiscrete(String key, Integer value) {
-		_numVals.put(key, value);
+	public int getAverageEasyEquationScore() {
+		if(_numberOfEasyEquationPlays == 0) {
+			return 0;
+		}else {
+			return _easyEquationCumulativeScore / _numberOfEasyEquationPlays;
+		}
+	}
+	
+	public int getAverageHardEquationScore() {
+		if(_numberOfHardEquationPlays == 0) {
+			return 0;
+		}else {
+			return _hardEquationCumulativeScore / _numberOfHardEquationPlays;
+		}
+	}
+	
+	public int getEasyNumberCumulativeScore() {
+		return _easyNumberCumulativeScore;
+	}
+	
+	public int getHardNumberCumulativeScore() {
+		return _hardNumberCumulativeScore;
+	}
+	
+	public int getEasyEquationCumulativeScore() {
+		return _easyEquationCumulativeScore;
+	}
+	
+	public int getHardEquationCumulativeScore() {
+		return _hardEquationCumulativeScore;
+	}
+
+	public void update(Difficulty difficulty, Level level, int correctAnswers) {
+		if(difficulty == Difficulty.EASY) {
+			if(level == Level.NUMBERS) {
+				_numberOfEasyNumberPlays++;
+				_easyNumberCumulativeScore += correctAnswers;
+				if(correctAnswers > _easyNumberHighestScore) {
+					_easyNumberHighestScore = correctAnswers;
+				}
+				if(correctAnswers < _easyNumberLowestScore || _isFirstEasyNumber) {
+					if(_isFirstEasyNumber) {
+						_isFirstEasyNumber = false;
+					}
+					_easyNumberLowestScore = correctAnswers;
+				}
+			}else {
+				_numberOfEasyEquationPlays++;
+				_easyEquationCumulativeScore += correctAnswers;
+				if(correctAnswers > _easyEquationHighestScore) {
+					_easyNumberHighestScore = correctAnswers;
+				}
+				if(correctAnswers < _easyEquationLowestScore || _isFirstEasyEquation) {
+					if(_isFirstEasyEquation) {
+						_isFirstEasyEquation = false;
+					}
+					_easyEquationLowestScore = correctAnswers;
+				}
+			}
+		}else {
+			if(level == Level.NUMBERS) {
+				_numberOfHardNumberPlays++;
+				_hardNumberCumulativeScore += correctAnswers;
+				if(correctAnswers > _hardNumberHighestScore) {
+					_hardNumberHighestScore = correctAnswers;
+				}
+				if(correctAnswers < _hardNumberLowestScore || _isFirstHardNumber) {
+					if(_isFirstHardNumber) {
+						_isFirstHardNumber = false;
+					}
+					_hardNumberLowestScore = correctAnswers;
+				}
+			}else {
+				_numberOfHardEquationPlays++;
+				_hardEquationCumulativeScore += correctAnswers;
+				if(correctAnswers > _hardEquationHighestScore) {
+					_hardEquationHighestScore = correctAnswers;
+				}
+				if(correctAnswers < _hardEquationLowestScore || _isFirstHardEquation) {
+					if(_isFirstHardEquation) {
+						_isFirstHardEquation = false;
+					}
+					_hardEquationLowestScore = correctAnswers;
+				}
+			}
+		}
 	}
 	
 	public static GameStats getGameStats() {
 		if(_gamestats == null) {
 			_gamestats = new GameStats();
+			if(new File(SAVE).exists()) {
+				_gamestats.load();
+			}
 			return _gamestats;
 		}else {
 			return _gamestats;
+		}
+	}
+	
+	private void load() {
+		try {
+			JsonReader reader = new JsonReader(new FileReader(SAVE));
+			GameStats gameStats = g.fromJson(reader, GameStats.class);
+			_hardNumberHighestScore = gameStats.getHardNumberHighestScore();
+			_easyNumberHighestScore = gameStats.getEasyNumberHighestScore();
+			_hardEquationHighestScore = gameStats.getHardEquationHighestScore();
+			_easyEquationHighestScore = gameStats.getEasyEquationHighestScore();
+			_hardNumberLowestScore = gameStats.getHardNumberLowestScore();
+			_easyNumberLowestScore = gameStats.getEasyNumberLowestScore();
+			_hardEquationLowestScore = gameStats.getHardEquationLowestScore();
+			_easyEquationLowestScore = gameStats.getEasyEquationLowestScore();
+			_numberOfEasyNumberPlays = gameStats.getNumberOfEasyNumberPlays();
+			_numberOfHardNumberPlays = gameStats.getNumberOfHardNumberPlays();
+			_numberOfEasyEquationPlays = gameStats.getNumberOfEasyEquationPlays();
+			_numberOfHardEquationPlays = gameStats.getNumberOfHardEquationPlays();
+			_easyNumberCumulativeScore = gameStats.getEasyNumberCumulativeScore();
+			_hardNumberCumulativeScore = gameStats.getHardNumberCumulativeScore();
+			_easyEquationCumulativeScore = gameStats.getEasyEquationCumulativeScore();
+			_hardEquationCumulativeScore = gameStats.getHardEquationCumulativeScore();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void save() {
+		String j = g.toJson(this);
+		try (FileWriter filewriter = new FileWriter(SAVE)){
+			filewriter.write(j.toString());
+		} catch (IOException e1) {
+			e1.printStackTrace();
 		}
 	}
 }

@@ -7,6 +7,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import a03.GameStats;
 import a03.Settings;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -21,14 +22,13 @@ public class ConfirmationDialogBoxController extends Controller implements Initi
 	@FXML private boolean _leaveClicked=false;
 	@FXML private Button _save;
 	private Stage _dialogStage;
-	private boolean _saveClicked=false;
-	private boolean _stayClicked=false;
 	private LessThanTenController _LTTC;
 	private boolean _mainMenu = false;
 
 	// Event Listener on Button.onAction
 	@FXML
 	public void handleLeave(ActionEvent event) {
+		GameStats.getGameStats().save();
 		Settings.getSettings().save();
 		deleteRecordings();
 		if(_mainMenu) {
@@ -42,7 +42,6 @@ public class ConfirmationDialogBoxController extends Controller implements Initi
 	// Event Listener on Button.onAction
 	@FXML
 	public void handleSave(ActionEvent event) {
-		System.out.print(Thread.currentThread());
 		_LTTC.save();
 		deleteRecordings();
 		Settings.getSettings().save();
@@ -50,6 +49,7 @@ public class ConfirmationDialogBoxController extends Controller implements Initi
 			_dialogStage.close();
 			_mainApp.mainMenuContents();
 		}else {
+			GameStats.getGameStats().save();
 			_dialogStage.close();
 			Platform.exit();
 		}

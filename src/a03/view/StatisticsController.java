@@ -30,13 +30,13 @@ public class StatisticsController extends Controller{
 //	}
 	
 	public void setScores(){
-		_easyTopScore.setText(GameStats.getGameStats().getEasyHighestScore().toString());
-		_easyHoursPlayed.setText(GameStats.getGameStats().getTimePlayed().toString());
-		_EasyLowestScore.setText(GameStats.getGameStats().getEasyLowestScore().toString());;
+		_easyTopScore.setText("" + GameStats.getGameStats().getEasyHighestScore());
+		_easyHoursPlayed.setText("" + GameStats.getGameStats().getTimePlayed());
+		_EasyLowestScore.setText("" + GameStats.getGameStats().getEasyLowestScore());;
 		_easyAverageScore.setText("" + GameStats.getGameStats().getAverageEasyScore());
-		_hardHoursPlayed.setText(GameStats.getGameStats().getTimePlayed().toString());
-		_hardTopScore.setText(GameStats.getGameStats().getHardHighestScore().toString());
-		_hardLowestScore.setText(GameStats.getGameStats().getHardLowestScore().toString());
+		_hardHoursPlayed.setText("" + GameStats.getGameStats().getTimePlayed());
+		_hardTopScore.setText("" + GameStats.getGameStats().getHardHighestScore());
+		_hardLowestScore.setText("" + GameStats.getGameStats().getHardLowestScore());
 		_hardAverageScore.setText("" + GameStats.getGameStats().getAverageHardScore());
 	}
 }
