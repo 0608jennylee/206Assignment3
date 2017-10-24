@@ -6,15 +6,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
 import a03.enumerations.Difficulty;
 import a03.enumerations.Level;
-import a03.view.LessThanTenController;
 
 public class GameStats implements Serializable{
 	

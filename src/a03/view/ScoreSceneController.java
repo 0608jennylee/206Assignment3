@@ -1,12 +1,10 @@
 package a03.view;
 
-import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import a03.enumerations.Difficulty;
 import a03.enumerations.Level;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;

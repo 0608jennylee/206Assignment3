@@ -2,20 +2,17 @@ package a03.view;
 
 import javafx.fxml.FXML;
 
+
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.util.Duration;
 
-import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 
-import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 /**
  * The main menu controller, the first scene of the mainapp 

@@ -13,7 +13,6 @@ import java.util.ResourceBundle;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
-import com.jfoenix.controls.JFXButton;
 
 import a03.Saveable;
 import a03.enumerations.Difficulty;
@@ -24,9 +23,6 @@ import a03.LogData;
 import a03.generators.Generator;
 import a03.generators.GeneratorFactory;
 import a03.generators.Processor;
-import javafx.animation.FadeTransition;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -40,7 +36,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
-import javafx.util.Duration;
 /**
  * this controller, controls the scene for displaying the level
  * @author edwar jenny
@@ -249,18 +244,18 @@ public class LessThanTenController extends Controller implements Initializable, 
 		_question.setStyle("-fx-border-color: green; -fx-border-width: 5; -fx-border-radius: 5;");
 	}
 	
-	private void colorFailed() {
-		_question.setStyle("-fx-border-color: yellow;");
-	}
+//	private void colorFailed() {
+//		_question.setStyle("-fx-border-color: yellow;");
+//	}
 
 	private void colorWrong() {
 		_question.setStyle("-fx-border-color: red; -fx-border-width: 5; -fx-border-radius: 5;");
 	}
 	
-	private void colorReset() {
-		_question.setStyle("-fx-border-color: transparent");
-		
-	}
+//	private void colorReset() {
+//		_question.setStyle("-fx-border-color: transparent");
+//		
+//	}
 
 	/**
 	 * at the end of each game, displays the score, and gives the user 

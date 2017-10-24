@@ -1,6 +1,5 @@
 package a03.view;
 
-import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 

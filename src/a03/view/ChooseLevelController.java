@@ -4,14 +4,12 @@ import javafx.fxml.FXML;
 
 import javafx.fxml.Initializable;
 
-import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 
 import a03.enumerations.Level;
-import a03.MainApp;
 import javafx.event.ActionEvent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

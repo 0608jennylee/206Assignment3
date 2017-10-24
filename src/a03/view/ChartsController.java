@@ -1,6 +1,7 @@
 package a03.view;
 
 import javafx.fxml.FXML;
+
 import javafx.fxml.Initializable;
 
 import java.io.BufferedReader;
@@ -8,7 +9,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import com.google.gson.Gson;
@@ -18,11 +18,9 @@ import com.jfoenix.controls.JFXButton;
 import a03.LogData;
 import a03.MainApp;
 import a03.enumerations.ChartTypes;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.image.Image;
@@ -122,9 +120,7 @@ public class ChartsController extends Controller implements Initializable{
 //		series2.getData().add(new XYChart.Data<>("c", 100.0));
 //		series2.getData().add(new XYChart.Data<>("d", 20.0));
 		//Setting the data to bar chart       
-		_barChart.getXAxis().setAnimated(false);
-		_barChart.getYAxis().setAnimated(false);
-		_barChart.setAnimated(false);
+
 		_barChart.lookupAll(".default-color0.chart-bar")
 		.forEach(n -> n.setStyle("-fx-bar-fill: orange;"));
 		}catch (JsonSyntaxException e) {
@@ -143,6 +139,9 @@ public class ChartsController extends Controller implements Initializable{
 		_yAxis.setLowerBound(0);
 		_yAxis.setUpperBound(100);
 		_yAxis.setTickUnit(10);
+		_barChart.getXAxis().setAnimated(false);
+		_barChart.getYAxis().setAnimated(false);
+		_barChart.setAnimated(false);
 		Image right = new Image(getClass().getClassLoader().getResource("Icons/right.png").toString());//
 		_next.setGraphic(new ImageView(right));
 		Image left = new Image(getClass().getClassLoader().getResource("Icons/left.png").toString());//
