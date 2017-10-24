@@ -191,23 +191,36 @@ public class LessThanTenController extends Controller implements Initializable, 
 			_submit.setDisable(true);
 			//_text.setVisible(true);
 		}else if(_correct){//user gets correct answer
+			
 			colorCorrect();
-			setProgress(Correctness.CORRECT);
+			
+			if(_difficulty != Difficulty.CUSTOM) {
+				setProgress(Correctness.CORRECT);
+			}
+			
 			delete();
+			
 			_theCorrectAnswer.setText((Processor.toMaori(Processor.toInt(_numbers.get(_currentQuestion)))));
 			_theirAnswer.setText((Processor.getUserAnswer()));
+			
 			_currentQuestion++;
+			
 			if(_currentQuestion != _totalQuestions) {
 				_nextQuestion.setVisible(true);
 			}
+			
 			_secondTry = false;
 			recordButton();
 			_correctAnswers++;
 
 		}else{//user gets incorrect answer
+			
 			colorWrong();
+			
 			if (_secondTry){//user gets the answer incorrect the second time
-				setProgress(Correctness.INCORRECT);
+				if(_difficulty != Difficulty.CUSTOM) {
+					setProgress(Correctness.INCORRECT);
+				}
 				delete();
 				_theCorrectAnswer.setText((Processor.toMaori(Processor.toInt(_numbers.get(_currentQuestion)))));
 				_theirAnswer.setText(Processor.getUserAnswer());
@@ -332,7 +345,11 @@ public class LessThanTenController extends Controller implements Initializable, 
 		GeneratorFactory gf = new GeneratorFactory();
 		_generator = gf.getGenerator(_difficulty, _level, questions);
 		_numbers = _generator.getNumbers();
-		System.out.println("length" + _numbers.size());
+		if(_difficulty != Difficulty.CUSTOM) {
+		initProgressBar();
+		}else {
+			_A1.getParent().setVisible(false);
+		}
 	}
 
 	/**
@@ -384,6 +401,20 @@ public class LessThanTenController extends Controller implements Initializable, 
 		File recordings = new File(RECORDINGSFOLDER + Processor.toInt(_numbers.get(_currentQuestion)) + ".wav");
 		recordings.delete();
 	}
+	
+	private void initProgressBar() {
+		Image q = new Image(getClass().getClassLoader().getResource("Progress/q.1.png").toString());//
+		_A1.setImage(q);
+		_A2.setImage(q);
+		_A3.setImage(q);
+		_A4.setImage(q);
+		_A5.setImage(q);
+		_A6.setImage(q);
+		_A7.setImage(q);
+		_A8.setImage(q);
+		_A9.setImage(q);
+		_A10.setImage(q);
+	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -397,17 +428,6 @@ public class LessThanTenController extends Controller implements Initializable, 
 		Image background = new Image(getClass().getClassLoader().getResource("fern.jpg").toString());//
 		_imageView.setImage(background);
 		_imageView.setOpacity(0.3);
-		Image q = new Image(getClass().getClassLoader().getResource("Progress/q.1.png").toString());//
-		_A1.setImage(q);
-		_A2.setImage(q);
-		_A3.setImage(q);
-		_A4.setImage(q);
-		_A5.setImage(q);
-		_A6.setImage(q);
-		_A7.setImage(q);
-		_A8.setImage(q);
-		_A9.setImage(q);
-		_A10.setImage(q);
 		_progressBar.setVisible(false);
 	}
 	private void setProgress(Correctness correctness) {
