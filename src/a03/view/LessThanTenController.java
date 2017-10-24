@@ -191,8 +191,6 @@ public class LessThanTenController extends Controller implements Initializable, 
 			_submit.setDisable(true);
 			//_text.setVisible(true);
 		}else if(_correct){//user gets correct answer
-			//File file = new File(System.getProperty("user.dir")+"/Correct/" + _numbers.get(_currentQuestion) + ".jpg");
-			//			File file = new File(System.getProperty("user.dir")+"/Correct/" + _numbers.get(_currentQuestion) + ".jpg");
 			colorCorrect();
 			setProgress(Correctness.CORRECT);
 			delete();
@@ -207,9 +205,6 @@ public class LessThanTenController extends Controller implements Initializable, 
 			_correctAnswers++;
 
 		}else{//user gets incorrect answer
-			//			File file = new File(System.getProperty("user.dir")+"/Incorrect/" + _numbers.get(_currentQuestion) + ".jpg");
-			//			Image file = new Image(getClass().getClassLoader().getResource("Incorrect/" + _numbers.get(_currentQuestion) + ".jpg").toString());
-			//			setImage(file);
 			colorWrong();
 			if (_secondTry){//user gets the answer incorrect the second time
 				setProgress(Correctness.INCORRECT);
@@ -361,8 +356,6 @@ public class LessThanTenController extends Controller implements Initializable, 
 		_nextQuestion.setVisible(false);
 		_question.setFont(new Font("Ubuntu",100));
 		_question.setText(_numbers.get(_currentQuestion));
-		//File file = new File(System.getProperty("user.dir")+"/Video/" + _numbers.get(_currentQuestion) + ".jpg");
-		//		Image file = new Image(getClass().getClassLoader().getResource("Video/" + _numbers.get(_currentQuestion) + ".jpg").toString());//
 		int display = _currentQuestion+1;
 		_title.setText(_display +"Question: "+display);
 		//		setImage(file);
@@ -394,19 +387,15 @@ public class LessThanTenController extends Controller implements Initializable, 
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		File file4 = new File(System.getProperty("user.dir")+"/Icons/png/quit.png");
-		Image image4 = new Image(file4.toURI().toString());
-		_back.setGraphic(new ImageView(image4));
-		File file1 = new File(System.getProperty("user.dir")+"/Icons/png/bullhorn-6x.png");
-		Image image1 = new Image(file1.toURI().toString());
-		_playback.setGraphic(new ImageView(image1));
+		Image right = new Image(getClass().getClassLoader().getResource("Icons/right.png").toString());//
+		_nextQuestion.setGraphic(new ImageView(right));
 		recordButton();
-		File file3 = new File(System.getProperty("user.dir")+"/Icons/png/arrow-circle-right-8x.png");
-		Image image3 = new Image(file3.toURI().toString());
-		_nextQuestion.setGraphic(new ImageView(image3));
-		File file5 = new File(System.getProperty("user.dir")+"/fern.jpg");
-		Image image5 = new Image(file5.toURI().toString());
-		_imageView.setImage(image5);
+		Image listen = new Image(getClass().getClassLoader().getResource("Icons/bullhorn-6x.png").toString());//
+		_playback.setGraphic(new ImageView(listen));
+		Image quit = new Image(getClass().getClassLoader().getResource("Icons/quit.png").toString());//
+		_back.setGraphic(new ImageView(quit));
+		Image background = new Image(getClass().getClassLoader().getResource("fern.jpg").toString());//
+		_imageView.setImage(background);
 		_imageView.setOpacity(0.3);
 		Image q = new Image(getClass().getClassLoader().getResource("Progress/q.1.png").toString());//
 		_A1.setImage(q);
@@ -488,15 +477,13 @@ public class LessThanTenController extends Controller implements Initializable, 
 		}
 	}
 	public void tryAgain() {
-		File file3 = new File(System.getProperty("user.dir")+"/Icons/png/reload-6x.png");
-		Image image3 = new Image(file3.toURI().toString());
-		_record.setGraphic(new ImageView(image3));
+		Image quit = new Image(getClass().getClassLoader().getResource("Icons/reload-6x.png").toString());//
+		_record.setGraphic(new ImageView(quit));
 
 	}
 	public void recordButton() {
-		File file3 = new File(System.getProperty("user.dir")+"/Icons/png/microphone-6x.png");
-		Image image3 = new Image(file3.toURI().toString());
-		_record.setGraphic(new ImageView(image3));
+		Image quit = new Image(getClass().getClassLoader().getResource("Icons/microphone-6x.png").toString());//
+		_record.setGraphic(new ImageView(quit));
 
 	}
 

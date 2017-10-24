@@ -36,7 +36,7 @@ public class StartController extends Controller implements Initializable{
 	// Event Listener on Button.onAction
 	@FXML
 	public void handleStart(ActionEvent event) {
-			_mainApp.Game(_difficulty, _level, false, _questions);
+		_mainApp.Game(_difficulty, _level, false, _questions);
 	}
 
 	/**
@@ -47,14 +47,18 @@ public class StartController extends Controller implements Initializable{
 	// Event Listener on Button.onAction
 	@FXML
 	public void handleBack(ActionEvent event) {
-		_mainApp.chooseDifficulty(_level);
+		if (_difficulty==Difficulty.CUSTOM){
+			_mainApp.customize();
+		}else{
+			_mainApp.chooseDifficulty(_level);
+		}
 	}
 	// Event Listener on Button.onAction
-		@FXML
-		public void handleMainMenu(ActionEvent event) {
-			_mainApp.mainMenuContents();
-		}
-	
+	@FXML
+	public void handleMainMenu(ActionEvent event) {
+		_mainApp.mainMenuContents();
+	}
+
 	/**
 	 * sets the level that the user has chosen so that it can 
 	 * be passed onto the next scene
@@ -66,7 +70,7 @@ public class StartController extends Controller implements Initializable{
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		Image quit = new Image(getClass().getClassLoader().getResource("/Icons/quit.png").toString());//
+		Image quit = new Image(getClass().getClassLoader().getResource("Icons/quit.png").toString());//
 		_mainMenu.setGraphic(new ImageView(quit));
 		Image background = new Image(getClass().getClassLoader().getResource("fern.jpg").toString());//
 		_imageView.setImage(background);
@@ -75,9 +79,9 @@ public class StartController extends Controller implements Initializable{
 
 	public void setDifficulty(Difficulty difficulty) {
 		_difficulty=difficulty;
-		
+
 	}
-	
+
 	public void setQuestions(int questions) {
 		_questions = questions;
 	}
