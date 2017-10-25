@@ -1,7 +1,6 @@
 package a03;
 
 import java.io.IOException;
-import a03.Settings;
 import a03.enumerations.Difficulty;
 import a03.enumerations.GameState;
 import a03.enumerations.Level;
@@ -10,7 +9,7 @@ import a03.view.ChartsController;
 import a03.view.ChooseDifficultyController;
 import a03.view.ChooseLevelController;
 import a03.view.ConfirmationDialogBoxController;
-import a03.view.LessThanTenController;
+import a03.view.GameController;
 import a03.view.LoadLevelController;
 import a03.view.MainMenuContentsController;
 import a03.view.ScoreSceneController;
@@ -25,51 +24,57 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 public class MainApp extends Application {
-	//	public enum Level {hard(""),easy};
+	
 	private Stage _primaryStage;
 	private GameState _gameState;
-	private LessThanTenController LTTController;
+	private GameController _gameController;
 
 	/**
-	 * Constructor
+	 * main to run the app
+	 * @param args
 	 */
-	public MainApp() {
+	public static void main(String[] args) {
+		//launch calls start().
+		launch(args);
 	}
 
 	/**
-	 * sets the stage of the app
+	 * sets the stage of the app and initialises some properties to specific values such as non resizeable and onCloseRequest.
 	 */
 	@Override
 	public void start(Stage primaryStage) {
-		//sets the primary stage as the stage the app is running on
 		_primaryStage = primaryStage;
 		_gameState = GameState.MENU;
 		_primaryStage.setOnCloseRequest(this::exit);
-		//sets the title
 		_primaryStage.setTitle("Tatai");
 		_primaryStage.setMinHeight(450);
 		_primaryStage.setMinWidth(700);
 		_primaryStage.setResizable(false);
-		//		_primaryStage.initStyle(StageStyle.UNDECORATED);
 		GameStats.getGameStats();
 		mainMenuContents();
 	}
+	
+//----------------------------------- Scene Switching Facilitators ------------------------------
 
 	/**
 	 * Shows the main menu scene on the stage
 	 */
 	public void mainMenuContents() {
 		try {
-			LTTController = null;
+			
+			_gameController = null;
 			_gameState = GameState.MENU;
+			
 			//Load main menu 
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/MainMenuContents.fxml"));
 			AnchorPane mainMenu = (AnchorPane) loader.load();
+			
 			//load main menu scene on primary stage
 			Scene scene = new Scene(mainMenu);
 			_primaryStage.setScene(scene);
 			_primaryStage.show();
+			
 			// Give the controller access to the main app.
 			MainMenuContentsController controller = loader.getController();
 			controller.setMainApp(this);
@@ -79,8 +84,12 @@ public class MainApp extends Application {
 	}
 
 	/**
-	 * shows the level scene on the stage, this is the scene where the game happens
-	 * @param level the level chosen by the user
+	 * This method loads the LessThanTej.fxml file which represents the game scene.
+	 * @param level - the level chosen by the user
+	 * @param difficulty - the difficulty chosen by the user
+	 * @param load - the boolean specifying weather the load option was chosen.
+	 * 
+	 * The game method is overridden to implement the functionality of loading and setting the default amount of questions to 10.
 	 */
 	public void Game(Difficulty difficulty, Level level, boolean load) {
 		Game(difficulty, level, load, 10);
@@ -91,27 +100,41 @@ public class MainApp extends Application {
 			_gameState = GameState.INGAME;
 			//Load level 
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/LessThanTen.fxml"));
+			loader.setLocation(MainApp.class.getResource("view/Game.fxml"));
 			AnchorPane lessThanTen = (AnchorPane) loader.load();
+			
 			//load level scene on primary stage
 			Scene scene = new Scene(lessThanTen);
 			_primaryStage.setScene(scene);
 			_primaryStage.show();
-			// Give the controller access to the main app.
-			LTTController = loader.getController();
 			
+			// Give the controller access to the main app.
+			_gameController = loader.getController();
+			
+			//check weather the controller values are required to be loaded in or not.
 			if(load) {
-				LTTController.load(level, difficulty);
+				_gameController.load(level, difficulty);
 			}else {
-				LTTController.setDifficulty(difficulty, level, questions);
+				_gameController.setDifficulty(difficulty, level, questions);
 			}
-			LTTController.setMainApp(this);
-			LTTController.setQuestion();
+			
+			//give the controller access to MainApp object to facilitate scene transfers.
+			_gameController.setMainApp(this);
+			_gameController.setQuestion();
 			//			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Loads the scene where the final score is displayed.
+	 * 
+	 * @param score
+	 * @param questions
+	 * @param difficulty
+	 * @param level
+	 */
 	public void Score(int score, int questions, Difficulty difficulty, Level level) {
 		try {
 			_gameState = GameState.INGAME;
@@ -133,28 +156,6 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 	}
-
-//	public void loadGame(Level level, Difficulty difficulty) {
-//		try {
-//			_gameState = GameState.INGAME;
-//			//Load level 
-//			FXMLLoader loader = new FXMLLoader();
-//			loader.setLocation(MainApp.class.getResource("view/LessThanTen.fxml"));
-//			AnchorPane lessThanTen = (AnchorPane) loader.load();
-//			//load level scene on primary stage
-//			Scene scene = new Scene(lessThanTen);
-//			_primaryStage.setScene(scene);
-//			_primaryStage.show();
-//			// Give the controller access to the main app.
-//			LTTController = loader.getController();
-//			LTTController.load(level, difficulty);
-//			LTTController.setMainApp(this);
-//			LTTController.setQuestion();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		
-//	}
 
 	/**
 	 * shows the start scene on the stage
@@ -184,20 +185,23 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 	}
+	
 	/**
-	 * shpws the choose level scene on the stage
-	 * @param numbers 
+	 * shows the choose level scene on the stage
 	 */
 	public void chooseLevel() {
 		try {
+			
 			//Load choose level
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/ChooseLevel.fxml"));
 			AnchorPane chooseLevels = (AnchorPane) loader.load();
+			
 			//load choose level scene on primary stage
 			Scene scene = new Scene(chooseLevels);
 			_primaryStage.setScene(scene);
 			_primaryStage.show();
+			
 			// Give the controller access to the main app.
 			ChooseLevelController controller = loader.getController();
 			controller.setMainApp(this);
@@ -206,26 +210,29 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 	}
+	
 	/**
-	 * shpws the choose level scene on the stage
-	 * @param numbers 
+	 * shows the choose difficulty scene on the stage
+	 * @param level
 	 */
 	public void chooseDifficulty(Level level) {
 		try {
+			
 			_gameState = GameState.MENU;
+			
 			//Load choose level
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/ChooseDifficulty.fxml"));
 			AnchorPane chooseLevels = (AnchorPane) loader.load();
+			
 			//load choose level scene on primary stage
 			Scene scene = new Scene(chooseLevels);
 			_primaryStage.setScene(scene);
 			_primaryStage.show();
+			
 			// Give the controller access to the main app.
 			ChooseDifficultyController controller = loader.getController();
-			if(!Settings.getSettings().settings.get("HARDLEVEL")) {
-				controller.disableHard();
-			}
+			
 			controller.setMainApp(this);
 			controller.setLevel(level);
 
@@ -240,23 +247,29 @@ public class MainApp extends Application {
 	public void Statistics() {
 		try {
 			_gameState = GameState.MENU;
+			
 			//Load statistics 
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/Scoreboard.fxml"));
 			AnchorPane statistics = (AnchorPane) loader.load();
+			
 			//load statistics scene on the primary stage
 			Scene scene = new Scene(statistics);
 			_primaryStage.setScene(scene);
 			_primaryStage.show();
+			
 			// Give the controller access to the main app.
 			ScoreboardController controller = loader.getController();
 			controller.setMainApp(this);
-			//controller.setScores();
-
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Switches the scene to the Charts.fxml scene.
+	 */
 	public void Charts() {
 		try {
 			//Load statistics 
@@ -276,66 +289,33 @@ public class MainApp extends Application {
 		}
 	}
 
-
 	/**
-	 * closes the app and saves the settings
+	 * Loads the scene where users can customise their level to play.
 	 */
-	public void exit(WindowEvent e) {
-		if(e != null) {
-			e.consume();
-		}
-		confirmExit(false);
-	}
-	
-	public void confirmExit(boolean mainMenu) {
-		try{// Load the fxml file and create a new stage for the popup dialog.
+	public void customize() {
+		try {
+			//Load statistics 
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/ConfirmationDialogBox.fxml"));
-			AnchorPane page= (AnchorPane) loader.load();
-
-			// Create the dialog Stage.
-			Stage dialogStage = new Stage();
-			dialogStage.setTitle("");
-			dialogStage.initModality(Modality.WINDOW_MODAL);
-			dialogStage.initOwner(_primaryStage);
-			Scene scene = new Scene(page);
-			dialogStage.setScene(scene);
-
-			// Set the person into the controller.
-
-			ConfirmationDialogBoxController controller = loader.getController();
-			controller.setDialogStage(dialogStage);
+			loader.setLocation(MainApp.class.getResource("view/Customize.fxml"));
+			AnchorPane charts = (AnchorPane) loader.load();
+			//load statistics scene on the primary stage
+			Scene scene = new Scene(charts);
+			_primaryStage.setScene(scene);
+			_primaryStage.show();
+			// Give the controller access to the main app.
+			CustomizeController controller = loader.getController();
 			controller.setMainApp(this);
-			controller.setMainMenu(mainMenu);
-			if(_gameState == GameState.INGAME){
-				controller.setVisibleSaveButton();
-				controller.setLessThanTenController(LTTController);
-			}else {
-				controller.setInvisibleSaveButton();
-			}
-			// Show the dialog and wait until the user closes it
-			dialogStage.showAndWait();
-			
-		}catch (IOException e1) {
-			e1.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+	
 	}
 
 	/**
-	 * @return
+	 * If there is a load file this method is called. It asks the user weather they want to load their save file or play a new game.
+	 * @param level
+	 * @param difficulty
 	 */
-	public Stage getPrimaryStage() {
-		return _primaryStage;
-	}
-
-	/**
-	 * main to run the app
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		launch(args);
-	}
-
 	public void LoadLevel(Level level, Difficulty difficulty) {
 		try {
 			//Load statistics 
@@ -358,27 +338,65 @@ public class MainApp extends Application {
 
 	}
 	
+	/**
+	 * Loads the dialogue box that prompts the user to confirm any of their exit attempts.
+	 * @param mainMenu
+	 */
+	public void confirmExit(boolean mainMenu) {
+		try{// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/ConfirmationDialogBox.fxml"));
+			AnchorPane page= (AnchorPane) loader.load();
+
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(_primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Set the person into the controller.
+
+			ConfirmationDialogBoxController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setMainApp(this);
+			controller.setMainMenu(mainMenu);
+			if(_gameState == GameState.INGAME){
+				controller.setVisibleSaveButton();
+				controller.setLessThanTenController(_gameController);
+			}else {
+				controller.setInvisibleSaveButton();
+			}
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+
+		}catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
+
+//--------------------------------------- End of Scene Switching Facilitators -----------------
+//--------------------------------------- Getter and Setters ----------------------------------	
+	
+	public Stage getPrimaryStage() {
+		return _primaryStage;
+	}
+
 	public void setGameState(GameState gamestate) {
 		_gameState = gamestate;
 	}
 
-	public void customize() {
-		try {
-			//Load statistics 
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/Customize.fxml"));
-			AnchorPane charts = (AnchorPane) loader.load();
-			//load statistics scene on the primary stage
-			Scene scene = new Scene(charts);
-			_primaryStage.setScene(scene);
-			_primaryStage.show();
-			// Give the controller access to the main app.
-			CustomizeController controller = loader.getController();
-			controller.setMainApp(this);
-		} catch (IOException e) {
-			e.printStackTrace();
+//--------------------------------------- End of Getters and Setters -----------------------	
+	
+	/**
+	 * closes the app and saves all persistent files.
+	 */
+	public void exit(WindowEvent e) {
+		if(e != null) {
+			e.consume();
 		}
-
+		confirmExit(false);
 	}
 
 }

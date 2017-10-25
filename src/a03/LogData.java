@@ -3,7 +3,11 @@ package a03;
 import a03.enumerations.Difficulty;
 import a03.enumerations.Level;
 
+//This class represents each complete level that is written to a LogData array in a json file such that a persistent history is saved.
+//An instance of this class is created each time a level has been completed in the LessThanTenController displayFinalScore().
+
 public class LogData {
+	
 	private int _correctAnswers;
 	private int _totalAnswers;
 	@SuppressWarnings("unused")

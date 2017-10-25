@@ -1,6 +1,7 @@
 package a03.view;
 
 import javafx.fxml.FXML;
+
 import javafx.fxml.Initializable;
 
 import java.io.File;
@@ -8,7 +9,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import a03.GameStats;
-import a03.Settings;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -22,14 +22,13 @@ public class ConfirmationDialogBoxController extends Controller implements Initi
 	@FXML private boolean _leaveClicked=false;
 	@FXML private Button _save;
 	private Stage _dialogStage;
-	private LessThanTenController _LTTC;
+	private GameController _gameController;
 	private boolean _mainMenu = false;
 
 	// Event Listener on Button.onAction
 	@FXML
 	public void handleLeave(ActionEvent event) {
 		GameStats.getGameStats().save();
-		Settings.getSettings().save();
 		deleteRecordings();
 		if(_mainMenu) {
 			_dialogStage.close();
@@ -42,9 +41,8 @@ public class ConfirmationDialogBoxController extends Controller implements Initi
 	// Event Listener on Button.onAction
 	@FXML
 	public void handleSave(ActionEvent event) {
-		_LTTC.save();
+		_gameController.save();
 		deleteRecordings();
-		Settings.getSettings().save();
 		if(_mainMenu) {
 			_dialogStage.close();
 			_mainApp.mainMenuContents();
@@ -68,8 +66,8 @@ public class ConfirmationDialogBoxController extends Controller implements Initi
 	public void setInvisibleSaveButton() {
 		_save.setVisible(false);
 	}
-	public void setLessThanTenController(LessThanTenController LTTC) {
-		_LTTC = LTTC;
+	public void setLessThanTenController(GameController LTTC) {
+		_gameController = LTTC;
 	}
 	public void setMainMenu(boolean mainMenu) {
 		_mainMenu = mainMenu;

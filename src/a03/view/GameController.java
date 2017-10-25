@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -41,7 +42,12 @@ import javafx.scene.text.Font;
  * @author edwar jenny
  *
  */
-public class LessThanTenController extends Controller implements Initializable, Saveable{
+public class GameController extends Controller implements Initializable, Saveable, Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7763569242616710859L;
+
 	private enum Correctness{CORRECT,INCORRECT}
 	@FXML private transient ProgressBar _progressBar;
 
@@ -176,7 +182,6 @@ public class LessThanTenController extends Controller implements Initializable, 
 		_record.setDisable(true);
 		_playback.setDisable(true);
 		if (_failed){//HTK failed
-			System.out.println("failed");
 			//			_sorry.setVisible(true);
 			//			_weMuckedUp.setVisible(true);
 			//			_tryAgain.setVisible(true);
@@ -243,19 +248,10 @@ public class LessThanTenController extends Controller implements Initializable, 
 	private	void colorCorrect() {
 		_question.setStyle("-fx-border-color: green; -fx-border-width: 5; -fx-border-radius: 5;");
 	}
-	
-//	private void colorFailed() {
-//		_question.setStyle("-fx-border-color: yellow;");
-//	}
 
 	private void colorWrong() {
 		_question.setStyle("-fx-border-color: red; -fx-border-width: 5; -fx-border-radius: 5;");
 	}
-	
-//	private void colorReset() {
-//		_question.setStyle("-fx-border-color: transparent");
-//		
-//	}
 
 	/**
 	 * at the end of each game, displays the score, and gives the user 
@@ -268,7 +264,6 @@ public class LessThanTenController extends Controller implements Initializable, 
 		Gson g = new Gson();
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM HH:mm");
 		LocalDateTime localdatetime = LocalDateTime.now();
-		System.out.println(_totalQuestions);
 		String j = g.toJson(new LogData(_correctAnswers, _totalQuestions, _level, _difficulty, dtf.format(localdatetime)));
 		if(!new File("Logs").exists()) {
 			new File("Logs").mkdir();
@@ -360,9 +355,6 @@ public class LessThanTenController extends Controller implements Initializable, 
 			_submit.setDisable(true);
 			_playback.setDisable(true);
 		}
-		//		_sorry.setVisible(false);
-		//		_weMuckedUp.setVisible(false);
-		//		_tryAgain.setVisible(false);
 		_theirAnswer.setText("");
 		_theCorrectAnswer.setText("");
 		_nextQuestion.setVisible(false);
@@ -370,7 +362,6 @@ public class LessThanTenController extends Controller implements Initializable, 
 		_question.setText(_numbers.get(_currentQuestion));
 		int display = _currentQuestion+1;
 		_title.setText(_display +"Question: "+display + " of " + _totalQuestions);
-		//		setImage(file);
 		_record.setDisable(false);
 	}
 
@@ -378,7 +369,6 @@ public class LessThanTenController extends Controller implements Initializable, 
 	public void handleSubmit() {
 		try {
 			Processor processor = new Processor();
-			System.out.print(Processor.toInt(_numbers.get(_currentQuestion)));
 			if(processor.processAnswer(Processor.toInt(_numbers.get(_currentQuestion)))) {
 				_correct=true;
 			}else {
@@ -392,7 +382,6 @@ public class LessThanTenController extends Controller implements Initializable, 
 	}
 
 	private void delete() {
-		System.out.println("deleted");
 		File recordings = new File(RECORDINGSFOLDER + Processor.toInt(_numbers.get(_currentQuestion)) + ".wav");
 		recordings.delete();
 	}
@@ -521,7 +510,7 @@ public class LessThanTenController extends Controller implements Initializable, 
 		try {
 			Gson g = new Gson();
 			JsonReader reader = new JsonReader(new FileReader(SAVEFOLDER + "/" + level.toString() + difficulty.toString() + ".dat"));
-			LessThanTenController controller = g.fromJson(reader, LessThanTenController.class);
+			GameController controller = g.fromJson(reader, GameController.class);
 			_correct = controller.getCorrect();
 			_failed = controller.getFailed();
 			_secondTry = controller.getSecondTry();
