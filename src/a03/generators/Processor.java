@@ -14,6 +14,8 @@ import a03.enumerations.Number;
 import a03.errors.HTKError;
 
 public class Processor {
+	
+	//Solves and returns the result of a string representation of either a) an addition b) a subtraction or c) just a number.
 	public static int toInt(String formula) {
 		if(formula.contains("+")) {
 			return Integer.parseInt(formula.split(" ")[0]) + Integer.parseInt(formula.split(" ")[2]);
@@ -24,6 +26,7 @@ public class Processor {
 		}
 	}
 	
+	//Convert a number to a string that is the Maori equivalent. Macrons included!
 	public static String toMaori(int num) {
 		String[] maoriName = new String[4];
 		if(num <= 10) {
@@ -67,12 +70,16 @@ public class Processor {
 		return null;
 	}
 	
+	//returns the string that represents what the user has said, read from the recout.mlf file.
+	//throws HTK error if no sound is picked up.
 	public static String getUserAnswer() throws HTKError {
 		try {
 			List<String> lines = new ArrayList<String>();
 			@SuppressWarnings("resource")
 			BufferedReader br = new BufferedReader(new FileReader("recout.mlf"));
 			String answer = null;
+			
+			//Parse HTK output to Maori with macrons.
 			while((answer = br.readLine()) != null) {
 				if(answer.equals("maa")) {
 					answer = "mā";
@@ -81,6 +88,7 @@ public class Processor {
 				}
 				lines.add(answer);
 			}
+			
 			if(lines.size() != 1){
 				answer = lines.get(3);
 				for(int i = 4; i < lines.size() - 2; i++) {
@@ -91,16 +99,21 @@ public class Processor {
 			}
 			return answer;
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
 	}
 	
-	
+	/**
+	 * This method given an integer matches weather the Maori representation defined by the toMaori method of this class
+	 * matches to the user answer. Lenient matching has been applied to account for background noise
+	 * if the correct words appear in the correct order then it is treated as correct.
+	 * @param num
+	 * @return correct(true)/incorrect(false)
+	 * @throws HTKError
+	 */
 	public boolean processAnswer(int num) throws HTKError{
 		String line = getUserAnswer();
 		String[] words = line.split(" ");

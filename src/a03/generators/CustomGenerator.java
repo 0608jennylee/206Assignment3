@@ -6,7 +6,10 @@ import java.util.List;
 import a03.enumerations.Difficulty;
 import a03.enumerations.Level;
 
+
+// The generator which is a aggregation of number and equation generator used to generate combined questions under the custom setting.
 public class CustomGenerator extends Generator{
+	
 	private Level _level;
 
 	public CustomGenerator(Difficulty difficulty, int questions, Level level) {
@@ -24,6 +27,7 @@ public class CustomGenerator extends Generator{
 		List<String> ngNum = ng.getNumbers();
 		System.out.println("getnumbers" + _questions);
 		for(int i = 0; i < _questions; i++) {
+			//50/50 chance of number or equation theoretically.
 			if(Math.random() < 0.5) {
 				_numbers.add(egNum.get(i));
 			}else {

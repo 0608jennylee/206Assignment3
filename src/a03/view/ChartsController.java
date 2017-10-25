@@ -27,23 +27,43 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class ChartsController extends Controller implements Initializable{
-	@FXML
-	private JFXButton _back;
-	@FXML
-	private BarChart<String, Number> _barChart;
-	@FXML
-	private JFXButton _previous;
-	@FXML
-	private JFXButton _next;
-	private MainApp _mainApp;
-	private ChartTypes _chartType = ChartTypes.EASYNUMBERS;
+	@FXML private JFXButton _back;
+	@FXML private BarChart<String, Number> _barChart;
+	@FXML private JFXButton _previous;
+	@FXML private JFXButton _next;
 	@FXML private ImageView _imageView;
 	@FXML private NumberAxis _yAxis;
+	
+	private MainApp _mainApp;
+	private ChartTypes _chartType = ChartTypes.EASYNUMBERS;
+	
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		_yAxis.setAutoRanging(false);
+		_yAxis.setLowerBound(0);
+		_yAxis.setUpperBound(100);
+		_yAxis.setTickUnit(10);
+		_barChart.getXAxis().setAnimated(false);
+		_barChart.getYAxis().setAnimated(false);
+		_barChart.setAnimated(false);
+		Image right = new Image(getClass().getClassLoader().getResource("Icons/right.png").toString());//
+		_next.setGraphic(new ImageView(right));
+		Image left = new Image(getClass().getClassLoader().getResource("Icons/left.png").toString());//
+		_previous.setGraphic(new ImageView(left));
+		Image quit = new Image(getClass().getClassLoader().getResource("Icons/quit.png").toString());//
+		_back.setGraphic(new ImageView(quit));
+		Image background = new Image(getClass().getClassLoader().getResource("fern.jpg").toString());//
+		_imageView.setImage(background);
+		_imageView.setOpacity(0.1);
+	
+	}
+
 	// Event Listener on JFXButton[#_back].onAction
 	@FXML
 	public void handleBack(ActionEvent event) {
 		_mainApp.mainMenuContents();
 	}
+	
 	// Event Listener on JFXButton[#_left].onAction
 	@FXML
 	public void handleLeft(ActionEvent event) {
@@ -63,6 +83,7 @@ public class ChartsController extends Controller implements Initializable{
 		}
 		changeChart();
 	}
+	
 	// Event Listener on JFXButton[#_right].onAction
 	@FXML
 	public void handleRight(ActionEvent event) {
@@ -82,75 +103,49 @@ public class ChartsController extends Controller implements Initializable{
 		}
 		changeChart();
 	}
+	
 	public void setMainApp(MainApp mainApp) {
 		_mainApp=mainApp;
 		changeChart();
 	}
 	public void changeChart() {  
 		try {
-//					      CategoryAxis xAxis = new CategoryAxis();  
-//					      xAxis.setCategories(FXCollections.<String>
-//					      observableArrayList(Arrays.asList("Speed", "User rating", "Milage", "Safety")));
-//					      xAxis.setLabel("category");
-//					       
-//					      NumberAxis yAxis = new NumberAxis();
-//					      yAxis.setLabel("score");
-//					     
-		//Creating the Bar chart
+		//Creating and initialising the Bar chart
 		Gson g = new Gson();
 		_barChart.setTitle(_chartType.toString() + "Recent High Scores");
-		System.out.println("Changed");
 		XYChart.Series<String, Number> series2 = new XYChart.Series<>();
+		_barChart.setLegendVisible(false);
 		series2.setName("Score(%)");
-		System.out.println("Logs/" + _chartType.getFileSuffix());
+
+		//If saved data exists fetch and load it into the chart for the respective levels.
 		if(new File("Logs/" + _chartType.getFileSuffix()).exists()) {
-			System.out.println("passed if");
 			BufferedReader br = new BufferedReader(new FileReader("Logs/" + _chartType.getFileSuffix()));
 			String line = null;
+			int totalLines = 0;
+			int linesRead = 0;
+			//first pass to calculate total number of lines in a file
 			while((line = br.readLine()) != null) {
-				System.out.println("Loaded");
+				totalLines++;
+			}
+			line = null;
+			br = new BufferedReader(new FileReader("Logs/" + _chartType.getFileSuffix()));
+			while((line = br.readLine()) != null) {
+				linesRead++;
+				if(linesRead >= totalLines - 9) {
 				LogData logData = g.fromJson(line, LogData.class);
 				series2.getData().add(new XYChart.Data<>(logData.toString(),logData.toRatio()));
-			}
+				}
+				}
 			_barChart.getData().addAll(series2);
 		}
 		
-//		series2.getData().add(new XYChart.Data<>("a", 50.0));
-//		series2.getData().add(new XYChart.Data<>("b", 80.0));
-//		series2.getData().add(new XYChart.Data<>("c", 100.0));
-//		series2.getData().add(new XYChart.Data<>("d", 20.0));
-		//Setting the data to bar chart       
-
+		//Setting the color of the bars to orange.
 		_barChart.lookupAll(".default-color0.chart-bar")
 		.forEach(n -> n.setStyle("-fx-bar-fill: orange;"));
 		}catch (JsonSyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		//		_anchor.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-		_yAxis.setAutoRanging(false);
-		_yAxis.setLowerBound(0);
-		_yAxis.setUpperBound(100);
-		_yAxis.setTickUnit(10);
-		_barChart.getXAxis().setAnimated(false);
-		_barChart.getYAxis().setAnimated(false);
-		_barChart.setAnimated(false);
-		Image right = new Image(getClass().getClassLoader().getResource("Icons/right.png").toString());//
-		_next.setGraphic(new ImageView(right));
-		Image left = new Image(getClass().getClassLoader().getResource("Icons/left.png").toString());//
-		_previous.setGraphic(new ImageView(left));
-		Image quit = new Image(getClass().getClassLoader().getResource("Icons/quit.png").toString());//
-		_back.setGraphic(new ImageView(quit));
-		Image background = new Image(getClass().getClassLoader().getResource("fern.jpg").toString());//
-		_imageView.setImage(background);
-		_imageView.setOpacity(0.1);
-
 	}
 }

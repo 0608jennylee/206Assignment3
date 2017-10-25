@@ -7,6 +7,7 @@ import a03.enumerations.Difficulty;
 
 public class EquationsGenerator extends Generator{
 
+	//By default, so for a non custom level set the number or questions to 10.
 	public EquationsGenerator(Difficulty level) {
 		super(level, 10);
 	}

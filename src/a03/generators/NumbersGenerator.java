@@ -7,6 +7,7 @@ import a03.enumerations.Difficulty;
 
 public class NumbersGenerator extends Generator{
 
+	//By default set number of questions to 10 is the generator is not attempting to generate custom question list.
 	public NumbersGenerator(Difficulty level) {
 		super(level, 10);
 	}
