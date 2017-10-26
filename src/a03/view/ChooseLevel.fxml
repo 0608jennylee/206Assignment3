@@ -39,6 +39,6 @@
             </JFXButton>
 			</children>
 		</VBox>
-		<JFXButton fx:id="_back" layoutX="39.0" layoutY="55.0" onAction="#handleMainMenu" ripplerFill="#ffffff2e" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0" />
+		<JFXButton fx:id="_back" layoutX="39.0" layoutY="55.0" onAction="#handleMainMenu" onMouseEntered="#handleHoverEnter" onMouseExited="#handleHoverExit" opacity="0.75" ripplerFill="#ffffff2e" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0" />
 	</children>
 </AnchorPane>

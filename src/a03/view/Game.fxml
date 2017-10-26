@@ -43,7 +43,7 @@
 			</children>
 		</HBox>
 		<JFXButton fx:id="_nextQuestion" layoutX="580.0" layoutY="407.0" onAction="#handleNextQuestion" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="598.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="384.0" />
-		<JFXButton fx:id="_back" layoutX="39.0" layoutY="55.0" onAction="#handleBack" ripplerFill="#ffffff2e" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0" />
+		<JFXButton fx:id="_back" layoutX="39.0" layoutY="55.0" onAction="#handleBack" onMouseEntered="#handleHoverEnter" onMouseExited="#handleHoverExit" opacity="0.75" ripplerFill="#ffffff2e" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0" />
 		<JFXButton fx:id="_submit" layoutX="250.0" layoutY="371.0" onAction="#handleSubmit" style="-fx-background-color: orange; -fx-background-radius: 30;" text="Submit" AnchorPane.bottomAnchor="92.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0">
 			<font>
 				<Font name="Ubuntu Bold" size="16.0" />

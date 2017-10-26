@@ -18,7 +18,7 @@
 			<top>
 				<AnchorPane prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
 					<children>
-						<JFXButton fx:id="_back" layoutX="20.0" layoutY="20.0" onAction="#handleBack" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+						<JFXButton fx:id="_back" layoutX="20.0" layoutY="20.0" onAction="#handleBack" onMouseEntered="#handleHoverEnter" onMouseExited="#handleHoverExit" opacity="0.75" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
 					</children>
 				</AnchorPane>
 			</top>

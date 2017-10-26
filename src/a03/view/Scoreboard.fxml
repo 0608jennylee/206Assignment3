@@ -94,6 +94,6 @@
             </HBox>
 			</children>
 		</VBox>
-		<JFXButton fx:id="_mainMenu" onAction="#handleMainMenu" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+		<JFXButton fx:id="_mainMenu" onAction="#handleMainMenu" onMouseEntered="#handleHoverEnter" onMouseExited="#handleHoverExit" opacity="0.75" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
 	</children>
 </AnchorPane>

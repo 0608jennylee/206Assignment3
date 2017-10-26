@@ -15,7 +15,7 @@
             <Label fx:id="_scoreLabel" alignment="CENTER" BorderPane.alignment="CENTER" />
          </center>
       </BorderPane>
-		<JFXButton fx:id="_mainMenu" layoutX="39.0" layoutY="55.0" onAction="#handleMainMenu" ripplerFill="#ffffff2e" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0" />
+		<JFXButton fx:id="_mainMenu" layoutX="39.0" layoutY="55.0" onAction="#handleMainMenu" onMouseEntered="#handleHoverEnter" onMouseExited="#handleHoverExit" opacity="0.75" ripplerFill="#ffffff2e" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0" />
       <ButtonBar layoutX="398.0" layoutY="390.0" prefHeight="40.0" prefWidth="300.0" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="30.0">
         <buttons>
       		<JFXButton fx:id="_nextLevel" onAction="#handleNextLevel" prefWidth="100.0" style="-fx-background-color: orange; -fx-border-color: black; -fx-background-radius: 30; -fx-border-radius: 30;" text="Next Level" />
