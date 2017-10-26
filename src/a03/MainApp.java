@@ -5,6 +5,7 @@ import a03.enumerations.Difficulty;
 import a03.enumerations.GameState;
 import a03.enumerations.Level;
 import a03.view.CustomizeController;
+import a03.view.ErrorBoxController;
 import a03.view.ChartsController;
 import a03.view.ChooseDifficultyController;
 import a03.view.ChooseLevelController;
@@ -350,6 +351,7 @@ public class MainApp extends Application {
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("");
+			dialogStage.setResizable(false);
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.initOwner(_primaryStage);
 			Scene scene = new Scene(page);
@@ -369,6 +371,32 @@ public class MainApp extends Application {
 			}
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();
+
+		}catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
+	
+	public void customiseError(String text) {
+		try{// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/ErrorBox.fxml"));
+			AnchorPane page= (AnchorPane) loader.load();
+
+			// Create the dialog Stage.
+			Stage errorStage = new Stage();
+			errorStage.setTitle("");
+			errorStage.setResizable(false);
+			errorStage.initModality(Modality.WINDOW_MODAL);
+			errorStage.initOwner(_primaryStage);
+			Scene scene = new Scene(page);
+			errorStage.setScene(scene);
+			ErrorBoxController controller = loader.getController();
+			controller.setDialogStage(errorStage);
+			controller.setText(text);
+			controller.setMainApp(this);
+			// Show the dialog and wait until the user closes it
+			errorStage.showAndWait();
 
 		}catch (IOException e1) {
 			e1.printStackTrace();

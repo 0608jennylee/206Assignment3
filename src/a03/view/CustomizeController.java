@@ -5,16 +5,22 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
+import a03.MainApp;
 import a03.enumerations.Difficulty;
 import a03.enumerations.Level;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class CustomizeController extends Controller implements Initializable{
 	@FXML private ImageView _imageView;
@@ -27,6 +33,14 @@ public class CustomizeController extends Controller implements Initializable{
 	@FXML private TextField _maxTB;
 	@FXML private Slider _slider;
 	
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		Image quit = new Image(getClass().getClassLoader().getResource("Icons/quit.png").toString());//
+		_mainMenu.setGraphic(new ImageView(quit));
+		Image background = new Image(getClass().getClassLoader().getResource("fern.jpg").toString());//
+		_imageView.setImage(background);
+		_imageView.setOpacity(0.34);
+	}
 	@FXML private void handleMainMenu() {
 		_mainApp.mainMenuContents();
 	}
@@ -45,82 +59,60 @@ public class CustomizeController extends Controller implements Initializable{
 		}else if(_equationsCB.isSelected()){
 			level = Level.EQUATIONS;
 		}else {
-			//TODO make it show that they must select a level type;
-			//prompt();
-			System.out.println("Level returned");
+			error("No level type selected, please choose either numbers, equations or both.");
 			return;
 		}
 		
 		if (_minTB.getText()==null||_minTB.getText().length()==0) {
-			//TODO show the user they must input something;
-			//prompt();
-			System.out.println("error no input");
+			error("Minimum must have a value");
 			return;
 			
 		}
 		else if (Pattern.matches("[a-zA-Z]+", _minTB.getText()) == true) {
-			//TODO prompt user they must input a number;
-			//prompt();
-			System.out.println("error not numbers");
+			error("Minimum can only be integer chracters e.g 1, 10, 99.");
 			return;
 			
 		}else {
 				minimum=Integer.parseInt(_minTB.getText());
 				if (minimum<=0) {
-					System.out.println("minimum too low");
-					//TODO prompt user less than 0;
-					//prompt();
+					error("Minimum value cannot be below 0.");
 					return;
 					
 				}else if (minimum>99) {
-					System.out.println("minimum too high");
-					//TODO prompt user too high;
-					//prompt();
+					error("Minimum cannot exceed the maximum allowed value of 99.");
 					return;
 					
 				}
 		}
 		if (_maxTB.getText()==null||_maxTB.getText().length()==0) {
-			System.out.println("error no input");
-			//TODO show the user they must input something;
-			//prompt();
+			error("Maximum must have a value");
 			return;
 			
 		}
 		else if (Pattern.matches("[a-zA-Z]+", _maxTB.getText()) == true) {
-			System.out.println("error not numbers");
-			//TODO prompt user they must input a number;
-			//prompt();
+			error("Maximum can only be integer characters. e.g 1, 10, 99.");
 			return;
 			
 		}
 		else {
 			maximum=Integer.parseInt(_maxTB.getText());
 			if (maximum<=0) {
-				System.out.println("minimum too low");
-				//TODO prompt user less than 0;
-				//prompt();
+				error("Minimum value cannot be below 0.");
 				return;
 				
 			}else if (maximum>99) {
-				System.out.println("minimum too high");
-				//TODO prompt user too high;
-				//prompt();
+				error("Maximum value cannot exceed 99.");
 				return;
 				
 			}
 			if (maximum<minimum) {
-				System.out.println("Invalid range");
-				//TODO prompt user invalid range;
-				//prompt();
+				error("Invalid range, maximum cannot be less than minimum.");
 				return;
 				
 			}
 		}
 		if(Math.round((float)_slider.getValue()) == 0) {
-			
-			//TODO prompt user cannot have 0 questions;
-			//prompt();
+			error("Cannot have zero questions");
 			return;
 		}else {
 			questions = Math.round((float)_slider.getValue());
@@ -132,18 +124,12 @@ public class CustomizeController extends Controller implements Initializable{
 			_mainApp.LoadLevel(level, difficulty);
 		}else {
 			_mainApp.Start(level,difficulty, questions);
-			System.out.println("questions " + questions);
 		}
 		
 	}
 	
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		Image quit = new Image(getClass().getClassLoader().getResource("Icons/quit.png").toString());//
-		_mainMenu.setGraphic(new ImageView(quit));
-		Image background = new Image(getClass().getClassLoader().getResource("fern.jpg").toString());//
-		_imageView.setImage(background);
-		_imageView.setOpacity(0.34);
+	private void error(String text) {
+		_mainApp.customiseError(text);
 	}
 
 }
