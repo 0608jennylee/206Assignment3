@@ -278,7 +278,6 @@ public class GameController extends Controller implements Initializable, Saveabl
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		GameStats.getGameStats().update(_difficulty,_level, _correctAnswers);
 		_mainApp.Score(_correctAnswers,_totalQuestions, _difficulty, _level);
 	}
 
