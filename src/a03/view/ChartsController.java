@@ -112,7 +112,7 @@ public class ChartsController extends Controller implements Initializable{
 		try {
 		//Creating and initialising the Bar chart
 		Gson g = new Gson();
-		_barChart.setTitle(_chartType.toString() + "Recent High Scores");
+		_barChart.setTitle(_chartType.toString() + "Recent Scores");
 		XYChart.Series<String, Number> series2 = new XYChart.Series<>();
 		_barChart.setLegendVisible(false);
 		series2.setName("Score(%)");

@@ -100,9 +100,39 @@ public class GameController extends Controller implements Initializable, Saveabl
 	private int _totalQuestions = 10;
 
 	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		Image right = new Image(getClass().getClassLoader().getResource("Icons/right.png").toString());//
+		_nextQuestion.setGraphic(new ImageView(right));
+		recordButton();
+		Image listen = new Image(getClass().getClassLoader().getResource("Icons/bullhorn-6x.png").toString());//
+		_playback.setGraphic(new ImageView(listen));
+		Image quit = new Image(getClass().getClassLoader().getResource("Icons/quit.png").toString());//
+		_back.setGraphic(new ImageView(quit));
+		Image background = new Image(getClass().getClassLoader().getResource("fern.jpg").toString());//
+		_imageView.setImage(background);
+		_imageView.setOpacity(0.3);
+		_progressBar.setVisible(false);
+	}
+
+	private void initProgressBar() {
+		Image q = new Image(getClass().getClassLoader().getResource("Progress/q.1.png").toString());//
+		_A1.setImage(q);
+		_A2.setImage(q);
+		_A3.setImage(q);
+		_A4.setImage(q);
+		_A5.setImage(q);
+		_A6.setImage(q);
+		_A7.setImage(q);
+		_A8.setImage(q);
+		_A9.setImage(q);
+		_A10.setImage(q);
+	}
+
+	@Override
 	public void setMainAppHook() {
 		RECORDINGSFOLDER = "Recordings/" + _level.toString() + _difficulty.toString() + "/";
 	}
+	
 	/**
 	 * when the record button is clicked, the recording starts in a background 
 	 * thread, and changes correct based on whether they are wrong or correct
@@ -111,30 +141,49 @@ public class GameController extends Controller implements Initializable, Saveabl
 	// Event Listener on Button[#_record].onAction
 	@FXML
 	public void handleRecord(ActionEvent event) {
+		//!!!! this methods multithreading violates concurrency rules. The bcakground thread makes changes to the gui.
+		
+		//For the purpose of not cluttering the directory the jar is in check if the specified recording saving directory exists, if not then create the hierarchy.
 		if(!new File(RECORDINGSFOLDER).exists()) {
 			new File(RECORDINGSFOLDER).mkdirs();
 		}
+		
+		//Disable the submit and playback button to not create concurrency problems by both trying to write and read the audio file. Also helps prevent user error.
 		_playback.setDisable(true);
 		_submit.setDisable(true);
-		if (_secondTry&&_tryAgainPressed||_failed){ //if it fails or is the second try for the user
+		
+		if (_secondTry&&_tryAgainPressed||_failed){ //if it fails or is the second try for the user. Enters this if statement IF the button is in try again state rather than record.
+			
 			setQuestion();
+			
 			//if its failed will change the tryAgainPressed to false
 			if(!_failed) {
 				_tryAgainPressed=false;
 			}
+			
+			//set to record button.
 			recordButton();
 			_failed=false;
+			
 		}else{//recording
+			
+			//multithreading recording on background as to not freeze gui
 			Task<Void> record = new Task<Void>() { 
 				@Override
 				protected Void call() throws Exception {
+					
 					_progressBar.setVisible(true);
+					//disable the record button to not allow the user to trigger numerous recording threads.
 					_record.setDisable(true);
+					
+					//Using system call to arecord to record audio.
 					String cmd = "arecord -d 2 -r 22050 -c 1 -i -t wav -f s16_LE " + RECORDINGSFOLDER + Processor.toInt(_numbers.get(_currentQuestion)) + ".wav;echo record passed; HVite -H HMMs/hmm15/macros -H HMMs/hmm15/hmmdefs -C user/configLR  -w user/wordNetworkNum -o SWT -l '*' -i recout.mlf -p 0.0 -s 5.0  user/dictionaryD user/tiedList " + RECORDINGSFOLDER + Processor.toInt(_numbers.get(_currentQuestion)) + ".wav; echo processing passed;";
 					ProcessBuilder pb = new ProcessBuilder("bash", "-c", cmd);
 					try {
 						Process p = pb.start();
 						p.waitFor();
+						
+						//after the recording has finished reenable the buttons and hide the progress bar.
 						_playback.setDisable(false);
 						_submit.setDisable(false);
 						_record.setDisable(false);
@@ -155,6 +204,9 @@ public class GameController extends Controller implements Initializable, Saveabl
 	 * @param e
 	 */
 	public void handlePlayback(ActionEvent e) {
+		
+		//disables the buttons to prevent concurrency problems writing and reading simultaneously, also prevent user error via button locking.
+		//buttons are reenabled in the enable().
 		_record.setDisable(true);
 		_playback.setDisable(true);
 		_submit.setDisable(true);
@@ -165,6 +217,74 @@ public class GameController extends Controller implements Initializable, Saveabl
 		mp.play();
 	}
 
+	/**
+	 * when the next question button is clicked notifies the stage 
+	 * to switch scenes to the level that will be played
+	 * @param event
+	 */
+	@FXML 
+	public void handleNextQuestion(){
+		setQuestion();
+	}
+
+	/**
+	 * when the mainmenu button is clicked notifies the stage 
+	 * to switch scenes back to the main menu
+	 * @param event
+	 */
+	@FXML
+	public void handleBack(){
+		_mainApp.confirmExit(true);
+	}
+
+	//Event handler for when the submit button is pressed.
+	@FXML
+	public void handleSubmit() {
+		try {
+			Processor processor = new Processor();
+			if(processor.processAnswer(Processor.toInt(_numbers.get(_currentQuestion)))) {
+				_correct=true;
+			}else {
+				_correct=false;
+			}
+		}catch(HTKError e) {
+			_failed = true;
+		}finally {
+			check();
+		}
+	}
+
+	/**
+	 * at the end of each game, displays the score, and gives the user 
+	 * the option to go back to main menu play again or go to next level 
+	 * if they are on easy and have passed it
+	 */
+	private void displayFinalScore() {
+		boolean flag = new File("Logs/" + _level.toString() + _difficulty.toString() + "History.dat").exists();
+		GameStats.getGameStats().update(_difficulty,_level, _correctAnswers);
+		Gson g = new Gson();
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM HH:mm");
+		LocalDateTime localdatetime = LocalDateTime.now();
+		String j = g.toJson(new LogData(_correctAnswers, _totalQuestions, _level, _difficulty, dtf.format(localdatetime)));
+		if(!new File("Logs").exists()) {
+			new File("Logs").mkdir();
+		}
+	
+		try (FileWriter filewriter = new FileWriter("Logs/" + _level.toString() + _difficulty.toString() + "History.dat", true)){
+			if(flag) {
+				filewriter.append(System.lineSeparator());
+			}
+			filewriter.append(j.toString());
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		GameStats.getGameStats().update(_difficulty,_level, _correctAnswers);
+		_mainApp.Score(_correctAnswers,_totalQuestions, _difficulty, _level);
+	}
+
+	/**
+	 * a helper method that sets the buttons into a correct state after playback.
+	 */
 	private void enable() {
 		_record.setDisable(false);
 		_playback.setDisable(false);
@@ -178,17 +298,24 @@ public class GameController extends Controller implements Initializable, Saveabl
 	 */
 
 	public void check(){
+		
+		//Button lock to prevent multithread accessing the same resource.
 		_submit.setDisable(true);
 		_record.setDisable(true);
 		_playback.setDisable(true);
+		
 		if (_failed){
-			//TODO indicate an htk error perhaps color border yellow?
+			
+			//makes the questions border go yellow to indicate a non user fault.
+			
+			colorFailed();
 			tryAgain();
 			_record.setDisable(false);
 			_playback.setDisable(true);
 			_submit.setDisable(true);
 		}else if(_correct){ //user gets correct answer
 			
+			//makes the label border green to indicate the answer was correct.
 			colorCorrect();
 			
 			if(_difficulty != Difficulty.CUSTOM) {
@@ -215,9 +342,11 @@ public class GameController extends Controller implements Initializable, Saveabl
 			colorWrong();
 			
 			if (_secondTry){//user gets the answer incorrect the second time
+				
 				if(_difficulty != Difficulty.CUSTOM) {
 					setProgress(Correctness.INCORRECT);
 				}
+				
 				delete();
 				_theCorrectAnswer.setText((Processor.toMaori(Processor.toInt(_numbers.get(_currentQuestion)))));
 				_theirAnswer.setText(Processor.getUserAnswer());
@@ -225,16 +354,21 @@ public class GameController extends Controller implements Initializable, Saveabl
 				_currentQuestion++;
 				_record.setDisable(true);
 				recordButton();
+				
 				if(_currentQuestion != _totalQuestions) {
 					_nextQuestion.setVisible(true);
 				}
+				
 				_tryAgainPressed=false;
+				
 			}else{//user gets the answer incorrect the first time
+				
 				_secondTry = true;
 				_theirAnswer.setText(Processor.getUserAnswer());
 				tryAgain();
 				_record.setDisable(false);
 				_tryAgainPressed=true;
+				
 			}
 		}
 		
@@ -253,137 +387,15 @@ public class GameController extends Controller implements Initializable, Saveabl
 	private void colorWrong() {
 		_question.setStyle("-fx-border-color: red; -fx-border-width: 5; -fx-border-radius: 5;");
 	}
-
-	/**
-	 * at the end of each game, displays the score, and gives the user 
-	 * the option to go back to main menu play again or go to next level 
-	 * if they are on easy and have passed it
-	 */
-	private void displayFinalScore() {
-		boolean flag = new File("Logs/" + _level.toString() + _difficulty.toString() + "History.dat").exists();
-		GameStats.getGameStats().update(_difficulty,_level, _correctAnswers);
-		Gson g = new Gson();
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM HH:mm");
-		LocalDateTime localdatetime = LocalDateTime.now();
-		String j = g.toJson(new LogData(_correctAnswers, _totalQuestions, _level, _difficulty, dtf.format(localdatetime)));
-		if(!new File("Logs").exists()) {
-			new File("Logs").mkdir();
-		}
-
-		try (FileWriter filewriter = new FileWriter("Logs/" + _level.toString() + _difficulty.toString() + "History.dat", true)){
-			if(flag) {
-				filewriter.append(System.lineSeparator());
-			}
-			filewriter.append(j.toString());
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		GameStats.getGameStats().update(_difficulty,_level, _correctAnswers);
-		_mainApp.Score(_correctAnswers,_totalQuestions, _difficulty, _level);
-	}
-
-	/**
-	 * when the next question button is clicked notifies the stage 
-	 * to switch scenes to the level that will be played
-	 * @param event
-	 */
-	@FXML 
-	public void handleNextQuestion(){
-		setQuestion();
-	}
-
-	/**
-	 * when the mainmenu button is clicked notifies the stage 
-	 * to switch scenes back to the main menu
-	 * @param event
-	 */
-	@FXML
-	public void handleBack(){
-		_mainApp.confirmExit(true);
-	}
-
-	/**
-	 * when the next level button is clicked at the end of the level 
-	 * notifies the stage to switch scenes to start to create a new instance 
-	 * of the level
-	 * @param event
-	 */
-	@FXML
-	public void handleNextLevel(){
-		if (_difficulty==Difficulty.HARD||(_difficulty==Difficulty.EASY&&_correctAnswers>=8)) {
-			_mainApp.Start(_level, Difficulty.HARD, 10);
-		}else {
-			_mainApp.Start(_level, _difficulty, 10);
-		}
-	}
-
-	/**
-	 * sets the level of the current scene. 
-	 * NOTE: FOR GAMECONTROLLER THIS METHOD MUST BE CALLED BEFORE CALLING THE SET QUESTION METHOD
-	 * @param level
-	 */
-	public void setDifficulty(Difficulty difficulty, Level level, int questions){
-		_level=level;
-		_totalQuestions = questions;
-		if (difficulty==Difficulty.HARD){
-			_display = "Hard ";
-		}else if(difficulty == Difficulty.EASY){
-			_display = "Easy ";
-		}else {
-			_display = "Custom ";
-		}
-
-		_difficulty = difficulty;
-		GeneratorFactory gf = new GeneratorFactory();
-		_generator = gf.getGenerator(_difficulty, _level, questions);
-		_numbers = _generator.getNumbers();
-		if(_difficulty != Difficulty.CUSTOM) {
-		initProgressBar();
-		}else {
-			_A1.getParent().setVisible(false);
-		}
-	}
-
-	/**
-	 * sets the question of the current scene
-	 */
-	public void setQuestion(){
+	
+	private void defaultColor() {
 		_question.setStyle("-fx-border-color: transparent;");
-		if(!_secondTry) {
-			_playback.setDisable(true);
-			_submit.setDisable(true);
-		}else {
-			_record.setDisable(false);
-			_submit.setDisable(true);
-			_playback.setDisable(true);
-		}
-		_theirAnswer.setText("");
-		_theCorrectAnswer.setText("");
-		_nextQuestion.setVisible(false);
-		_question.setFont(new Font("Ubuntu",100));
-		_question.setText(_numbers.get(_currentQuestion));
-		int display = _currentQuestion+1;
-		_title.setText(_display +"Question: "+display + " of " + _totalQuestions);
-		_record.setDisable(false);
 	}
 
-	//Event handler for when the submit button is pressed.
-	@FXML
-	public void handleSubmit() {
-		try {
-			Processor processor = new Processor();
-			if(processor.processAnswer(Processor.toInt(_numbers.get(_currentQuestion)))) {
-				_correct=true;
-			}else {
-				_correct=false;
-			}
-		}catch(HTKError e) {
-			_failed = true;
-		}finally {
-			check();
-		}
+	private void colorFailed(){
+		_question.setStyle("-fx-border-color: yellow; -fx-border-width: 5; -fx-border-radius: 5;");
 	}
-
+	
 	/**
 	 * this method is called to delete the recording that was made this is to prevent recording persistence messing up as you could replay previous records
 	 * as they shared the same name. This is also for a space saving effect and to not clutter the file hierarchy.
@@ -391,107 +403,6 @@ public class GameController extends Controller implements Initializable, Saveabl
 	private void delete() {
 		File recordings = new File(RECORDINGSFOLDER + Processor.toInt(_numbers.get(_currentQuestion)) + ".wav");
 		recordings.delete();
-	}
-	
-	private void initProgressBar() {
-		Image q = new Image(getClass().getClassLoader().getResource("Progress/q.1.png").toString());//
-		_A1.setImage(q);
-		_A2.setImage(q);
-		_A3.setImage(q);
-		_A4.setImage(q);
-		_A5.setImage(q);
-		_A6.setImage(q);
-		_A7.setImage(q);
-		_A8.setImage(q);
-		_A9.setImage(q);
-		_A10.setImage(q);
-	}
-
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		Image right = new Image(getClass().getClassLoader().getResource("Icons/right.png").toString());//
-		_nextQuestion.setGraphic(new ImageView(right));
-		recordButton();
-		Image listen = new Image(getClass().getClassLoader().getResource("Icons/bullhorn-6x.png").toString());//
-		_playback.setGraphic(new ImageView(listen));
-		Image quit = new Image(getClass().getClassLoader().getResource("Icons/quit.png").toString());//
-		_back.setGraphic(new ImageView(quit));
-		Image background = new Image(getClass().getClassLoader().getResource("fern.jpg").toString());//
-		_imageView.setImage(background);
-		_imageView.setOpacity(0.3);
-		_progressBar.setVisible(false);
-	}
-	
-	/**
-	 * Based on the current question this method should be called when the user has got it correct or after two failed attempts.
-	 * this method updates the progress bar to display that status of each question for default 10 question levels only(Excludes customised levels).
-	 * @param correctness
-	 */
-	private void setProgress(Correctness correctness) {
-		Image correct = new Image(getClass().getClassLoader().getResource("Progress/c.png").toString());//
-		Image incorrect = new Image(getClass().getClassLoader().getResource("Progress/i.png").toString());//
-
-		if (_currentQuestion==0) {
-			if (correctness==Correctness.CORRECT) {
-				_A1.setImage(correct);
-			}else {
-				_A1.setImage(incorrect);
-			}
-		}else if (_currentQuestion==1) {
-			if (correctness==Correctness.CORRECT) {
-				_A2.setImage(correct);
-			}else {
-				_A2.setImage(incorrect);
-			}
-		}else if (_currentQuestion==2) {
-			if (correctness==Correctness.CORRECT) {
-				_A3.setImage(correct);
-			}else {
-				_A3.setImage(incorrect);
-			}
-		}else if (_currentQuestion==3) {
-			if (correctness==Correctness.CORRECT) {
-				_A4.setImage(correct);
-			}else {
-				_A4.setImage(incorrect);
-			}
-		}else if (_currentQuestion==4) {
-			if (correctness==Correctness.CORRECT) {
-				_A5.setImage(correct);
-			}else {
-				_A5.setImage(incorrect);
-			}
-		}else if (_currentQuestion==5) {
-			if (correctness==Correctness.CORRECT) {
-				_A6.setImage(correct);
-			}else {
-				_A6.setImage(incorrect);
-			}
-		}else if (_currentQuestion==6) {
-			if (correctness==Correctness.CORRECT) {
-				_A7.setImage(correct);
-			}else {
-				_A7.setImage(incorrect);
-			}
-		}else if (_currentQuestion==7) {
-			if (correctness==Correctness.CORRECT) {
-				_A8.setImage(correct);
-			}else {
-				_A8.setImage(incorrect);
-			}
-		}else if (_currentQuestion==8) {
-			if (correctness==Correctness.CORRECT) {
-				_A9.setImage(correct);
-			}else {
-				_A9.setImage(incorrect);
-			}
-		}else if (_currentQuestion==9) {
-			if (correctness==Correctness.CORRECT) {
-				_A10.setImage(correct);
-			}else {
-				_A10.setImage(incorrect);
-			}
-		}
 	}
 	
 	/**
@@ -560,6 +471,128 @@ public class GameController extends Controller implements Initializable, Saveabl
 	}
 	
 //Private getters for loading from json. private as access is from within this class and to not expose implementation details.
+
+	/**
+	 * Based on the current question this method should be called when the user has got it correct or after two failed attempts.
+	 * this method updates the progress bar to display that status of each question for default 10 question levels only(Excludes customised levels).
+	 * @param correctness
+	 */
+	private void setProgress(Correctness correctness) {
+		Image correct = new Image(getClass().getClassLoader().getResource("Progress/c.png").toString());//
+		Image incorrect = new Image(getClass().getClassLoader().getResource("Progress/i.png").toString());//
+	
+		if (_currentQuestion==0) {
+			if (correctness==Correctness.CORRECT) {
+				_A1.setImage(correct);
+			}else {
+				_A1.setImage(incorrect);
+			}
+		}else if (_currentQuestion==1) {
+			if (correctness==Correctness.CORRECT) {
+				_A2.setImage(correct);
+			}else {
+				_A2.setImage(incorrect);
+			}
+		}else if (_currentQuestion==2) {
+			if (correctness==Correctness.CORRECT) {
+				_A3.setImage(correct);
+			}else {
+				_A3.setImage(incorrect);
+			}
+		}else if (_currentQuestion==3) {
+			if (correctness==Correctness.CORRECT) {
+				_A4.setImage(correct);
+			}else {
+				_A4.setImage(incorrect);
+			}
+		}else if (_currentQuestion==4) {
+			if (correctness==Correctness.CORRECT) {
+				_A5.setImage(correct);
+			}else {
+				_A5.setImage(incorrect);
+			}
+		}else if (_currentQuestion==5) {
+			if (correctness==Correctness.CORRECT) {
+				_A6.setImage(correct);
+			}else {
+				_A6.setImage(incorrect);
+			}
+		}else if (_currentQuestion==6) {
+			if (correctness==Correctness.CORRECT) {
+				_A7.setImage(correct);
+			}else {
+				_A7.setImage(incorrect);
+			}
+		}else if (_currentQuestion==7) {
+			if (correctness==Correctness.CORRECT) {
+				_A8.setImage(correct);
+			}else {
+				_A8.setImage(incorrect);
+			}
+		}else if (_currentQuestion==8) {
+			if (correctness==Correctness.CORRECT) {
+				_A9.setImage(correct);
+			}else {
+				_A9.setImage(incorrect);
+			}
+		}else if (_currentQuestion==9) {
+			if (correctness==Correctness.CORRECT) {
+				_A10.setImage(correct);
+			}else {
+				_A10.setImage(incorrect);
+			}
+		}
+	}
+
+	/**
+	 * sets the level of the current scene. 
+	 * NOTE: FOR GAMECONTROLLER THIS METHOD MUST BE CALLED BEFORE CALLING THE SET QUESTION METHOD
+	 * @param level
+	 */
+	public void setDifficulty(Difficulty difficulty, Level level, int questions){
+		_level=level;
+		_totalQuestions = questions;
+		if (difficulty==Difficulty.HARD){
+			_display = "Hard ";
+		}else if(difficulty == Difficulty.EASY){
+			_display = "Easy ";
+		}else {
+			_display = "Custom ";
+		}
+	
+		_difficulty = difficulty;
+		GeneratorFactory gf = new GeneratorFactory();
+		_generator = gf.getGenerator(_difficulty, _level, questions);
+		_numbers = _generator.getNumbers();
+		if(_difficulty != Difficulty.CUSTOM) {
+		initProgressBar();
+		}else {
+			_A1.getParent().setVisible(false);
+		}
+	}
+
+	/**
+	 * sets the question of the current scene
+	 */
+	public void setQuestion(){
+		defaultColor();
+		if(!_secondTry) {
+			_playback.setDisable(true);
+			_submit.setDisable(true);
+		}else {
+			_record.setDisable(false);
+			_submit.setDisable(true);
+			_playback.setDisable(true);
+		}
+		_theirAnswer.setText("");
+		_theCorrectAnswer.setText("");
+		_nextQuestion.setVisible(false);
+		_question.setFont(new Font("Ubuntu",100));
+		_question.setText(_numbers.get(_currentQuestion));
+		int display = _currentQuestion+1;
+		_title.setText(_display +"Question: "+display + " of " + _totalQuestions);
+		_record.setDisable(false);
+	}
 
 	private boolean getCorrect() {
 		return _correct;
