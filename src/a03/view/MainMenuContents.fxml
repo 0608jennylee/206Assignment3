@@ -22,6 +22,7 @@
 						<JFXButton fx:id="_playButton" onAction="#handlePlay" onMouseEntered="#handleHoverEnter" onMouseExited="#handleHoverExit" opacity="0.75" prefHeight="54.0" prefWidth="89.0" ripplerFill="#827c7c00" style="-fx-border-radius: 30;" />
 						<JFXButton fx:id="_statisticsButton" buttonType="RAISED" onAction="#handleCharts" onMouseEntered="#handleHoverEnter" onMouseExited="#handleHoverExit" opacity="0.75" prefHeight="54.0" prefWidth="89.0" ripplerFill="#837c7cc2" style="-fx-border-radius: 30;" />
 						<JFXButton fx:id="_trophyButton" buttonType="RAISED" onAction="#handleStatistics" onMouseEntered="#handleHoverEnter" onMouseExited="#handleHoverExit" opacity="0.75" prefHeight="54.0" prefWidth="89.0" ripplerFill="#837c7cc2" style="-fx-border-radius: 30;" />
+                  <JFXButton fx:id="_about" buttonType="RAISED" layoutX="220.0" layoutY="10.0" onAction="#handleAbout" onMouseEntered="#handleHoverEnter" onMouseExited="#handleHoverExit" opacity="0.75" prefHeight="54.0" prefWidth="89.0" ripplerFill="#837c7cc2" style="-fx-border-radius: 30;" />
 						<JFXButton fx:id="_exitButton" buttonType="RAISED" onAction="#handleExit" onMouseEntered="#handleHoverEnter" onMouseExited="#handleHoverExit" opacity="0.75" prefHeight="54.0" prefWidth="89.0" ripplerFill="#837c7cc2" style="-fx-border-radius: 30;" />
 					</children>
 				</HBox>

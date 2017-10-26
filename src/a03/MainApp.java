@@ -6,6 +6,7 @@ import a03.enumerations.GameState;
 import a03.enumerations.Level;
 import a03.view.CustomizeController;
 import a03.view.ErrorBoxController;
+import a03.view.AboutController;
 import a03.view.ChartsController;
 import a03.view.ChooseDifficultyController;
 import a03.view.ChooseLevelController;
@@ -377,6 +378,10 @@ public class MainApp extends Application {
 		}
 	}
 	
+	/**
+	 * load an error pop up box with a custom message, this is specifically for the potential user errors when it comes to customising their own level in the customiseController.
+	 * @param text
+	 */
 	public void customiseError(String text) {
 		try{// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
@@ -400,6 +405,25 @@ public class MainApp extends Application {
 
 		}catch (IOException e1) {
 			e1.printStackTrace();
+		}
+	}
+	
+	public void About() {
+		try {
+			//Load statistics 
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/About.fxml"));
+			AnchorPane charts = (AnchorPane) loader.load();
+			//load statistics scene on the primary stage
+			Scene scene = new Scene(charts);
+			_primaryStage.setScene(scene);
+			_primaryStage.show();
+			// Give the controller access to the main app.
+			AboutController controller = loader.getController();
+			controller.setMainApp(this);
+			//controller.setScores();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 

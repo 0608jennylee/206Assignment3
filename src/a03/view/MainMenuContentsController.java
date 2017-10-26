@@ -23,6 +23,7 @@ import javafx.event.ActionEvent;
 public class MainMenuContentsController extends Controller implements Initializable {
 
 	@FXML private JFXButton _playButton;
+	@FXML private JFXButton _about;
 	@FXML private JFXButton _statisticsButton;
 	@FXML private JFXButton _exitButton;
 	@FXML private JFXButton _trophyButton;
@@ -57,16 +58,23 @@ public class MainMenuContentsController extends Controller implements Initializa
 	 */
 	// Event Listener on Button.onAction
 	@FXML
-	public void handleStatistics(ActionEvent event) {
+	private void handleStatistics(ActionEvent event) {
 		_mainApp.Statistics();
 	}
+	
 	@FXML
-	public void handleCharts(ActionEvent event) {
+	private void handleCharts(ActionEvent event) {
 		_mainApp.Charts();
 	}
+	
 	@FXML
-	public void handleActivityLog(ActionEvent event) {
+	private void handleActivityLog(ActionEvent event) {
 		_mainApp.Statistics();
+	}
+	
+	@FXML
+	private void handleAbout(ActionEvent event) {
+		_mainApp.About();
 	}
 
 	@Override
@@ -82,5 +90,8 @@ public class MainMenuContentsController extends Controller implements Initializa
 		Image background = new Image(getClass().getClassLoader().getResource("fern.jpg").toString());//
 		_imageView.setImage(background);
 		_imageView.setOpacity(0.4);
+		Image about = new Image(getClass().getClassLoader().getResource("Icons/about.png").toString());
+		_about.setGraphic(new ImageView(about));
+		
 	}
 }
