@@ -40,6 +40,7 @@ public class CustomizeController extends Controller implements Initializable{
 		Image background = new Image(getClass().getClassLoader().getResource("fern.jpg").toString());//
 		_imageView.setImage(background);
 		_imageView.setOpacity(0.34);
+		_slider.setValue(10.0);
 	}
 	@FXML private void handleMainMenu() {
 		_mainApp.mainMenuContents();
