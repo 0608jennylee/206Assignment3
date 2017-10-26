@@ -25,11 +25,12 @@ public class ConfirmationDialogBoxController extends Controller implements Initi
 	private GameController _gameController;
 	private boolean _mainMenu = false;
 
-	// Event Listener on Button.onAction
+	// Event Listener on Button.onAction. Saves game stats and clear recordings.
 	@FXML
 	public void handleLeave(ActionEvent event) {
 		GameStats.getGameStats().save();
 		deleteRecordings();
+		//check to see if exit application or return to main menu.
 		if(_mainMenu) {
 			_dialogStage.close();
 			_mainApp.mainMenuContents();
@@ -38,11 +39,14 @@ public class ConfirmationDialogBoxController extends Controller implements Initi
 			Platform.exit();
 		}
 	}
-	// Event Listener on Button.onAction
+	
+	// Event Listener on Button.onAction. Save everything, gameStats and the current game values.
 	@FXML
 	public void handleSave(ActionEvent event) {
 		_gameController.save();
 		deleteRecordings();
+		
+		//check for if returning to main menu or not.
 		if(_mainMenu) {
 			_dialogStage.close();
 			_mainApp.mainMenuContents();
@@ -57,21 +61,27 @@ public class ConfirmationDialogBoxController extends Controller implements Initi
 	public void handleStay(ActionEvent event) {
 		_dialogStage.close();
 	}
+	
 	public void setDialogStage(Stage dialogStage) {
 		_dialogStage=dialogStage;
 	}
+	
 	public void setVisibleSaveButton() {
 		_save.setVisible(true);
 	}
+	
 	public void setInvisibleSaveButton() {
 		_save.setVisible(false);
 	}
+	
 	public void setLessThanTenController(GameController LTTC) {
 		_gameController = LTTC;
 	}
+	
 	public void setMainMenu(boolean mainMenu) {
 		_mainMenu = mainMenu;
 	}
+	
 	private void deleteRecordings() {
 		boolean found = false;
 		File[] files = new File("Saves").listFiles();

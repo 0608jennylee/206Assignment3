@@ -54,7 +54,6 @@ public class ChooseDifficultyController extends Controller implements Initializa
 	// Event Listener on Button.onAction
 	@FXML
 	public void handleHardSelection(ActionEvent event) {
-		//TODO
 		if(new File("Saves/" + _level.toString() + Difficulty.HARD + ".dat").exists()) {
 			_mainApp.LoadLevel(_level,Difficulty.HARD);
 		}else {
@@ -72,6 +71,7 @@ public class ChooseDifficultyController extends Controller implements Initializa
 	public void handleBack(ActionEvent event) {
 		_mainApp.chooseLevel();
 	}
+	
 	/**
 	 * when the mainmenu button is clicked notifies the stage 
 	 * to switch scenes back to the main menu
@@ -81,12 +81,6 @@ public class ChooseDifficultyController extends Controller implements Initializa
 	@FXML
 	public void handleMainMenu(ActionEvent event) {
 		_mainApp.mainMenuContents();
-	}
-	/**
-	 * disables the hard button
-	 */
-	public void disableHard() {
-		_hard.setDisable(true);
 	}
 
 	@Override

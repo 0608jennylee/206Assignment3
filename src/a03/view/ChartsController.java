@@ -123,7 +123,7 @@ public class ChartsController extends Controller implements Initializable{
 			String line = null;
 			int totalLines = 0;
 			int linesRead = 0;
-			//first pass to calculate total number of lines in a file
+			//first pass to calculate total number of lines in a file.
 			while((line = br.readLine()) != null) {
 				totalLines++;
 			}
@@ -131,6 +131,7 @@ public class ChartsController extends Controller implements Initializable{
 			br = new BufferedReader(new FileReader("Logs/" + _chartType.getFileSuffix()));
 			while((line = br.readLine()) != null) {
 				linesRead++;
+				//make sure only the last 10 lines are loaded which corresponds to 10 most recent games.
 				if(linesRead >= totalLines - 9) {
 				LogData logData = g.fromJson(line, LogData.class);
 				series2.getData().add(new XYChart.Data<>(logData.toString(),logData.toRatio()));

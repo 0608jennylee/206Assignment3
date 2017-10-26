@@ -163,7 +163,6 @@ public class MainApp extends Application {
 	 */
 	public void Start(Level level, Difficulty difficulty, int questions) {
 		try {
-			System.out.println("start questions = " + questions);
 			_gameState = GameState.MENU;
 			//Load start
 			FXMLLoader loader = new FXMLLoader();

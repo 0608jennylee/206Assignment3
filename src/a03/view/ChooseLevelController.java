@@ -15,31 +15,34 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class ChooseLevelController extends Controller implements Initializable{
-	@FXML
-	private ImageView _imageView;
-	@FXML
-	private JFXButton _back;
+	@FXML private ImageView _imageView;
+	@FXML private JFXButton _back;
+	
 	// Event Listener on JFXButton[#_back].onAction
 	@FXML
 	public void handleMainMenu(ActionEvent event) {
 		_mainApp.mainMenuContents();
 	}
+	
 	// Event Listener on JFXButton[#_back].onAction
 	@FXML
 	public void handleBack(ActionEvent event) {
 		_mainApp.mainMenuContents();
 	}
+	
 	// Event Listener on JFXButton[#_easy].onAction
 	@FXML
 	public void handleNumbersSelection(ActionEvent event) {
 		_mainApp.chooseDifficulty(Level.NUMBERS);
 	}
+	
 	// Event Listener on JFXButton[#_hard].onAction
 
 	@FXML
 	public void handleEquationsSelection(ActionEvent event) {
 		_mainApp.chooseDifficulty(Level.EQUATIONS);
 	}
+	
 	// Event Listener on JFXButton[#_hard].onAction
 	@FXML
 	public void handleCuztomizeSelection(ActionEvent event) {

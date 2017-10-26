@@ -181,16 +181,13 @@ public class GameController extends Controller implements Initializable, Saveabl
 		_submit.setDisable(true);
 		_record.setDisable(true);
 		_playback.setDisable(true);
-		if (_failed){//HTK failed
-			//			_sorry.setVisible(true);
-			//			_weMuckedUp.setVisible(true);
-			//			_tryAgain.setVisible(true);
+		if (_failed){
+			//TODO indicate an htk error perhaps color border yellow?
 			tryAgain();
 			_record.setDisable(false);
 			_playback.setDisable(true);
 			_submit.setDisable(true);
-			//_text.setVisible(true);
-		}else if(_correct){//user gets correct answer
+		}else if(_correct){ //user gets correct answer
 			
 			colorCorrect();
 			
@@ -240,11 +237,15 @@ public class GameController extends Controller implements Initializable, Saveabl
 				_tryAgainPressed=true;
 			}
 		}
-		if (_currentQuestion==_totalQuestions){//the user has answered the all questions for this level
+		
+		//the user has answered the all questions for this level
+		if (_currentQuestion==_totalQuestions){
 			displayFinalScore();
 		}
-	}
 		
+	}
+	
+	//The method sets the color of the labels border depending on the outcome of the question.
 	private	void colorCorrect() {
 		_question.setStyle("-fx-border-color: green; -fx-border-width: 5; -fx-border-radius: 5;");
 	}
@@ -256,7 +257,7 @@ public class GameController extends Controller implements Initializable, Saveabl
 	/**
 	 * at the end of each game, displays the score, and gives the user 
 	 * the option to go back to main menu play again or go to next level 
-	 * if they are on easy and have passed i
+	 * if they are on easy and have passed it
 	 */
 	private void displayFinalScore() {
 		boolean flag = new File("Logs/" + _level.toString() + _difficulty.toString() + "History.dat").exists();
@@ -317,7 +318,8 @@ public class GameController extends Controller implements Initializable, Saveabl
 	}
 
 	/**
-	 * sets the level of the current scene
+	 * sets the level of the current scene. 
+	 * NOTE: FOR GAMECONTROLLER THIS METHOD MUST BE CALLED BEFORE CALLING THE SET QUESTION METHOD
 	 * @param level
 	 */
 	public void setDifficulty(Difficulty difficulty, Level level, int questions){
@@ -365,6 +367,7 @@ public class GameController extends Controller implements Initializable, Saveabl
 		_record.setDisable(false);
 	}
 
+	//Event handler for when the submit button is pressed.
 	@FXML
 	public void handleSubmit() {
 		try {
@@ -381,6 +384,10 @@ public class GameController extends Controller implements Initializable, Saveabl
 		}
 	}
 
+	/**
+	 * this method is called to delete the recording that was made this is to prevent recording persistence messing up as you could replay previous records
+	 * as they shared the same name. This is also for a space saving effect and to not clutter the file hierarchy.
+	 */
 	private void delete() {
 		File recordings = new File(RECORDINGSFOLDER + Processor.toInt(_numbers.get(_currentQuestion)) + ".wav");
 		recordings.delete();
@@ -414,6 +421,12 @@ public class GameController extends Controller implements Initializable, Saveabl
 		_imageView.setOpacity(0.3);
 		_progressBar.setVisible(false);
 	}
+	
+	/**
+	 * Based on the current question this method should be called when the user has got it correct or after two failed attempts.
+	 * this method updates the progress bar to display that status of each question for default 10 question levels only(Excludes customised levels).
+	 * @param correctness
+	 */
 	private void setProgress(Correctness correctness) {
 		Image correct = new Image(getClass().getClassLoader().getResource("Progress/c.png").toString());//
 		Image incorrect = new Image(getClass().getClassLoader().getResource("Progress/i.png").toString());//
@@ -480,17 +493,29 @@ public class GameController extends Controller implements Initializable, Saveabl
 			}
 		}
 	}
+	
+	/**
+	 * Sets the image of the _record button to a try again icon. This button doubles as a recording button.
+	 */
 	public void tryAgain() {
 		Image quit = new Image(getClass().getClassLoader().getResource("Icons/reload-6x.png").toString());//
 		_record.setGraphic(new ImageView(quit));
 
 	}
+	
+	/**
+	 * Changes the image of the _record button to a microphone. This button doubles as a retry icon.
+	 */
 	public void recordButton() {
 		Image quit = new Image(getClass().getClassLoader().getResource("Icons/microphone-6x.png").toString());//
 		_record.setGraphic(new ImageView(quit));
 
 	}
 
+	/**
+	 * write the current values of our non-transient fields to a json file with the specified naming convention SAVEFOLDER/levelDifficulty.dat
+	 * this method should be exclusively called form the ConfirmationDialogBoxController.
+	 */
 	@Override
 	public void save() {
 		Gson g = new Gson();
@@ -505,8 +530,12 @@ public class GameController extends Controller implements Initializable, Saveabl
 		}
 	}
 
+	/**
+	 * Set the values of this controllers fields to that of a previous save state.
+	 * @param level
+	 * @param difficulty
+	 */
 	public void load(Level level, Difficulty difficulty) {
-		
 		try {
 			Gson g = new Gson();
 			JsonReader reader = new JsonReader(new FileReader(SAVEFOLDER + "/" + level.toString() + difficulty.toString() + ".dat"));
@@ -524,93 +553,53 @@ public class GameController extends Controller implements Initializable, Saveabl
 			_totalQuestions = controller.getTotalQuestions();
 			new File(SAVEFOLDER + "/" + level.toString() + difficulty.toString() + ".dat").delete();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			//this exception should never occur because the method is only called after a save file has been verified to exist.
 			e.printStackTrace();
 		}
 
-
-
 	}
+	
+//Private getters for loading from json. private as access is from within this class and to not expose implementation details.
 
-	public boolean getCorrect() {
+	private boolean getCorrect() {
 		return _correct;
 	}
 
-	//	public void setCorrect(boolean bool) {
-	//		_correct = bool;
-	//	}
-
-	public boolean getFailed() {
+	private boolean getFailed() {
 		return _failed;
 	}
 
-	//	public void setFailed(boolean bool) {
-	//		_failed = bool;
-	//	}
-
-	public boolean getSecondTry() {
+	private boolean getSecondTry() {
 		return _secondTry;
 	}
 
-	//	public void setSecondTry(boolean bool) {
-	//		_secondTry = bool;
-	//	}
-
-	public boolean getTryAgainPressed() {
+	private boolean getTryAgainPressed() {
 		return _tryAgainPressed;
 	}
 
-	//	public void setTryAgainPressed(boolean bool) {
-	//		_tryAgainPressed = bool;
-	//	}
-
-	public int getCurrentQuestion() {
+	private int getCurrentQuestion() {
 		return _currentQuestion;
 	}
 
-	//	public void setCurrentQuestion(int question) {
-	//		_currentQuestion = question;
-	//	}
-
-	public int getCorrectAnswers() {
+	private int getCorrectAnswers() {
 		return _correctAnswers;
 	}
 
-	//	public void setCorrectAnswers(int answers) {
-	//		_correctAnswers = answers;
-	//	}
-
-	public List<String> getNumbers(){
+	private List<String> getNumbers(){
 		return _numbers;
 	}
 
-	//	public void setNumbers(List<String> numbers) {
-	//		_numbers = numbers;
-	//	}
-
-	public String getDisplay() {
+	private String getDisplay() {
 		return _display;
 	}
 
-	//	public void setDisplay(String string) {
-	//		_display = string;
-	//	}
-
-	public Level getLevel() {
+	private Level getLevel() {
 		return _level;
 	}
 
-	//	public void setLevel(Level level) {
-	//		_level = level;
-	//	}
-
-	public Difficulty getDifficulty() {
+	private Difficulty getDifficulty() {
 		return _difficulty;
 	}
-	
-//	public void setDifficulty(Difficulty difficulty) {
-//		_difficulty = difficulty;
-//	}
 	
 	private int getTotalQuestions() {
 		return _totalQuestions;

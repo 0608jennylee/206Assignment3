@@ -118,11 +118,14 @@ public class Processor {
 		String line = getUserAnswer();
 		String[] words = line.split(" ");
 		LinkedList<String> maoriName = new LinkedList<String>(Arrays.asList(toMaori(num).split(" ")));
+		
 		for(int i = 0; i < words.length; i++) {
 			if(words[i].equals(maoriName.peek())) {
 				maoriName.pop();
 			}
 		}
+		
+		//if the size is zero it means all words have been matched so the user spoke correctly.
 		if(maoriName.size() == 0) {
 			return true;
 		}else {
