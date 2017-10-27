@@ -25,7 +25,6 @@ public class CustomGenerator extends Generator{
 		List<String> _numbers = new ArrayList<String>();
 		List<String> egNum = eg.getNumbers();
 		List<String> ngNum = ng.getNumbers();
-		System.out.println("getnumbers" + _questions);
 		for(int i = 0; i < _questions; i++) {
 			//50/50 chance of number or equation theoretically.
 			if(Math.random() < 0.5) {
